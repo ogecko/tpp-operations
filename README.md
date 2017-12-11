@@ -1,4 +1,4 @@
 # the-posy-place
-Fresh Posy Delivered Daily - Integrated Order Selection, Labeling and Delivery
+A Fresh Posy Delivered Daily - Integrated Order Selection, Labeling, Delivery and SEO Application
 
 ![The Posy Place](mup/screen.png)
