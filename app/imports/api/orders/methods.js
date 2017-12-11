@@ -1,9 +1,12 @@
 import { Meteor } from 'meteor/meteor';
 import { orderCollection } from './model.js';
 import { check } from 'meteor/check'
+import { isSignedIn } from '/imports/lib/isSignedIn.js';
 
 Meteor.methods({
 	cleanOrder: (orderNo) => {
+		check(orderNo, String);
+		if (!isSignedIn()) return undefined;
 		if (orderNo == "all") {
 			console.log('removing all orders ');
 			orderCollection.remove({ });
@@ -15,22 +18,9 @@ Meteor.methods({
 			return undefined;
 		}
 	},
-	// checkOrders: () => {
-	// 	if (Meteor.isServer) {
-	// 		orderCollection.find({ }).forEach(doc => {
-	// 			if (_.isNumber(doc.orderNo)) {
-	// 				const doc2 = orderCollection.findOne({ orderNo: doc.orderNo+'' });
-	// 				if (doc2) orderCollection.remove( { id:doc.id });
-	// 				if (!doc2) orderCollection.update( { id:doc.id }, { $set: { orderNo: doc.orderNo+'' }});
-	// 				console.log('Number', doc.orderNo, 'No String ver', !doc2);
-	// 			}
-	// 			if (_.isString(doc.orderNo)) {
-	// 				console.log('String', doc.orderNo);
-	// 			}
-	// 		});
-	// 	}
-	// },
 	toggleOrderIsSelected: (orderNo) => {
+		check(orderNo, String);
+		if (!isSignedIn()) return undefined;
 		const doc = orderCollection.findOne({ orderNo });
 		if (doc) {
 			doc.isSelected = (doc.isSelected=="1") ? "0" : "1";
@@ -38,6 +28,8 @@ Meteor.methods({
 		}
 	},
 	toggleOrderIsShipped: (orderNo) => {
+		check(orderNo, String);
+		if (!isSignedIn()) return undefined;
 		const doc = orderCollection.findOne({ orderNo });
 		if (doc) {
 			doc.isShipped = (doc.isShipped=="1") ? "0" : "1";
@@ -45,6 +37,9 @@ Meteor.methods({
 		}
 	},
 	storeOrderModified: (orderNo, reqChanges) => {
+		check(orderNo, String);
+		check(reqChanges, Object);
+		if (!isSignedIn()) return undefined;
 		check(orderNo, String);
 		check(reqChanges, Object);
 		const oldDoc = orderCollection.findOne({ orderNo });
