@@ -1,5 +1,4 @@
 import { jobQueueCollection } from './model.js';
-import { isSignedIn } from '/imports/lib/isSignedIn.js';
 import { check } from 'meteor/check'
 
 export function dispatch(action, data={}, options={}) {
@@ -7,8 +6,6 @@ export function dispatch(action, data={}, options={}) {
 		check(data, Object);
 		check(options, Object);
 		
-		if (!isSignedIn()) return undefined;
-
 		const job = new Job(jobQueueCollection, action, data).priority('normal');
 
 		// Set optional Job Priority eg. { priority: 'high' }
