@@ -1,0 +1,75 @@
+<template name="orderList">
+	<div class="uk-container uk-margin-top">
+
+		<div class="uk-flex">
+			<div class="uk-width-1-2">
+				<h2>Order Review and Selection - {{date}} </h2>
+			</div>
+			<div class="uk-width-1-2">
+				{{>actionBar}}
+			</div>
+		</div>
+
+
+		<table class="uk-table uk-table-middle uk-table-hover uk-table-small uk-text-small uk-table-divider">
+			<thead>
+				<tr>
+					<th class="uk-table-shrink"></th>
+					<th>Ref / Price</th>
+					<th>Expected Delivery</th>
+					<th>Ordered By</th>
+					<th class="uk-width-1-5">Delivery Name & Address</th>
+					<th>
+						<span class="uk-align-right uk-margin-remove-bottom">
+							{{numItems}} Orders
+							{{>pagination numPages}}
+						</span>
+						<span><br>Greeting Card Message</span>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				{{#each order in orders}}
+					<tr class="{{isShippedFormat order}}">
+						<td><input type="checkbox" {{isSelectedChk order}} class="uk-checkbox js-toggleOrderIsSelected" data-order-no="{{order.orderNo}}"></td>
+					    <td class="uk-text-nowrap">
+							<b class="js-orderDetail" data-order-no="{{order.orderNo}}">{{order.orderNo}}{{order.productCode}}</b><br>
+						    ${{order.amount}}<br>
+						</td>
+						<td>
+							<b>{{isSelectedMessage order}}</b>
+							{{order.deliveryDate}}<br>
+							{{isShippedMessage order}}
+							<span class="js-orderDetail" data-order-no="{{order.orderNo}}" uk-tooltip title="Click this field to reset the delivery address and message back to the original">{{isModifiedMessage order}}</span>
+						</td>
+						<td>
+							{{order.customerName}}<br>
+							{{order.customerEmail}}<br>
+							{{order.customerPhone}}
+						</td>
+						<td class="js-shipAddress" data-order-no="{{order.orderNo}}">
+							<div>
+								{{#each line in order.shipAddress}}
+									{{line}}<br>
+								{{/each}}
+							</div>
+						</td>
+						<td class="js-specialMessage" data-order-no="{{order.orderNo}}">
+							<div>
+								A Posy For: {{order.deliveryTo}}<br>
+								{{order.specialMessage}}<br>
+								From: {{order.deliveryFrom}}<br>
+							</div>
+						</td>
+					</tr>
+				{{/each}}
+			</tbody>
+		</table>
+		<div class="uk-section">
+			<a href="" uk-scroll class="uk-totop">Top</a>
+			{{>pagination numPages}}
+		</div>
+
+	</div>
+</template>
+

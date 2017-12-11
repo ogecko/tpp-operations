@@ -1,0 +1,104 @@
+/* A4 label sheet */
+	.body {
+		width: 297mm !important;
+		height: 210mm !important;
+	}
+
+
+
+/* display every label inline */
+	.og-avery-l7109 .og-label {
+		display: inline-block;
+		overflow: hidden;
+		width: 38mm !important;
+		height: 57.5mm !important;
+		margin-top: 5mm !important;
+		margin-left: 4mm !important;
+		border-radius: 2mm;
+		background-color: #EEE;
+		padding: 2mm 2mm 2mm 2mm !important;
+/*		outline: 1px dotted;  /* outline doesn't occupy space like border does */
+	}
+
+/* page LHS margin wider at labels 1, 7, 13, 19 etc*/
+	.og-avery-l7109 .og-label:nth-of-type(6n+1) {
+		margin-left: 10mm !important;
+	}
+
+/* page TOP margin wider at 1, 19, 37, etc*/
+	.og-avery-l7109 .og-label:nth-of-type(18n+1) {
+		margin-top: 8mm !important;
+	}
+
+/* hide all label-breaks as a default */
+	.og-avery-l7109 .og-label-break {
+		display: none;
+	}
+
+/* break row after every 6th label */
+	.og-avery-l7109 .og-label-break:nth-of-type(6n) {
+		display: block;
+	}
+
+/* page break after every 18th label */
+	.og-avery-l7109 .og-label-break:nth-of-type(18n) {
+		display: block;
+		break-after: page;
+	}
+
+	.og-avery-l7109 .og-label-ref {
+		vertical-align: top;
+		font-size: 16px;
+		font-weight: bold;
+		line-height: 1.0;
+	}
+	.og-avery-l7109 .og-label-date {
+		float: right;
+		font-size: 10px;
+		line-height: 1.0;
+	}
+	.og-avery-l7109 .og-label-address {
+		font-size: 13px;
+		line-height: 1.2;
+	}
+	.og-avery-l7109 .og-label-instructions {
+		font-size: 11px;
+		line-height: 1.2;
+		font-weight: normal;
+
+	}
+	.og-avery-l7109 .og-label-for {
+		vertical-align: top;
+		font-family: "Pacifico", Arial, sans-serif;
+		font-size: 12px;
+		line-height: 1.6;
+		margin-top: 0mm;
+		margin-bottom: 0mm;
+	}
+	.og-avery-l7109 .og-label-toname {
+		font-family: "Pacifico", Arial, sans-serif;
+		font-size: 17px;
+		line-height: 1.6;
+		margin-top: 0mm;
+		margin-bottom: 0mm;
+	}
+	.og-avery-l7109 .og-label-from {
+		vertical-align: top;
+		font-family: "Pacifico", Arial, sans-serif;
+		font-size: 13px;
+		line-height: 1.6;
+		margin-top: 0mm;
+		margin-bottom: 0mm;
+	}
+	.og-avery-l7109 .og-label-msg1 {
+		font-size: 12px;
+		line-height: 1.2;
+		margin-top: 5mm;
+		margin-bottom: 5mm;
+	}
+	.og-avery-l7109 .og-label-msg2 {
+		font-size: 9px;
+		line-height: 1.2;
+		margin-top: 5mm;
+		margin-bottom: 5mm;
+	}

@@ -1,0 +1,11 @@
+<template name="pagination">
+	<div class="uk-pagination">
+		<li class="{{isPrevDisabled}}"><a class="uk-pagination-previous js-prev">&lt;</a></li>
+		{{#each btn in pageButtons}}
+			<li class="{{btn.isActive}} {{btn.isDisabled}}"><a class="js-page" data-page={{btn.pageNo}}>
+				{{btn.label}}
+			</a></li>
+		{{/each}}
+		<li class="{{isNextDisabled}}"><a class="uk-pagination-next js-next item">&gt;</a></li>
+	</div>
+</template>

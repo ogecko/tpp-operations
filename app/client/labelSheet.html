@@ -1,0 +1,32 @@
+<template name="labelSheet">
+	<div class="og-avery-l7109">
+		{{#each order in orders}}
+				<span class="og-label">
+					{{#if isNotBlank order}}
+						<p>
+							<span class="og-label-date">{{order.deliveryDate}}</span>
+							<span class="og-label-ref">{{order.orderNo}}{{order.productCode}}</span><br>
+						</p> 
+						<p class="og-label-address">
+							{{#each line in order.shipAddress}}
+								<b>{{line}}</b><br>
+							{{/each}}
+						</p>
+						{{#if order.shipInstructions}}
+							<p class="og-label-instructions">Instructions: {{order.shipInstructions}}</p>
+						{{/if}}
+					{{/if}}
+				</span><div class="og-label-break"></div>
+				<span class="og-label">
+					{{#if isNotBlank order}}
+						<p>
+							<span class="og-label-for">A Posy For:</span><br>
+							<span class="og-label-toname">{{order.deliveryTo}}</span>
+						</p>
+						<p class="{{msgsize order}}">{{order.specialMessage}}</p>
+						<p class="og-label-from">From: {{order.deliveryFrom}}</p>
+					{{/if}}
+				</span><div class="og-label-break"></div>
+		{{/each}}
+	</div>
+</template>

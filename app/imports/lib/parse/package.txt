@@ -1,0 +1,64 @@
+// global api 
+Package.describe({
+	name: 'jdmorriso:parse-with-schema',
+	version: '0.0.1',
+	// Brief, one-line summary of the package.
+	summary: 'Parse data streams and convert to data objects',
+	// URL to the Git repository containing the source code for this package.
+	git: '',
+	// By default, Meteor will default to using README.md for documentation.
+	// To avoid submitting documentation, set this field to null.
+	documentation: 'README.md'
+});
+
+Package.onUse(function(api) {
+	'use strict';
+
+	api.versionsFrom('1.2.1');
+	api.use( [
+		'ecmascript',
+		'underscore',
+		'check',
+		'mrt:cheerio',
+		'numeral:numeral',
+		'aldeed:simple-schema',
+	]);
+
+	api.addFiles( [
+		'server/isHtml.js',
+		'server/getFieldType.js',
+		'server/getSelectedHtmlElements.js',
+		'server/getValuesOfElements.js',
+		'server/validateWithSchema.js',
+		'server/parse.class.js',
+	],['server']);
+
+	api.export([
+		'parse'
+	], ['server']);
+
+});
+
+Package.onTest(function(api) {
+	'use strict';
+	
+	api.use([ 
+		'ecmascript',
+		'mrt:cheerio',
+		'aldeed:simple-schema@1.5.3',
+		'jdmorriso:parse-with-schema',
+		'practicalmeteor:mocha',
+	]);
+	
+	api.addFiles( [
+		'test/cheerio.spec.js',
+		'test/parse._isHtml.spec.js',
+		'test/parse._getFieldType.spec.js',
+		'test/parse._validate.spec.js',
+		'test/parse.csv.spec.js',
+		'test/parse.html.spec.js',
+		'test/parse.domSelect.spec.js',
+		'test/parse.combine.spec.js',
+	],'server');
+});
+

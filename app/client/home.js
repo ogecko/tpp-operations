@@ -1,0 +1,17 @@
+import { Meteor } from 'meteor/meteor';
+import { Template } from 'meteor/templating';
+
+Template.home.helpers({
+	signedIn() {
+		const user = Meteor.user();
+		if (user) {
+			const email = user.emails[0].address;
+			console.log(email);
+			if (email === 'jdmorriso@gmail.com' || 
+				email === 'contactus@theposyplace.com.au') {
+				return true;
+			}
+		}
+		return undefined;
+	},
+});
