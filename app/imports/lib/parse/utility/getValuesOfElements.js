@@ -1,5 +1,6 @@
 import { check, Match } 			from 'meteor/check';
 import numeral 						from 'numeral';
+import { unescapeHtml } from './unescapeHtml.js';
 
 export function getValuesOfElements($, tgtFieldType, srcElement, attrName) {
 	check(tgtFieldType, String);
@@ -27,7 +28,7 @@ export function getValuesOfElements($, tgtFieldType, srcElement, attrName) {
 		} else if (tgtFieldType === 'length') {
 			value = srcElement.length;
 		} else if (tgtFieldType === 'html') {
-			value = srcElement.html();
+			value = unescapeHtml(srcElement.html());
 		} else {
 			value = srcElement.eq(0).text();
 		}
