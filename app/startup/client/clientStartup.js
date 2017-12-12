@@ -31,6 +31,7 @@ if (Meteor.isClient) {
 	FlowRouter.route('/labels',				{ action: ()=>appRenderContent('labelSheet') });
 	FlowRouter.route('/partial',			{ action: ()=>appRenderContent('labelPartial') });
 	FlowRouter.route('/jobs',				{ action: ()=>appRenderContent('jobList') });
+	FlowRouter.route('/map',				{ action: ()=>appRenderContent('map') });
 	FlowRouter.route('/page/:pageTitle', 	{ action: ()=>{
 		var pageTitle = FlowRouter.getParam('pageTitle');
 		if (!Template[pageTitle]) pageTitle='unknown';

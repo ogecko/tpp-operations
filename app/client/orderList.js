@@ -109,6 +109,7 @@ Template.orderList.events({
 		const doc = { shipAddress: str };
 		const orderNo = event.currentTarget.dataset.orderNo;
 		Meteor.call('storeOrderModified', orderNo, doc);
+		jobQueue.dispatch('location', { orderNo });
 	},
 	'focusout .js-specialMessage'(event, instance) {
 		// const tgt = instance.$(event.currentTarget);

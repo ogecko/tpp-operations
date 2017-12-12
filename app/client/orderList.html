@@ -47,8 +47,14 @@
 							{{order.customerEmail}}<br>
 							{{order.customerPhone}}
 						</td>
-						<td class="js-shipAddress" data-order-no="{{order.orderNo}}">
+						<td class="js-shipAddress" data-order-no="{{order.orderNo}}" uk-tooltip title="{{order.shipLocation.geoAddr}} {{order.shipLocation.partial}}">
 							<div>
+								{{#unless order.shipLocation}}
+									<div><i class="uk-align-right uk-alert-danger fas fa-question-circle"></i></div>
+								{{/unless}}
+								{{#if order.shipLocation.partial}}
+									<div><i class="uk-align-right uk-alert-success fas fa-question-circle"></i></div>
+								{{/if}}
 								{{#each line in order.shipAddress}}
 									{{line}}<br>
 								{{/each}}

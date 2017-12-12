@@ -1,0 +1,19 @@
+<template name="map">
+	{{> navBar }}
+
+	{{#if isSignedIn}}
+
+		<div class="uk-container uk-margin-top">
+				<div >
+					<h2>Delivery Map - Sydney</h2>
+				</div>
+				<div class="uk-box-shadow-xlarge">
+					<div id="uk-width-1-1 " uk-height-viewport="expand: true">
+						{{> googleMap name="deliveryMap" options=deliveryMapOptions }}
+					</div>
+				</div>
+				<div>&nbsp;</div>
+		</div>
+
+	{{/if}}
+</template>

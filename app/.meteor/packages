@@ -28,3 +28,4 @@ accounts-ui@1.1.9
 
 markdown@1.0.12
 meteorhacks:aggregate		# used by count
+dburles:google-maps

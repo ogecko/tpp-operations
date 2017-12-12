@@ -27,6 +27,10 @@ Meteor.methods({
 			orderCollection.update({ orderNo }, doc);
 		}
 	},
+	'select all': () => orderCollection.update({}, { $set: { isSelected: '1' } }, { multi: true }),
+
+	'select none': () => orderCollection.update({}, { $set: { isSelected: '0' } }, { multi: true }),
+
 	toggleOrderIsShipped: (orderNo) => {
 		check(orderNo, String);
 		if (!isSignedIn()) return undefined;
@@ -51,6 +55,6 @@ Meteor.methods({
 			orderCollection.update({ orderNo }, newDoc );
 			console.log('Stored modifications ', orderNo, JSON.stringify(changes, undefined, 2));
 		}
-	}
+	},
 
 })

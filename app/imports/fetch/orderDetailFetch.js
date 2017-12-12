@@ -24,6 +24,7 @@ export function orderDetailFetch(job, cb) {
 			const result = parse.html(body, orderDetailSpec);
 			console.log('detail parse', JSON.stringify(result, undefined, 2));
 			orders.update(result.data);
+			jobQueue.dispatch('location', { orderNo: result.data.orderNo });
 			job.done(); cb();
 		})
 		.catch(function (error) {

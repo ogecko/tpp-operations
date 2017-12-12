@@ -1,5 +1,6 @@
 import { Nightmare } from './nightmare.js';
 import { jobQueue } from '/imports/api/jobQueue';
+import { orders } from '/imports/api/orders';
 
 Meteor.methods({
 	'fetch': (orderNo) => {
@@ -14,6 +15,11 @@ Meteor.methods({
 	'fetch upto': (top) => {
 		_.each(_.range(0,top,20), offset => {
 			jobQueue.dispatch('fetch at', { orderNo: offset }, { retries: 3, wait: 10*1000 })
+		});
+	},
+	'location all': () => {
+		orders.orderCollection.find({}).forEach(doc => {
+			jobQueue.dispatch('location', { orderNo: doc.orderNo }, { retries: 3, wait: 10*1000 })
 		});
 	},
 })

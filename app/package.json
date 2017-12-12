@@ -7,6 +7,7 @@
     "test": "meteor test -p 3022 --driver-package=practicalmeteor:mocha --settings ../mup/settings.json"
   },
   "dependencies": {
+    "@google/maps": "^0.4.5",
     "babel-runtime": "^6.26.0",
     "cheerio": "^0.22.0",
     "lunr": "^2.1.4",
