@@ -1,18 +1,13 @@
-<head>
-  <title>The Posy Place</title>
-  <script defer src="/fontawesome-all.js"></script>
-</head>
-
-<body>
-</body>
-
 <template name="appLayout">
-<!-- 	{{> header}}
- -->
-	<div class="pageContent">
-	   	{{> Template.dynamic template=content}}
-	</div>
+
+	{{> navBar }}
+
+	{{#if isSignedIn}}
+
+		<div class="pageContent">
+		   	{{> Template.dynamic template=content}}
+		</div>
 	
-<!-- 	{{> footer}}
- -->
+	{{/if}}
+
 </template>

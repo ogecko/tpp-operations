@@ -1,0 +1,7 @@
+@media print {
+	.og-page-break {
+		display: block;
+		break-after: page;
+	}
+
+}

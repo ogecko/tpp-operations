@@ -1,43 +1,39 @@
 <template name="labelPartial">
-	{{> navBar }}
 
-	{{#if isSignedIn}}
+	<div class="uk-container uk-section">
+			<div class="uk-align-left">
+				<div class="uk-inline">
+					<img class="uk-card" style="outline: 1px dotted;" src="/sample.png">
+		            <!-- top row -->
+		            <div class="{{isBlank 2}}" data-id="2" style="left: 17%; top: 17%; width: 100px; height: 140px;"></div>
+		            <div class="{{isBlank 5}}" data-id="5" style="left: 50%; top: 17%; width: 100px; height: 140px;"></div>
+		            <div class="{{isBlank 8}}" data-id="8" style="left: 83%; top: 17%; width: 100px; height: 140px;"></div>
+		            <!-- middle row -->
+		            <div class="{{isBlank 1}}" data-id="1" style="left: 17%; top: 50%; width: 100px; height: 140px;"></div>
+		            <div class="{{isBlank 4}}" data-id="4" style="left: 50%; top: 50%; width: 100px; height: 140px;"></div>
+		            <div class="{{isBlank 7}}" data-id="7" style="left: 83%; top: 50%; width: 100px; height: 140px;"></div>
+		            <!-- bottom row -->
+		            <div class="{{isBlank 0}}" data-id="0" style="left: 17%; top: 83%; width: 100px; height: 140px;"></div>
+		            <div class="{{isBlank 3}}" data-id="3" style="left: 50%; top: 83%; width: 100px; height: 140px;"></div>
+		            <div class="{{isBlank 6}}" data-id="6" style="left: 83%; top: 83%; width: 100px; height: 140px;"></div>
+		        </div>
+			</div>
+			<div >
+				<h2>Select Used Labels</h2>
+				<p>Select which labels have been used to indicate areas of the Label Sheet to leave blank. Once you have completed selecting all the blank labels, click the Print button below:</p>
+			</div>
+			<a class="uk-button uk-button-primary"  
+				href="/labels?selected=1&p=1&pp=500&blanks={{blankParam}}" target="_blank">
+				<i class="fas fa-tags"></i> Print 
+			</a>
+			<hr>
+			<div >
+				<h2>Return to home</h2>
+				<p>Once you have completed printing partial Label Sheets, click the Home button below:</p>
+			</div>
+			<a class="uk-button uk-button-primary" href="/"><i class="fas fa-home"></i> Home
+			</a>
 
-		<div class="uk-container uk-section">
-				<div class="uk-align-left">
-					<div class="uk-inline">
-						<img class="uk-card" style="outline: 1px dotted;" src="/sample.png">
-			            <!-- top row -->
-			            <div class="{{isBlank 2}}" data-id="2" style="left: 17%; top: 17%; width: 100px; height: 140px;"></div>
-			            <div class="{{isBlank 5}}" data-id="5" style="left: 50%; top: 17%; width: 100px; height: 140px;"></div>
-			            <div class="{{isBlank 8}}" data-id="8" style="left: 83%; top: 17%; width: 100px; height: 140px;"></div>
-			            <!-- middle row -->
-			            <div class="{{isBlank 1}}" data-id="1" style="left: 17%; top: 50%; width: 100px; height: 140px;"></div>
-			            <div class="{{isBlank 4}}" data-id="4" style="left: 50%; top: 50%; width: 100px; height: 140px;"></div>
-			            <div class="{{isBlank 7}}" data-id="7" style="left: 83%; top: 50%; width: 100px; height: 140px;"></div>
-			            <!-- bottom row -->
-			            <div class="{{isBlank 0}}" data-id="0" style="left: 17%; top: 83%; width: 100px; height: 140px;"></div>
-			            <div class="{{isBlank 3}}" data-id="3" style="left: 50%; top: 83%; width: 100px; height: 140px;"></div>
-			            <div class="{{isBlank 6}}" data-id="6" style="left: 83%; top: 83%; width: 100px; height: 140px;"></div>
-			        </div>
-				</div>
-				<div >
-					<h2>Select Used Labels</h2>
-					<p>Select which labels have been used to indicate areas of the Label Sheet to leave blank. Once you have completed selecting all the blank labels, click the Print button below:</p>
-				</div>
-				<a class="uk-button uk-button-primary"  
-					href="/labels?selected=1&p=1&pp=500&blanks={{blankParam}}" target="_blank">
-					<i class="fas fa-tags"></i> Print 
-				</a>
-				<hr>
-				<div >
-					<h2>Return to home</h2>
-					<p>Once you have completed printing partial Label Sheets, click the Home button below:</p>
-				</div>
-				<a class="uk-button uk-button-primary" href="/"><i class="fas fa-home"></i> Home
-				</a>
+	</div>
 
-		</div>
-
-	{{/if}}
 </template>
