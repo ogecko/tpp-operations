@@ -1,7 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 import { orderCollection } from './model.js';
-import { check } from 'meteor/check'
+import { check } from 'meteor/check';
 import { isSignedIn } from '/imports/lib/isSignedIn.js';
+import { jobQueue } from '/imports/api/jobQueue';
 
 Meteor.methods({
 	cleanOrder: (orderNo) => {
@@ -20,10 +21,11 @@ Meteor.methods({
 	toggleOrderIsSelected: (orderNo) => {
 		check(orderNo, String);
 		if (!isSignedIn()) return undefined;
-		const doc = orderCollection.findOne({ orderNo });
+		const doc = orderCollection.findOne({ orderNo: { $eq: Number(orderNo) } });
 		if (doc) {
+			console.log('toggle found', doc._id, doc.orderNo );
 			doc.isSelected = (doc.isSelected=="1") ? "0" : "1";
-			orderCollection.update({ orderNo }, doc);
+			orderCollection.update({ _id: doc._id }, doc);
 		}
 	},
 	'select all': () => orderCollection.update({}, { $set: { isSelected: '1' } }, { multi: true }),
@@ -41,10 +43,10 @@ Meteor.methods({
 	toggleOrderIsShipped: (orderNo) => {
 		check(orderNo, String);
 		if (!isSignedIn()) return undefined;
-		const doc = orderCollection.findOne({ orderNo });
+		const doc = orderCollection.findOne({ orderNo: { $eq: Number(orderNo) } });
 		if (doc) {
 			doc.isShipped = (doc.isShipped=="1") ? "0" : "1";
-			orderCollection.update({ orderNo }, doc);
+			orderCollection.update({ _id: doc._id }, doc);
 		}
 	},
 	storeOrderModified: (orderNo, reqChanges) => {
@@ -53,14 +55,15 @@ Meteor.methods({
 		if (!isSignedIn()) return undefined;
 		check(orderNo, String);
 		check(reqChanges, Object);
-		const oldDoc = orderCollection.findOne({ orderNo });
+		const oldDoc = orderCollection.findOne({ orderNo: { $eq: Number(orderNo) } });
 		if (oldDoc) {
 			const changes = _.pick(reqChanges, 'shipAddress', 'deliveryTo', 'deliveryFrom', 'specialMessage');
 			const newDoc = { ...oldDoc, ...changes };
 			if (_.isEqual(oldDoc, newDoc)) return undefined;
 			newDoc.isModified = "1";
-			orderCollection.update({ orderNo }, newDoc );
+			orderCollection.update({ _id: oldDoc._id }, newDoc );
 			console.log('Stored modifications ', orderNo, JSON.stringify(changes, undefined, 2));
+			jobQueue.dispatch('location', { orderNo: newDoc.orderNo });
 		}
 	},
 

@@ -1,3 +1,4 @@
+import { check } from 'meteor/check';
 import { orders } from '/imports/api/orders';
 import { jobQueue } from '/imports/api/jobQueue';
 import gmServices from '@google/maps';
@@ -7,6 +8,7 @@ const googleMapsClient = gmServices.createClient({ key: Meteor.settings.public.g
 jobQueue.recruitWorker('location', { concurrency: 2 }, orderLocationFetch);
 
 export function orderLocationFetch(job, cb) {
+	check(job.data.orderNo, Number);
 	console.log('Calling orderLocationFetch on Order ', job.data.orderNo);
 	if (Meteor.isServer && job.data.orderNo) {
 		const doc = orders.orderCollection.findOne({ orderNo: job.data.orderNo });

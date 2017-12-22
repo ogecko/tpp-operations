@@ -1,8 +1,10 @@
+import { check } from 'meteor/check';
 import { _ } from 'meteor/underscore';
 import { orderCollection } from './model.js';
 
 
 export function update(newDoc) {
+	check(newDoc.orderNo, Number);
 
 	// handle updating an array of docs
 	if (_.isArray(newDoc)) {
