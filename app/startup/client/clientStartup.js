@@ -25,17 +25,16 @@ if (Meteor.isClient) {
 	  },
 	});
 
-	FlowRouter.route('/', 					{ action: ()=>appRenderContent('home') });
-	FlowRouter.route('/select',				{ action: ()=>appRenderContent('orderSelect') });
-	FlowRouter.route('/delivery',			{ action: ()=>appRenderContent('deliverySheet') });
-	FlowRouter.route('/labels',				{ action: ()=>appRenderContent('labelSheet') });
-	FlowRouter.route('/partial',			{ action: ()=>appRenderContent('labelPartial') });
-	FlowRouter.route('/jobs',				{ action: ()=>appRenderContent('jobList') });
-	FlowRouter.route('/map',				{ action: ()=>appRenderContent('map') });
+	FlowRouter.route('/', 					{ action: ()=>BlazeLayout.render('appLayout', { content: 'orderList' }) });
+	FlowRouter.route('/partial',			{ action: ()=>BlazeLayout.render('appLayout', { content: 'labelPartial' }) });
+	FlowRouter.route('/jobs',				{ action: ()=>BlazeLayout.render('appLayout', { content: 'jobList' }) });
+	FlowRouter.route('/map',				{ action: ()=>BlazeLayout.render('appLayout', { content: 'map' }) });
+	FlowRouter.route('/delivery',			{ action: ()=>BlazeLayout.render('printLayout', { content: 'deliverySheet' }) });
+	FlowRouter.route('/labels',				{ action: ()=>BlazeLayout.render('printLayout', { content: 'labelSheet' }) });
 	FlowRouter.route('/page/:pageTitle', 	{ action: ()=>{
 		var pageTitle = FlowRouter.getParam('pageTitle');
 		if (!Template[pageTitle]) pageTitle='unknown';
-		appRenderContent(pageTitle);
+		BlazeLayout.render('appLayout', { content: pageTitle });
 	}});
 
 	// Setup a request in the background

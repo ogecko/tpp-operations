@@ -5,7 +5,6 @@ import { isSignedIn } from '/imports/lib/isSignedIn.js';
 
 Meteor.methods({
 	cleanOrder: (orderNo) => {
-		check(orderNo, String);
 		if (!isSignedIn()) return undefined;
 		if (orderNo == "all") {
 			console.log('removing all orders ');
@@ -30,6 +29,14 @@ Meteor.methods({
 	'select all': () => orderCollection.update({}, { $set: { isSelected: '1' } }, { multi: true }),
 
 	'select none': () => orderCollection.update({}, { $set: { isSelected: '0' } }, { multi: true }),
+
+	fixOrderNo: () => {
+		orderCollection.find({ }).forEach(doc => {
+			doc.orderNo = Number(doc.orderNo);
+			console.log(doc._id, doc.orderNo);
+			orderCollection.update({ _id: doc._id }, doc);
+		});
+	},
 
 	toggleOrderIsShipped: (orderNo) => {
 		check(orderNo, String);

@@ -20,7 +20,7 @@ export const orderDetailSpec = new SimpleSchema({
 		autoValue: function(doc) { return parse.domCheck(this); }
 	},
 	orderNo: {
-		type: String, 
+		type: Number, 
 		autoValue: function(doc) { 
 			if (this.isSet) return undefined;
 			return parse.domSelect(this, String, 'h1 > span.h1-text').replace(/Order #/,''); 
@@ -120,7 +120,10 @@ export const orderDetailSpec = new SimpleSchema({
 							.replace(/<br>/gm, '')
 							.replace(/<span>/gm, '')
 						    .replace(/<\/span> /gm,'<nl>')
+						    .replace(/<\/span>/gm,'')
 							.replace(/<strong>Delivery Address<.strong>/gm, '')
+							.replace(/<span class=.m-t-25 d-block.><strong>Business Name .optional.<.strong>/gm, '')
+							.replace(/<\!---->/gm, '')
 						    .replace(/Australia/gm, '')					// remove Australia (only shipping to aus)
 						    .replace(/(New South Wales|Nsw)/gmi, 'NSW')	// abbreviate State
 						    .replace(/Street/gmi, 'St')					// abbreviate Street Type http://meteor.aihw.gov.au/content/index.phtml/itemId/270020

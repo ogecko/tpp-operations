@@ -7,7 +7,7 @@ export const orderHistoryRowSpec = new SimpleSchema({
 		autoValue: function(doc) { return parse.domCheck(this); }
 	},
 	orderNo: {
-		type: String, 
+		type: Number, 
 		autoValue: function(doc) { 
 			if (this.isSet) return undefined;
 			return parse.domSelect(this, String, '.customer-name').split(' - ')[0]; 

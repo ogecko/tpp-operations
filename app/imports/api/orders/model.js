@@ -3,7 +3,7 @@ import { Mongo } from 'meteor/mongo';
 export const orderCollection = new Mongo.Collection('orders');
 
 export const orderFilterFields = [
-	{ label: 'Order Number', param: 'order', field: 'orderNo', limit: 8, operator: '$in' },
+	{ label: 'Order Number', param: 'order', field: 'orderNo', limit: 8, operator: '$eq' },
 	{ label: 'Buyer Name', param: 'name', limit: 8, operator: '$regex' },
 	{ label: 'Shipped', param: 'shipped', field: 'isShipped', limit: 8, operator: '$eq' },
 	{ label: 'Modified', param: 'modified', field: 'isModified', limit: 8, operator: '$eq' },

@@ -3,7 +3,6 @@ import { jobQueue } from '/imports/api/jobQueue';
 import { orders } from '/imports/api/orders';
 import { select } from '/imports/lib/select';
 import { ReactiveVar } from 'meteor/reactive-var';
-import { isSignedIn } from '/imports/lib/isSignedIn.js';
 
 Template.labelPartial.onCreated(function() {
   this.blanks = new ReactiveVar(0);
@@ -13,7 +12,6 @@ Template.labelPartial.onCreated(function() {
 Template.labelPartial.helpers({
 	isBlank: (id) => 'uk-position-absolute js-blank uk-transform-center '+(Template.instance().blanks.get()[id] ? 'uk-background-default' : 'uk-blend-overlay'),
 	blankParam: () => _.reduce(Template.instance().blanks.get(), (memo, b)=>(memo += (b ? '1' :'0')), ''),
-	isSignedIn: () => isSignedIn(),
 });
 
 Template.labelPartial.events({
