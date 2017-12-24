@@ -35,6 +35,7 @@ Template.deliverySheet.helpers({
 	},
 	date: d => moment(d).format('DD MMM YY'),
 	today: d => moment().format('DD MMM YY'),
+	shipTo: order => _.first(order.shipAddress, 1),
 	addressOf: order => _.rest(order.shipAddress, 1),
 	isShipped: order => (order.isShipped==='1' ? 'uk-background-muted' : 'uk-background-primary'),
 });

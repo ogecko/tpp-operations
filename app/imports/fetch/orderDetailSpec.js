@@ -94,14 +94,6 @@ export const orderDetailSpec = new SimpleSchema({
 	},
 
 
-	shipTo: {
-		type: String, optional: true,
-		autoValue: function(doc) { 
-			return parse.domSelect(this, String, 'div.delivery > span:nth-child(2)');
-		}
-	},
-
-	
 	shipInstructions: {
 		type: String, optional: true,
 		autoValue: function(doc) { 
@@ -116,13 +108,14 @@ export const orderDetailSpec = new SimpleSchema({
 			if (this.isSet) return undefined;
 			const str0 = parse.domSelect(this, 'html', 'div.delivery');
 			if (!str0) return [];
+			console.log('xxxxxxx',str0);
 			const str4 = str0
 							.replace(/<br>/gm, '')
 							.replace(/<span>/gm, '')
 						    .replace(/<\/span> /gm,'<nl>')
 						    .replace(/<\/span>/gm,'')
 							.replace(/<strong>Delivery Address<.strong>/gm, '')
-							.replace(/<span class=.m-t-25 d-block.><strong>Business Name .optional.<.strong>/gm, '')
+							.replace(/<span class=.m-t-25 d-block.><strong>Business Name .optional.<.strong>([a-zA-Z 0-9,.-]+)<nl>([a-zA-Z 0-9,.-]+)/gm, '$2<nl>$1')
 							.replace(/<\!---->/gm, '')
 						    .replace(/Australia/gm, '')					// remove Australia (only shipping to aus)
 						    .replace(/(New South Wales|Nsw)/gmi, 'NSW')	// abbreviate State
