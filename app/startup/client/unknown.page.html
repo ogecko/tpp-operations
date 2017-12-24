@@ -1,25 +1,13 @@
 <template name="unknown">
-	<div class="ui vertical segment container">
+	<div class="uk-container uk-section">
+		<div class="uk-alert-warning" uk-alert>
+		    <a class="uk-alert-close" uk-close></a>
+		    <p><b>Unknown Page</b> - The requested page was not found on this server.</p>
+		    <p>
+		    	Either this page is still under development or you may have been incorrectly directed to this page.<br> 
+				Please click the following link to return to the <a href="/">Home page</a>.
+			</p>
 
-		<h1 class="ui header">
-			<i class="help circle icon"></i>
-			<div class="content">
-				Unknown Page
-				<div class="sub header">The requested page was not found on this server.</div>
-			</div>
-		</h1>
-
-		
-	{{#markdown}}
-
-	Either this page is still under development or you may have been incorrectly directed to this page. 
-	Please click the following link to return to the [Home page](/).
-
-	<a href="/">
-		<i class="reply massive icon"></i>
-	</a>
-
-	{{/markdown}}
-
+		</div>
 	</div>
 </template>
