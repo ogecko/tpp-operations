@@ -4,7 +4,7 @@ We need to modify the meteord docker image to include an X Virtual Frame Buffer
 Add this Dockerfile to the host server and build it
 
 ```
-docker build . -t meteord-xvfb
+docker build . -t meteord-xvfb:node-8.9.3-base
 ```
 
 Then change mup.js to refer to the newly created docker image (rather than the default `abernix/meteord:node-8.4.0-base`)
@@ -12,7 +12,7 @@ Then change mup.js to refer to the newly created docker image (rather than the d
 
 ```
     docker: {
-      image: 'meteord-xvfb',
+      image: 'meteord-xvfb:node-8.9.3-base',
       ....
 ```
 

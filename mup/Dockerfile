@@ -1,4 +1,4 @@
-FROM abernix/meteord:node-8.4.0-base
+FROM abernix/meteord:node-8.9.3-base
 RUN apt-get update
 RUN apt-get install -y \
   xvfb \

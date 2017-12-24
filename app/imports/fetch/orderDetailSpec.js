@@ -108,7 +108,6 @@ export const orderDetailSpec = new SimpleSchema({
 			if (this.isSet) return undefined;
 			const str0 = parse.domSelect(this, 'html', 'div.delivery');
 			if (!str0) return [];
-			console.log('xxxxxxx',str0);
 			const str4 = str0
 							.replace(/<br>/gm, '')
 							.replace(/<span>/gm, '')
