@@ -1,140 +1,23 @@
 <template name="navBar">
 
-<div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+<nav class="uk-navbar uk-navbar-container">
 
-	<nav class="uk-navbar uk-navbar-container uk-text-large">
-	        <ul class="uk-navbar-nav">
+    <div class="uk-navbar-left ">
+    	<a href="/" class="uk-navbar-item uk-logo">
+    		<img class="uk-visible@l uk-responsive-height uk-blend-multiply" src="/logo.png">
+    	</a>
 
-	        	<a class="uk-margin-small-top uk-margin-large-left uk-margin-large-right" href='/'>
-					<img class="uk-logo uk-blend-multiply uk-margin-small" src="/logo.png">
-	        	</a>
+    	<div class="uk-navbar-item">
+    		{{> loginButtons}}
+    	</div>
 
-				<table class="uk-table uk-table-small uk-table-responsive uk-margin-small">
-					<thead>
-						<tr>
-							{{#if isNotSignedIn}}
-							<th class="uk-padding-remove-top uk-padding-remove-bottom">Welcome</th>
-							{{/if}}
-				            {{#if isSignedIn}}
-							<th class="uk-padding-remove-top uk-padding-remove-bottom">Storefront</th>
-							<th class="uk-padding-remove-top uk-padding-remove-bottom">Operations</th>
-							<th class="uk-padding-remove-top uk-padding-remove-bottom">Marketing</th>
-				            {{/if}}
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							{{#if isNotSignedIn}}
-							<td class="uk-padding-remove-top uk-padding-remove-bottom">
-								<a class="uk-icon-button " href="#">
-									<i class="fas fa-sign-in-alt"></i>
-								</a>
-							</td>
-							{{/if}}
-				            {{#if isSignedIn}}
-							<td class="uk-padding-remove-top uk-padding-remove-bottom">
-								<a class="uk-icon-button " uk-tooltip title="The Posy Place Storefront" 
-									href="https://www.theposyplace.com.au/" target="_blank">
-									<i class="fas fa-shopping-basket"></i>
-								</a>
-								<a class="uk-icon-button" uk-tooltip title="Edit Daily Posy" 
-									href="https://tpp.rocketsparkau.com/shop/edit_product/34455/" target="_blank">
-									<i class="fas fa-gift"></i>
-								</a>
-								<a class="uk-icon-button" uk-tooltip title="contactus Email" 
-									href="https://webmail.rocketsparkmail.com/index.php" target="_blank">
-									<i class="fas fa-envelope"></i>
-								</a>
-								<a class="uk-icon-button" href="/jobs" target="_blank">
-								</a>
-							</td>
-							<td class="uk-padding-remove-top uk-padding-remove-bottom">
-								<a class="uk-icon-button" uk-tooltip title="Order Summary" 
-									href="https://tpp.rocketsparkau.com/dashboard/shop_settings/orders/" target="_blank">
-									<i class="fas fa-dollar-sign"></i>
-								</a>
-								<a class="uk-icon-button" uk-tooltip title="Print Labels" 
-									href="/labels?selected=1&p=1&pp=500" target="_blank">
-									<i class="fas fa-tags"></i>
-								</a>
-									<div uk-dropdown="pos: bottom-justify">
-									    <ul class="uk-nav uk-dropdown-nav">
-									        <li><a href="/labels?selected=1&p=1&pp=500" target="_blank">Use Full Sheet</a></li>
-									        <li><a href="/partial">Use Partial Sheet</a></li>
-									    </ul>
-									</div>
-								<a class="uk-icon-button" uk-tooltip title="Delivery Map" 
-									href="/map?selected=1&pp=500">
-									<i class="fas fa-map"></i>
-								</a>
-								<a class="uk-icon-button" uk-tooltip title="Print Delivery Sheet" 
-									href="/delivery?selected=1&pp=500" target="_blank">
-									<i class="fas fa-truck"></i>
-								</a>
-								<a class="uk-icon-button " uk-tooltip title="Xero Accounts" 
-									href="https://login.xero.com/" target="_blank">
-									<i class="fas fa-circle"></i>
-								</a>
-								<a class="uk-icon-button" uk-tooltip title="Commonwealth Bank" 
-									href="https://www.my.commbank.com.au/netbank/Logon/Logon.aspx" target="_blank">
-									<i class="fab fa-cc-mastercard"></i>
-								</a>
-								<a class="uk-icon-button" uk-tooltip title="Paypal" 
-									href="https://paypal.com/mep/dashboard" target="_blank">
-									<i class="fab fa-paypal"></i>
-								</a>
-								<a class="uk-icon-button" uk-tooltip title="Stripe" 
-									href="https://dashboard.stripe.com/dashboard" target="_blank">
-									<i class="fab fa-stripe"></i>
-								</a>
-								
-							</td>
-							<td class="uk-padding-remove-top uk-padding-remove-bottom">
-								
-								<a class="uk-icon-button" uk-tooltip title="Google Analytics" 
-									href="https://analytics.google.com/analytics/web/" target="_blank">
-									<i class="fas fa-chart-line"></i>
-								</a>
-								<a class="uk-icon-button" uk-tooltip title="Google Adwords" 
-									href="https://adwords.google.com/aw/overview" target="_blank">
-									<i class="fab fa-adversal"></i>
-								</a>
-								<a class="uk-icon-button" uk-tooltip title="Instagram" 
-									href="https://www.instagram.com/theposyplace.com.au/" target="_blank">
-									<i class="fab fa-instagram"></i>
-								</a>
-								<a class="uk-icon-button" uk-tooltip title="Twitter" 
-									href="https://twitter.com/login" target="_blank">
-									<i class="fab fa-twitter"></i>
-								</a>
-								<a class="uk-icon-button" uk-tooltip title="Facebook" 
-									href="https://www.facebook.com/theposyplacesydney/" target="_blank">
-									<i class="fab fa-facebook"></i>
-								</a>
-								<a class="uk-icon-button" uk-tooltip title="MailChimp" 
-									href="https://login.mailchimp.com/" target="_blank">
-									<i class="fas fa-at"></i>
-								</a>
-								<a class="uk-icon-button" uk-tooltip title="SMS Broadcast" 
-									href="https://www.smsbroadcast.com.au/" target="_blank">
-									<i class="fas fa-comments"></i>
-								</a>
-							</td>
-				            {{/if}}
-						</tr>
-						<tr>
-							<th class="uk-padding-remove-top uk-padding-remove-bottom">{{> loginButtons}}</th>
-						
-						</tr>
-					</tbody>
-				</table>
+ 		{{#if isSignedIn}}
+		   	{{> navBarItems}}
+		{{/if}}
 
-	        </ul>
+    </div>
 
-	</nav>
-
-
-</div>
+</nav>
 
 
 </template>
