@@ -10,25 +10,15 @@ jobQueue.recruitWorker('fetch', { concurrency: 2 }, orderDetailFetch);
 export function orderDetailFetch(job, cb) {
 	console.log('Calling orderDetailFetch on Order ', job.data.orderNo);
 	if (Meteor.isServer) {
-		const web = Nightmare();    	// { show: true }
-		web.use(loginRocketSpark('/dashboard/shop_settings/order_history'))
+		const web = Nightmare()    	// { show: true }
+		.use(loginRocketSpark('/dashboard/shop_settings/order_history'))
 		.wait('#orders-vue > div > table')
 		.goto('https://tpp.rocketsparkau.com/dashboard/shop_settings/orders/'+job.data.orderNo)
 		.wait('#view-order > div > .order-header')
 		.evaluate(function () {
-			return {
-				orderNo: Number($('h1 > span.h1-text').text().replace(/Order #/,'')),
-				isShipped: $('div.shipping-status > input').prop('checked') ? '1' : '0',	// must evaluate in nightmare as checked state is not visible in body html
-			}
+			return document.querySelector('body').outerHTML;
 		})
-		.then(function (isShipped) {
-			if (isShipped.orderNo) orders.update(isShipped);
-			return web
-			.evaluate(function () {
-				return document.querySelector('body').outerHTML;
-			})
-			.end();
-		})
+		.end()
 		.then(function (body) {
 			const result = parse.html(body, orderDetailSpec);
 			console.log('detail parse', JSON.stringify(result, undefined, 2));

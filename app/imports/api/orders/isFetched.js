@@ -6,6 +6,6 @@ import { methods } from './methods.js';
 
 export function isFetched(orderNo) {
 	check(orderNo, Number);
-	const doc = orderCollection.findOne({ orderNo });
-	return (doc && doc.shipTo) ? true : false;
+	const doc = orderCollection.findOne({ orderNo: { $eq: Number(orderNo) } });
+	return (doc && doc.specialMessage) ? true : false;
 }
