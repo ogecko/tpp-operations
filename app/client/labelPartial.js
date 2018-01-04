@@ -11,6 +11,7 @@ Template.labelPartial.onCreated(function() {
 
 Template.labelPartial.helpers({
 	isBlank: (id) => 'uk-position-absolute js-blank uk-transform-center '+(Template.instance().blanks.get()[id] ? 'uk-background-default' : 'uk-blend-overlay'),
+	numLabels: () => _.reduce(Template.instance().blanks.get(), (memo, b)=>(memo += (b ? 0 : 1)), 0),
 	blankParam: () => _.reduce(Template.instance().blanks.get(), (memo, b)=>(memo += (b ? '1' :'0')), ''),
 });
 
