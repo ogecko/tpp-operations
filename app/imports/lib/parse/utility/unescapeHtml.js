@@ -23,7 +23,7 @@ export function unescapeHtml(text) {
     }
 
     // convert any html encoded unicode to actual unicode character
-    if (code.match(/^#x....$/)) {
+    if (code.match(/^#x.{3,4}$/)) {
       code[0] = '0';    // from &#x2764; to ❤
       return '';        // doesnt work with Blaze - String.fromCharCode(code)
     }
