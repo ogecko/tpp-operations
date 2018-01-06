@@ -3,5 +3,8 @@
 		display: block;
 		break-after: page;
 	}
+	.og-no-print {
+		visibility: hidden;
+	}
 
 }
