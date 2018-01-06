@@ -18,7 +18,7 @@ Template.deliverySheet.onCreated(function() {
 Template.deliverySheet.onRendered(function() {
 	Meteor.setTimeout(() => { 
 		window.print(); 
-		window.close() 
+		window.close();
 	}, 1000);
 });
 

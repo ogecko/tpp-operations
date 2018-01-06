@@ -11,6 +11,7 @@
 							{{#each line in order.shipAddress}}
 								<b>{{line}}</b><br>
 							{{/each}}
+							<b>{{order.customerPhone}}</b>
 						</p>
 						{{#if order.shipInstructions}}
 							<p class="og-label-instructions">Instructions: {{order.shipInstructions}}</p>
