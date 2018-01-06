@@ -48,6 +48,16 @@ export const orderDetailSpec = new SimpleSchema({
 		}
 	},
 
+	deliveryDateChecked: {
+		type: Date, optional: true,
+		autoValue: function(doc) { 
+			if (this.isSet) return undefined;
+			const str = match(this, 'd-block', /.*Date of Posy Delivery .DD.MM.YY.<.strong><br> <span>(.*)<.span><br><.span>.*/, '$1', 
+				   parse.domSelect(this, 'html', 'div.left-details'));
+			return parse.dates(str);
+		}
+	},
+
 	customerEmail: {
 		type: String, optional: true,
 		autoValue: function(doc) { 

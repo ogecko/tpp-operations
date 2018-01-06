@@ -3,6 +3,7 @@ import { orderCollection } from './model.js';
 import { check } from 'meteor/check';
 import { isSignedIn } from '/imports/lib/isSignedIn.js';
 import { jobQueue } from '/imports/api/jobQueue';
+import { parse } from '/imports/lib/parse';
 
 Meteor.methods({
 	cleanOrder: (orderNo) => {
@@ -32,10 +33,22 @@ Meteor.methods({
 
 	'select none': () => orderCollection.update({}, { $set: { isSelected: '0' } }, { multi: true }),
 
+	'select todays': (d) => {
+		const delivery = parse.dates(d);
+		orderCollection.update({ $and: [ { deliveryDateChecked: { $lte: delivery } }, { isShipped: { $eq: '0' } } ] }, { $set: { isSelected: '1' } }, { multi: true });
+	},
+
 	fixOrderNo: () => {
 		orderCollection.find({ }).forEach(doc => {
 			doc.orderNo = Number(doc.orderNo);
 			console.log(doc._id, doc.orderNo);
+			orderCollection.update({ _id: doc._id }, doc);
+		});
+	},
+
+	fixDeliveryDate: () => {
+		orderCollection.find({ }).forEach(doc => {
+			doc.deliveryDateChecked = parse.dates(doc.deliveryDate);
 			orderCollection.update({ _id: doc._id }, doc);
 		});
 	},

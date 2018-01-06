@@ -142,5 +142,6 @@ Template.orderList.events({
 	'click .js-select-all': (event, instance) => Meteor.call('select all'), 
 
 	'click .js-select-todays': (event, instance) => Meteor.call('select todays'), 
+
 });
 
