@@ -3,10 +3,10 @@ import { Meteor } from 'meteor/meteor';
 import { chai } from 'meteor/practicalmeteor:chai'; const should = chai.should();
 import { stubs }	from 'meteor/practicalmeteor:sinon';
 import { FlowRouter } from 'meteor/kadira:flow-router';
-import select from '/imports/api/select';
+import { select } from '/imports/lib/select';
 
 if (Meteor.isClient) {
-	describe('api/select getSelectorFromParams.js tests', () => {
+	describe('lib/select getSelectorFromParams.js tests', () => {
 		afterEach(() => {
 			stubs.restoreAll();
 		});
@@ -19,14 +19,14 @@ if (Meteor.isClient) {
 			stubs.create('flow', FlowRouter, 'getQueryParam')
 				.withArgs('variety').returns('shiraz');
 			const result = select.getSelectorFromParams([{ param: 'variety', operator: '$eq' }]);
-			JSON.stringify(result).should.equal('{"variety":"shiraz"}');
+			JSON.stringify(result).should.equal('{"variety":{"$eq":"shiraz"}}');
 		});
 
 		it('should create selector with a field different than the parameter', () => {
 			stubs.create('flow', FlowRouter, 'getQueryParam')
 				.withArgs('supplier').returns('DanMurphy');
 			const result = select.getSelectorFromParams([{ param: 'supplier', field: 'suppliers.name', operator: '$eq' }]);
-			JSON.stringify(result).should.equal('{"suppliers.name":"DanMurphy"}');
+			JSON.stringify(result).should.equal('{"suppliers.name":{"$eq":"DanMurphy"}}');
 		});
 
 		it('should create selector ignoring undefined URL query parameters', () => {
@@ -36,7 +36,7 @@ if (Meteor.isClient) {
 				{ param: 'variety', operator: '$eq' },
 				{ param: 'region', operator: '$in' },
 			]);
-			JSON.stringify(result).should.equal('{"variety":"shiraz"}');
+			JSON.stringify(result).should.equal('{"variety":{"$eq":"shiraz"}}');
 		});
 
 		it('should create selector with multiple matches $in', () => {
@@ -63,7 +63,8 @@ if (Meteor.isClient) {
 				{ param: 'vintage', operator: '$in' },
 				{ param: 'title', operator: '$regex' },
 			]);
-			JSON.stringify(result).should.equal('{"variety":"shiraz","vintage":{"$in":["2015","2016"]},"title":{"$regex":"Barwang","$options":"i"}}');
+			JSON.stringify(result).should.equal('{"variety":{"$eq":"shiraz"},"vintage":{"$in":["2015","2016"]},"title":{"$regex":"Barwang","$options":"i"}}');
 		});
 	});
 }
+

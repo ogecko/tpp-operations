@@ -5,7 +5,7 @@ import { Mongo } from 'meteor/mongo';
 import { Factory } from 'meteor/dburles:factory';
 import Faker from 'faker';
 import { _ } from 'meteor/underscore';
-import { countGroups } from '/imports/api/counter/countGroups.js';
+import { countGroups } from '/imports/lib/counter/countGroups.js';
 
 function factoryCreateTestDB() {
 	if (Meteor.isServer) {
@@ -37,7 +37,7 @@ function factoryCreateTestDB() {
 const collection = factoryCreateTestDB();
 
 if (Meteor.isServer) {
-	describe('api/counter countGroups tests', () => {
+	describe('lib/counter countGroups tests', () => {
 		it('should pass a test', () => {
 			true.should.equal(true);
 		});

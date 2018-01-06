@@ -49,7 +49,7 @@ if (Meteor.isServer) {
 		});
 
 		it('should allow initialisation and search of an index', () => {
-			lunrIndex.init(indexDefn);
+				lunrIndex.init(indexDefn);
 			lunrIndex.search('book', 'dan').length.should.equal(3);
 		});
 	});
@@ -62,11 +62,7 @@ if (Meteor.isClient)
 		});
 		it('should allow search of an index from a client', (done) => {
 			lunrIndex.search('book', 'dan', function(err, res) {
-				res.should.deep.equal([
-					{"ref":"The DaVinci Code","score":0.4411139462796189},
-					{"ref":"Angels & Demons","score":0.4185323328840654},
-					{"ref":"The Lost Symbol","score":0.4185323328840654},
-				]);
+				JSON.stringify(res).should.equal('[{"ref":"The DaVinci Code","score":0.7071067811865476,"matchData":{"metadata":{"dan":{"author":{}}}}},{"ref":"Angels & Demons","score":0.7071067811865476,"matchData":{"metadata":{"dan":{"author":{}}}}},{"ref":"The Lost Symbol","score":0.7071067811865476,"matchData":{"metadata":{"dan":{"author":{}}}}}]');
 				done();
 			})
 		});

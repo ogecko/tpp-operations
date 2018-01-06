@@ -1,10 +1,10 @@
 /* eslint-env mocha */
 import { chai }	from 'meteor/practicalmeteor:chai'; chai.should();
 import { SimpleSchema }		from 'meteor/aldeed:simple-schema';
-import parse			from '/imports/api/parse';
+import { parse }			from '/imports/lib/parse';
 
 // Simple unit tests for parse.class.js ary function
-describe('api/parse parseHTML.js  tests', function() {
+describe('lib/parse parseHTML.js  tests', function() {
 	if (Meteor.isClient) return undefined;
 
 	const content = `<body>

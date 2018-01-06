@@ -6,7 +6,7 @@ import { Random } from 'meteor/random';
 // import { stubs }	from 'meteor/practicalmeteor:sinon';
 // import { Factory } from 'meteor/dburles:factory';
 // import { _ } from 'meteor/underscore';
-import { Counter } from '/imports/api/counter/server.js';
+import { Counter } from '/imports/lib/counter/server.js';
 import { createClient } from '/imports/test/server.test-helpers.js';
 
 function initialiseDB() {
@@ -22,7 +22,7 @@ function initialiseDB() {
 }
 
 if (Meteor.isServer) {
-	describe('api/counter Server tests', () => {
+	describe('lib/counter Server tests', () => {
 		it('should pass a test', () => {
 			true.should.equal(true);
 		});

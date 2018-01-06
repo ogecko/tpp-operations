@@ -14,7 +14,20 @@
 		<table class="uk-table uk-table-middle uk-table-hover uk-table-small uk-text-small uk-table-divider">
 			<thead>
 				<tr>
-					<th class="uk-table-shrink"></th>
+					<th class="uk-table-shrink">
+
+						<a class="uk-icon-button" href=""><i class="fas fa-bars"></i></a>
+						<div uk-dropdown>
+						    <ul class="uk-nav uk-dropdown-nav">
+						        <li><a href="#" class="js-clear-all">Clear All Selections</a></li>
+						        <li><a href="#" class="js-select-todays">Select Todays Deliveries</a></li>
+						        <li><a href="#" class="js-select-all">Select All Orders</a></li>
+						        <li class="uk-nav-divider"></li>
+						        <li><a href="#" class="js-ship-selected">Ship Selected Orders</a></li>
+						    </ul>
+						</div>
+
+					</th>
 					<th>Ref / Price</th>
 					<th>Expected Delivery</th>
 					<th>Sender &amp; Delivery Phone</th>
@@ -31,7 +44,9 @@
 			<tbody>
 				{{#each order in orders}}
 					<tr class="{{isShippedFormat order}}">
-						<td><input type="checkbox" {{isSelectedChk order}} class="uk-checkbox js-toggleOrderIsSelected" data-order-no="{{order.orderNo}}"></td>
+						<td class="uk-text-center">
+							<input type="checkbox" {{isSelectedChk order}} class="uk-checkbox js-toggleOrderIsSelected" data-order-no="{{order.orderNo}}">
+						</td>
 					    <td class="uk-text-nowrap">
 							<b class="js-orderDetail" data-order-no="{{order.orderNo}}">{{order.orderNo}}{{order.productCode}}</b><br>
 						    ${{order.amount}}<br>

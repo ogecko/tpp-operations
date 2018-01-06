@@ -4,7 +4,7 @@ import { SimpleSchema } 				from 'meteor/aldeed:simple-schema';
 import { validateWithSchema }			from './validateWithSchema.js';
 
 // Simple unit tests for validateWithSchema library function
-describe('api/parse validateWithSchema Unit tests', () => {
+describe('lib/parse validateWithSchema Unit tests', () => {
 	// Setup mock schema
 	let doc = {};
 	const BookSchema = new SimpleSchema({

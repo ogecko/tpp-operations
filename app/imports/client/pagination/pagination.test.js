@@ -7,7 +7,7 @@ import { stubs }	from 'meteor/practicalmeteor:sinon';
 import moment from 'moment';
 
 import { renderTemplate } from '/imports/test/client.test-helpers.js';
-import '/imports/client/controls/pagination';
+import '/imports/client/pagination';
 
 function checkIsActiveIsDisabled(a) {
 	let res = '';

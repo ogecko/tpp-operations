@@ -1,9 +1,9 @@
 /* eslint-env mocha */
 import { chai }	from 'meteor/practicalmeteor:chai'; const should = chai.should();
-import parse	from '/imports/api/parse';
+import { parse }	from '/imports/lib/parse';
 
 // Simple unit tests for csvParseWithSchema.js library function
-describe('api/parse parseRegx.js Unit tests', function() {
+describe('lib/parse parseRegx.js Unit tests', function() {
 	it('should ignore if the target is already set', () => {
 		const result = parse.regex({ isSet: true }, 'test abcdef', /test (.*)/, '$1');
 		should.not.exist(result);

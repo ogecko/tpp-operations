@@ -136,5 +136,11 @@ Template.orderList.events({
 			window.print(); 
 		}, 1000);
 	},
+
+	'click .js-clear-all': (event, instance) => Meteor.call('select none'), 
+
+	'click .js-select-all': (event, instance) => Meteor.call('select all'), 
+
+	'click .js-select-todays': (event, instance) => Meteor.call('select todays'), 
 });
 

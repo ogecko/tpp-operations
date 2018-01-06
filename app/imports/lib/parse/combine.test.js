@@ -1,10 +1,10 @@
 /* eslint-env mocha */
 import { chai, expect }	from 'meteor/practicalmeteor:chai'; chai.should();
-import parse			from '/imports/api/parse';
+import { parse }			from '/imports/lib/parse';
 
 
 // Simple unit tests for combine.js library function
-describe('api/parse combine.js Unit tests', () => {
+describe('lib/parse combine.js Unit tests', () => {
 	it('should leave fields that are already set untouched', () => {
 		const result = parse.combine(
 			{ isSet: true },

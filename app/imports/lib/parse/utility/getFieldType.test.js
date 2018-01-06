@@ -3,7 +3,7 @@
 	import { getFieldType }			from './getFieldType.js';
 
 	// Simple unit tests for parse-with-schema getFieldType.js library function
-	describe('api/parse getFieldType.js Unit tests', () => {
+	describe('lib/parse getFieldType.js Unit tests', () => {
 		it('should return the name of Number constructor functions', () => {
 			getFieldType(Number).should.equal('Number');
 		});

@@ -1,10 +1,10 @@
 /* eslint-env mocha */
 import { Meteor } from 'meteor/meteor';
 import { chai } from 'meteor/practicalmeteor:chai'; const should = chai.should();
-import select from '/imports/api/select';
+import { select } from '/imports/lib/select';
 
 if (Meteor.isClient) {
-	describe('api/select getScopeFromDefn.js tests', () => {
+	describe('lib/select getScopeFromDefn.js tests', () => {
 
 		it('should pass a test', () => {
 			true.should.equal(true);

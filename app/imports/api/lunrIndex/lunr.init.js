@@ -22,20 +22,23 @@ export function init(options) {		// executed on server only
 	if (Meteor.isServer) {
 		console.log('Initializing lunrIndex '+options.name);
 		lunrStore[options.name] = lunr(function () {
+			// add fields to the index
+			const self = this;
 			_.each(options.fields, function (f) {
-				if (f.ref) this.ref(f.key);
-				if (f.boost) this.field(f.key, { 'boost': f.boost });
-				if (!f.boost) this.field(f.key);
-			}, this);
+				if (f.ref) self.ref(f.key);
+				if (f.boost) self.field(f.key, { 'boost': f.boost });
+				if (!f.boost) self.field(f.key);
+			});
+			// add documents to the index
+			const findFields = _.reduce(options.fields, (m, f) => { m[f.key] = 1; return m } , {});
+			console.log (JSON.stringify(findFields,2));
+			options.collection.find({}, { fields: findFields }).observeChanges({
+				added(id, doc) { self.add(doc); },
+				changed(id, doc) { self.update(doc); },
+				// removed(id, doc) { lunrStore[options.name].remove(doc); },	// doc is not passed on removes
+			});
 		});
 
-		findFields = _.reduce(options.fields, (m, f) => { m[f.key] = 1; return m } , {});
-		console.log (JSON.stringify(findFields,2));
-		options.collection.find({}, { fields: findFields }).observeChanges({
-			added(id, doc) { lunrStore[options.name].add(doc); },
-			changed(id, doc) { lunrStore[options.name].update(doc); },
-			// removed(id, doc) { lunrStore[options.name].remove(doc); },	// doc is not passed on removes
-		});
 		return lunrStore[options.name];
 	}
 	return undefined;

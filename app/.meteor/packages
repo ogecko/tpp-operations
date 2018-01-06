@@ -29,3 +29,8 @@ accounts-ui@1.2.0
 markdown@1.0.12
 meteorhacks:aggregate		# used by count
 dburles:google-maps
+
+# Unit and Integration test package
+practicalmeteor:mocha
+dburles:factory
+dispatch:mocha-phantomjs

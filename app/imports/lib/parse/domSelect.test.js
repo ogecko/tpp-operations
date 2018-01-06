@@ -3,10 +3,10 @@ import { chai, expect }				from 'meteor/practicalmeteor:chai'; const should = ch
 import { stubs, spies }				from 'meteor/practicalmeteor:sinon';
 import { SimpleSchema }				from 'meteor/aldeed:simple-schema';
 import cheerio						from 'cheerio';
-import parse						from '/imports/api/parse';
+import { parse }						from '/imports/lib/parse';
 
 // Simple unit tests for parse.domSelect library function
-describe('api/parse domSelect Unit tests', () => {
+describe('lib/parse domSelect Unit tests', () => {
 	if (Meteor.isClient) return undefined;
 
 	// Setup mock test data

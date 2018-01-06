@@ -3,7 +3,7 @@ import { chai }				from 'meteor/practicalmeteor:chai'; chai.should();
 import { isHtml }			from './isHtml.js';
 
 // Simple unit tests for cheerio.js library function
-describe('api/parse isHtml.js Unit tests', () => {
+describe('lib/parse isHtml.js Unit tests', () => {
 	it('should reject anything but a string', () => {
 		isHtml(10).should.equal(false);
 	});

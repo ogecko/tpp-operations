@@ -1,9 +1,9 @@
 /* eslint-env mocha */
 import { chai, expect }	from 'meteor/practicalmeteor:chai'; chai.should();
-import parse			from '/imports/api/parse';
+import { parse }			from '/imports/lib/parse';
 
 // Simple unit tests for csvParseWithSchema.js library function
-describe('api/parse parseCSV.js Unit tests', function() {
+describe('lib/parse parseCSV.js Unit tests', function() {
 
 	// Setup mock schema
 	let doc = {};

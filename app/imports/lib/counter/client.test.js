@@ -7,10 +7,10 @@ import { Meteor } from 'meteor/meteor';
 // import { stubs }	from 'meteor/practicalmeteor:sinon';
 // import { Factory } from 'meteor/dburles:factory';
 // import { _ } from 'meteor/underscore';
-import { Counter } from '/imports/api/counter/client.js';
+import { Counter } from '/imports/lib/counter/client.js';
 
 if (Meteor.isClient) {
-	describe('api/counter Client tests', () => {
+	describe('lib/counter Client tests', () => {
 		it('should pass a test', () => {
 			true.should.equal(true);
 		});

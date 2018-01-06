@@ -1,7 +1,7 @@
 import { _ } 					from 'meteor/underscore';
 import { SimpleSchema }			from 'meteor/aldeed:simple-schema';
 import { validateWithSchema }	from './utility/validateWithSchema.js';
-
+import numeral 					from 'numeral';
 
 // Convert the csv content into an object based on the schema defined
 export function parseCSV(content, schema, separator = ',', ignoreHeader = true, limit = undefined) {
