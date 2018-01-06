@@ -32,6 +32,12 @@ describe('lib/parse/dates tests', function () {
 		testDates('C',new Date()).should.equal('C:'+moment().format('YYYY-MM-DD'));
 	});
 
+	it('should ensure dates are at midnight local time', () => {
+		const result = parse.dates('10/1/18');
+		result.getHours().should.equal(0);
+		result.getMinutes().should.equal(0);
+	});
+
 	data.forEach(d => {
 		it('should parse real order '+d.order, () => {
 			testDates(d.order, d.delivery).should.equal(d.order+':'+d.expected);
