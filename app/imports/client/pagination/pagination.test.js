@@ -11,17 +11,17 @@ import '/imports/client/pagination';
 
 function checkIsActiveIsDisabled(a) {
 	let res = '';
-	if ($(a).attr('class').includes('active')) res += 'A';
-	if ($(a).attr('class').includes('disabled')) res += 'D';
+	if ($(a).parent().attr('class')) {
+		if ($(a).parent().attr('class').includes('uk-active')) res += 'A';
+		if ($(a).parent().attr('class').includes('uk-disabled')) res += 'D';
+	}
 	return res;
 }
 
 function checkPagination(el) {
 	let btns = '';
-
 	$(el).find('a.js-prev').each((i, a) => {
-		if ($(a).find('i').attr('class').includes('chevron left')) 
-			btns = btns + '<' + checkIsActiveIsDisabled(a);
+		btns = btns + '<' + checkIsActiveIsDisabled(a);
 	});
 
 	$(el).find('a.js-page').each((i, a) => {
@@ -29,8 +29,7 @@ function checkPagination(el) {
 	});
 
 	$(el).find('a.js-next').each((i, a) => {
-		if ($(a).find('i').attr('class').includes('chevron right')) 
-			btns = btns + '|>' + checkIsActiveIsDisabled(a);
+		btns = btns + '|>' + checkIsActiveIsDisabled(a);
 	});
 
 	return btns;
