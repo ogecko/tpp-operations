@@ -1,0 +1,10 @@
+<template name="jobSpinner">
+	{{#if numActiveJobs}}
+		There are currently
+		<div class="uk-inline">
+			<div uk-spinner></div>
+			<div class="uk-overlay uk-position-center">{{numActiveJobs}}</div>
+		</div>
+		requests still active.
+	{{/if}}
+</template>

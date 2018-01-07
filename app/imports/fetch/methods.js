@@ -1,3 +1,4 @@
+import { Meteor } from 'meteor/meteor';
 import { Nightmare } from './nightmare.js';
 import { jobQueue } from '/imports/api/jobQueue';
 import { orders } from '/imports/api/orders';
@@ -10,12 +11,20 @@ Meteor.methods({
 		jobQueue.dispatch('fetch order', { orderNo: orderNo }, { retries: 3, wait: 10*1000 })
 	},
 	'ship order': (orderNo) => {
-		jobQueue.dispatch('ship order', { orderNo: orderNo }, { retries: 3, wait: 10*1000 })
+		jobQueue.dispatch('ship order', { orderNo: orderNo }, { retries: 1, wait: 5*1000 })
+	},
+	'ship selected': () => {
+		if (Meteor.isClient) return;
+		orders.orderCollection.find({ isSelected: '1' }).forEach(doc => {
+			console.log('ship ', doc.orderNo);
+			jobQueue.dispatch('ship order', { orderNo: doc.orderNo }, { retries: 1, wait: 5*1000 })
+		});
 	},
 	'locate order': (orderNo) => {
 		jobQueue.dispatch('locate order', { orderNo: orderNo }, { retries: 3, wait: 10*1000 })
 	},
 	'locate all': () => {
+		if (Meteor.isClient) return;
 		orders.orderCollection.find({}).forEach(doc => {
 			jobQueue.dispatch('locate order', { orderNo: doc.orderNo }, { retries: 3, wait: 10*1000 })
 		});

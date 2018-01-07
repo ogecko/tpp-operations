@@ -10,6 +10,25 @@
 			</div>
 		</div>
 
+<div id="ship-modal" uk-modal>
+	<div class="uk-modal-dialog uk-modal-body">
+		<button class="uk-modal-close-default" type="button" uk-close></button>
+		<h2 class="uk-modal-title">Ship Selected Orders</h2>
+		<p>
+			This will request Rocketspark to update each order as Shipped and send a confirmation email to each customer.
+		</p>
+		<p>
+			{{>jobSpinner jobtype="ship order"}}
+		</p>
+		<p>
+			Are you sure you want ship selected orders?
+		</p>
+		<p class="uk-text-right">
+			<button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+			<a class="uk-button uk-button-primary uk-modal-close" onclick="Meteor.call('ship selected')">Ship</a>
+		</p>
+	</div>
+</div>
 
 		<table class="uk-table uk-table-middle uk-table-hover uk-table-small uk-text-small uk-table-divider">
 			<thead>
@@ -23,7 +42,7 @@
 						        <li><a href="#" class="js-select-todays">Select Todays Deliveries</a></li>
 						        <li><a href="#" class="js-select-all">Select All Orders</a></li>
 						        <li class="uk-nav-divider"></li>
-						        <li><a href="#" class="js-ship-selected">Ship Selected Orders</a></li>
+						        <li><a href="#ship-modal" class="js-toggle-ship-modal">Ship Selected Orders</a></li>
 						    </ul>
 						</div>
 

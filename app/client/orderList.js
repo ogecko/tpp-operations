@@ -4,6 +4,7 @@ import { orders } from '/imports/api/orders';
 import { select } from '/imports/lib/select';
 import moment from 'moment';
 import { Counter } from '/imports/lib/counter/client.js';
+import UIkit from 'uikit';
 
 Template.orderList.onCreated(function() {
 	const self = this;
@@ -143,5 +144,6 @@ Template.orderList.events({
 
 	'click .js-select-todays': (event, instance) => Meteor.call('select todays'), 
 
+	'click .js-toggle-ship-modal': (event, instance) => UIkit.modal('#ship-modal').show(),
 });
 
