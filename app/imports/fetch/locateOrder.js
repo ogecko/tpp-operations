@@ -5,11 +5,11 @@ import gmServices from '@google/maps';
 
 const googleMapsClient = gmServices.createClient({ key: Meteor.settings.public.googleAPIkey, Promise });
 
-jobQueue.recruitWorker('location', { concurrency: 2 }, orderLocationFetch);
+jobQueue.recruitWorker('locate order', { concurrency: 2 }, locateOrder);
 
-export function orderLocationFetch(job, cb) {
+export function locateOrder(job, cb) {
 	check(job.data.orderNo, Number);
-	console.log('Calling orderLocationFetch on Order ', job.data.orderNo);
+	console.log('Calling locateOrder on Order ', job.data.orderNo);
 	if (Meteor.isServer && job.data.orderNo) {
 		const doc = orders.orderCollection.findOne({ orderNo: job.data.orderNo });
 		if (doc) {

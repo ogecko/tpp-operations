@@ -76,7 +76,7 @@ Meteor.methods({
 			newDoc.isModified = "1";
 			orderCollection.update({ _id: oldDoc._id }, newDoc );
 			console.log('Stored modifications ', orderNo, JSON.stringify(changes, undefined, 2));
-			jobQueue.dispatch('location', { orderNo: newDoc.orderNo });
+			Meteor.call('locate order', newDoc.orderNo);
 		}
 	},
 

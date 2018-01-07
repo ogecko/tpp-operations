@@ -93,7 +93,7 @@ function inPlaceEdit(event, instance) {
 Template.orderList.events({
 	'click .js-orderDetail'(event, instance) {
 		console.log('Request detail on order', event.target.dataset.orderNo);
-  		jobQueue.dispatch('fetch', { orderNo: event.target.dataset.orderNo }, { retries: 3, wait: 10*1000 });
+		Meteor.call('fetch order', event.target.dataset.orderNo);
 	},
 	'click .js-toggleOrderIsSelected'(event, instance) {
 		const tgt = instance.$(event.currentTarget)[0];

@@ -14,7 +14,7 @@ export function match(self, splitAt, re, replace, str) {
 	return parse.unescapeHtml(result.replace(/<nl>/gm,' '));
 }
 
-export const orderDetailSpec = new SimpleSchema({
+export const fetchOrderSpec = new SimpleSchema({
 	dom: {
 		type: Object, optional: true, blackbox: true,
 		autoValue: function(doc) { return parse.domCheck(this); }

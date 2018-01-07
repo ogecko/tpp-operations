@@ -42,9 +42,7 @@ Template.deliverySheet.helpers({
 
 Template.deliverySheet.events({
 	'click .js-orderDetail'(event, instance) {
-		// increment the counter when button is clicked
-		console.log('Requesting detail on order', event.target.dataset.orderNo);
-  		jobQueue.dispatch('fetch', { orderNo: event.target.dataset.orderNo }, { retries: 3, wait: 10*1000 });
+		// action
 	},
 });
 

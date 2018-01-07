@@ -1,7 +1,7 @@
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { parse } from '/imports/lib/parse';
 
-export const orderHistoryRowSpec = new SimpleSchema({
+export const fetchListRowSpec = new SimpleSchema({
 	dom: {
 		type: Object, optional: true, blackbox: true,
 		autoValue: function(doc) { return parse.domCheck(this); }
@@ -57,13 +57,13 @@ export const orderHistoryRowSpec = new SimpleSchema({
 });
 
 
-export const orderHistorySpec = new SimpleSchema({
+export const fetchListSpec = new SimpleSchema({
 	dom: {
 		type: Object, optional: true, blackbox: true,
 		autoValue: function(doc) { return parse.domCheck(this); }
 	},
 	orders: {
-		type: [orderHistoryRowSpec], 
+		type: [fetchListRowSpec], 
 		autoValue: function(doc) { 
 			return parse.domSelect(this, ['dom'], '#orders-vue > div > table > tbody > tr:nth-child(n+2)'); 
 		}

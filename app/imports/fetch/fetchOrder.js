@@ -2,13 +2,13 @@ import { Nightmare } from '/imports/lib/nightmare';
 import { parse } from '/imports/lib/parse';
 import { orders } from '/imports/api/orders';
 import { jobQueue } from '/imports/api/jobQueue';
-import { orderDetailSpec } from './orderDetailSpec.js';
+import { fetchOrderSpec } from './fetchOrderSpec.js';
 import { loginRocketSpark } from './loginRocketSpark.js';
 
-jobQueue.recruitWorker('fetch', { concurrency: 2 }, orderDetailFetch);
+jobQueue.recruitWorker('fetch order', { concurrency: 2 }, fetchOrder);
 
-export function orderDetailFetch(job, cb) {
-	console.log('Calling orderDetailFetch on Order ', job.data.orderNo);
+export function fetchOrder(job, cb) {
+	console.log('Calling fetchOrder on Order ', job.data.orderNo);
 	if (Meteor.isServer) {
 		const web = Nightmare()    	// { show: true }
 		.use(loginRocketSpark('/dashboard/shop_settings/order_history'))
@@ -20,10 +20,10 @@ export function orderDetailFetch(job, cb) {
 		})
 		.end()
 		.then(function (body) {
-			const result = parse.html(body, orderDetailSpec);
+			const result = parse.html(body, fetchOrderSpec);
 			console.log('detail parse', JSON.stringify(result, undefined, 2));
 			orders.update(result.data);
-			jobQueue.dispatch('location', { orderNo: result.data.orderNo });
+			Meteor.call('locate order', result.data.orderNo);
 			job.done(); cb();
 		})
 		.catch(function (error) {

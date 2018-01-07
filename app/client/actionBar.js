@@ -21,8 +21,7 @@ Template.actionBar.helpers({
 
 Template.actionBar.events({
 	'click .js-refresh'(event, instance) {
-		// increment the counter when button is clicked
-		jobQueue.dispatch('fetch list', { }, { retries: 3, wait: 10*1000 });
+		// action
 	},
 });
 
