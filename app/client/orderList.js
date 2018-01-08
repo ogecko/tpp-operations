@@ -4,7 +4,6 @@ import { orders } from '/imports/api/orders';
 import { select } from '/imports/lib/select';
 import moment from 'moment';
 import { Counter } from '/imports/lib/counter/client.js';
-import UIkit from 'uikit';
 
 Template.orderList.onCreated(function() {
 	const self = this;
@@ -14,15 +13,6 @@ Template.orderList.onCreated(function() {
 			select.getModifierFromParams()
 		);
 	});
-});
-
-Template.actionBar.onRendered(function() {
-	// const isPrint = FlowRouter.getQueryParam('print');
-	// if (isPrint) {
-	// 	Meteor.setTimeout(() => { 
-	// 		window.print(); 
-	// 	}, 1000);
-	// }
 });
 
 
@@ -132,18 +122,5 @@ Template.orderList.events({
 		Meteor.call('storeOrderModified', orderNo, doc);
 	},
 
-	'click .js-print'() {
-		Meteor.setTimeout(() => { 
-			window.print(); 
-		}, 1000);
-	},
-
-	'click .js-clear-all': (event, instance) => Meteor.call('select none'), 
-
-	'click .js-select-all': (event, instance) => Meteor.call('select all'), 
-
-	'click .js-select-todays': (event, instance) => Meteor.call('select todays'), 
-
-	'click .js-toggle-ship-modal': (event, instance) => UIkit.modal('#ship-modal').show(),
 });
 

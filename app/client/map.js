@@ -69,6 +69,7 @@ Template.map.onCreated(function() {
 	GoogleMaps.load({ key: Meteor.settings.public.googleAPIkey,	v: '3.exp' });
 	GoogleMaps.ready('deliveryMap', (map) => {
 		// console.log("All map tiles have been loaded!");
+		// poly(map);
 		orders.orderCollection.find(
 			select.getSelectorFromParams(orders.orderFilterFields),
 			_.pick(select.getModifierFromParams(), 'sort')

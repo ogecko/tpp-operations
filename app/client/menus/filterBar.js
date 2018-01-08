@@ -4,13 +4,13 @@ import { ReactiveVar } from 'meteor/reactive-var';
 import { jobQueue } from '/imports/api/jobQueue';
 import icon from 'uikit/dist/js/uikit-icons.js';
 
-Template.actionBar.onCreated(function helloOnCreated() {
+Template.filterBar.onCreated(function helloOnCreated() {
 	// counter starts at 0
 	this.counter = new ReactiveVar(0);
 });
 
 
-Template.actionBar.helpers({
+Template.filterBar.helpers({
 	counter() {
 		return Template.instance().counter.get();
 	},
@@ -19,7 +19,7 @@ Template.actionBar.helpers({
 	isAll: () => ((!FlowRouter.getQueryParam('shipped')&&!FlowRouter.getQueryParam('selected')) ? 'uk-button-primary' : 'uk-button-default'),
 });
 
-Template.actionBar.events({
+Template.filterBar.events({
 	'click .js-refresh'(event, instance) {
 		// action
 	},

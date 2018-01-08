@@ -38,6 +38,11 @@ Meteor.methods({
 		orderCollection.update({ $and: [ { deliveryDateChecked: { $lte: delivery } }, { isShipped: { $eq: '0' } } ] }, { $set: { isSelected: '1' } }, { multi: true });
 	},
 
+	'select date': (d) => {
+		const delivery = parse.dates(d);
+		orderCollection.update({ $and: [ { deliveryDateChecked: { $eq: delivery } }, { isShipped: { $eq: '0' } } ] }, { $set: { isSelected: '1' } }, { multi: true });
+	},
+
 	fixOrderNo: () => {
 		orderCollection.find({ }).forEach(doc => {
 			doc.orderNo = Number(doc.orderNo);

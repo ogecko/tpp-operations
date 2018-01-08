@@ -6,47 +6,17 @@
 				<h2>Order Review and Selection - {{date}} </h2>
 			</div>
 			<div class="uk-width-1-2">
-				{{>actionBar}}
+				{{>filterBar}}
 			</div>
 		</div>
 
-<div id="ship-modal" uk-modal>
-	<div class="uk-modal-dialog uk-modal-body">
-		<button class="uk-modal-close-default" type="button" uk-close></button>
-		<h2 class="uk-modal-title">Ship Selected Orders</h2>
-		<p>
-			This will request Rocketspark to update each order as Shipped and send a confirmation email to each customer.
-		</p>
-		<p>
-			{{>jobSpinner jobtype="ship order"}}
-		</p>
-		<p>
-			Are you sure you want ship selected orders?
-		</p>
-		<p class="uk-text-right">
-			<button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
-			<a class="uk-button uk-button-primary uk-modal-close" onclick="Meteor.call('ship selected')">Ship</a>
-		</p>
-	</div>
-</div>
+		{{>shipModal}}
+		{{>dateModal}}
 
 		<table class="uk-table uk-table-middle uk-table-hover uk-table-small uk-text-small uk-table-divider">
 			<thead>
 				<tr>
-					<th class="uk-table-shrink">
-
-						<a class="uk-icon-button" href=""><i class="fas fa-bars"></i></a>
-						<div uk-dropdown>
-						    <ul class="uk-nav uk-dropdown-nav">
-						        <li><a href="#" class="js-clear-all">Clear All Selections</a></li>
-						        <li><a href="#" class="js-select-todays">Select Todays Deliveries</a></li>
-						        <li><a href="#" class="js-select-all">Select All Orders</a></li>
-						        <li class="uk-nav-divider"></li>
-						        <li><a href="#ship-modal" class="js-toggle-ship-modal">Ship Selected Orders</a></li>
-						    </ul>
-						</div>
-
-					</th>
+					<th class="uk-table-shrink">{{>orderActionMenu}}</th>
 					<th>Ref / Price</th>
 					<th>Expected Delivery</th>
 					<th>Sender &amp; Delivery Phone</th>
