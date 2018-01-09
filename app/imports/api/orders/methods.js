@@ -41,7 +41,6 @@ Meteor.methods({
 	'select date': (d, includeShipped) => {
 		const delivery = parse.dates(d);
 		const isShipped = includeShipped ? { $exists: true } : { $eq : '0' };
-		console.log ('xxx', isShipped);
 		orderCollection.update({ $and: [ { deliveryDateChecked: { $eq: delivery } }, { isShipped } ] }, { $set: { isSelected: '1' } }, { multi: true });
 	},
 

@@ -11,7 +11,7 @@ Template.dateModal.onRendered(function() {
 		const day = moment(document.getElementById('js-date-input').value, 'YYYY-MM-DD').toDate();
 		const ship = document.getElementById('js-ship-input').checked;
 		const add = document.getElementById('js-add-input').checked;
-		console.log(`select date: ${day}, add flag: ${add}`);
+		console.log(`select date: ${day}, include shipped: ${ship}, add to selection: ${add}`);
 		if (!add) Meteor.call('select none');
 		Meteor.call('select date', day, ship);
 	});
