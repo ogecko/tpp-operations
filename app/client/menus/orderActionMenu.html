@@ -7,11 +7,14 @@
 			<li><a href="#" class="js-toggle-date-modal">Select Deliveries by Date</a></li>
 			<li><a href="#" class="js-select-all">Select All Orders</a></li>
 
-<!-- 			<li class="uk-nav-divider"></li>
+			<li class="uk-nav-divider"></li>
 			<li><a href="#" class="js-clear-all">Clear All Drivers</a></li>
-			<li><a href="#" class="js-clear-all">Assign Selected Orders</a></li>
-			<li><a href="#" class="js-clear-all">Edit Driver Names</a></li>
- -->
+			<li><a href="#" class="js-clear-all">Assign Selected Orders To</a>
+				<div uk-dropdown="pos: right-center">
+					{{>driverMenu}}	
+				</div>
+			</li>
+
 			<li class="uk-nav-divider"></li>
 			<li><a href="#ship-modal" class="js-toggle-ship-modal">Ship Selected Orders</a></li>
 		</ul>
