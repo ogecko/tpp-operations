@@ -8,12 +8,13 @@ import { loginRocketSpark } from './loginRocketSpark.js';
 jobQueue.recruitWorker('ship order', { concurrency: 2 }, shipOrder);
 
 export function shipOrder(job, cb) {
-	console.log('Calling shipOrder on Order ', job.data.orderNo);
+	const jobNo = job.data.orderNo;
+	console.log('Calling shipOrder on Order ', jobNo);
 	if (Meteor.isServer) {
 		const web = Nightmare()    	// { show: true }
-		.use(loginRocketSpark('/dashboard/shop_settings/orders/'+job.data.orderNo))
-		.wait('#checkbox-shipping-'+job.data.orderNo)
-		.click('#checkbox-shipping-'+job.data.orderNo)
+		.use(loginRocketSpark('/dashboard/shop_settings/orders/'+jobNo))
+		.wait('#checkbox-shipping-'+jobNo)
+		.click('#checkbox-shipping-'+jobNo)
 		.wait('.save-and-send')
 		.click('.save-and-send')
 		.wait('.send')
@@ -24,13 +25,13 @@ export function shipOrder(job, cb) {
 		})
 		.end()
 		.then(function (msg) {
-			console.log(`done ship ${job.data.orderNo}:`,msg);
-			orders.update({ orderNo: job.data.orderNo, isShipped: '1' });
+			console.log(`Ship done ${jobNo}:`, msg);
+			orders.update({ orderNo: jobNo, isShipped: '1' });
 			job.done(); cb();
 		})
 		.catch(function (error) {
-			console.error('Ship failed:', error);
-			orders.update({ orderNo: job.data.orderNo, isShipped: '1' });
+			console.error(`Ship failed ${jobNo}:`, error);
+			orders.update({ orderNo: jobNo, isShipped: '1' });
 			job.fail(); cb();
 		});
 	}
