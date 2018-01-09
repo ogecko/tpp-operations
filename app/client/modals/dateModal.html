@@ -4,16 +4,20 @@
 			<button class="uk-modal-close-default" type="button" uk-close></button>
 			<h2 class="uk-modal-title">Select Deliveries by Date</h2>
 			<p>
-				This action will select all unshipped orders on the specified date. Either enter the date directly or select the down arrow and choose from the calendar.
+				This action will select all unshipped orders on the specified date. Select the date field and choose from the calendar.
 			</p>
-			<form>
-				<div class="uk-margin">
+			<form class="uk-grid-small" uk-grid>
+				<div class="uk-width-1-2@s">
 					<div class="uk-inline">
 						<span class="uk-form-icon uk-form-icon-flip"><i class="fas fa-calendar-alt"></i></span>
 						<input id="js-date-input" class="uk-input" type="date">
 					</div>
-					<label class="uk-align-right"><input id="js-add-input" class="uk-checkbox" type="checkbox"> Add to existing selections</label>
 				</div>
+
+					<div class="uk-width-1-2@s">
+						<label><input id="js-ship-input" class="uk-checkbox" type="checkbox"> Include shipped orders</label><br>
+						<label><input id="js-add-input" class="uk-checkbox" type="checkbox"> Add to existing selections</label>
+					</div>
 			</form>
 			<p class="uk-text-right">
 				<button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>

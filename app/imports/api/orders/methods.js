@@ -38,9 +38,11 @@ Meteor.methods({
 		orderCollection.update({ $and: [ { deliveryDateChecked: { $lte: delivery } }, { isShipped: { $eq: '0' } } ] }, { $set: { isSelected: '1' } }, { multi: true });
 	},
 
-	'select date': (d) => {
+	'select date': (d, includeShipped) => {
 		const delivery = parse.dates(d);
-		orderCollection.update({ $and: [ { deliveryDateChecked: { $eq: delivery } }, { isShipped: { $eq: '0' } } ] }, { $set: { isSelected: '1' } }, { multi: true });
+		const isShipped = includeShipped ? { $exists: true } : { $eq : '0' };
+		console.log ('xxx', isShipped);
+		orderCollection.update({ $and: [ { deliveryDateChecked: { $eq: delivery } }, { isShipped } ] }, { $set: { isSelected: '1' } }, { multi: true });
 	},
 
 	fixOrderNo: () => {
