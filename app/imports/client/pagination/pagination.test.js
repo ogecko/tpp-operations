@@ -4,7 +4,6 @@ import { chai } from 'meteor/practicalmeteor:chai'; const should = chai.should()
 import { $ } from 'meteor/jquery';
 import { FlowRouter } from 'meteor/kadira:flow-router';
 import { stubs }	from 'meteor/practicalmeteor:sinon';
-import moment from 'moment';
 
 import { renderTemplate } from '/imports/test/client.test-helpers.js';
 import '/imports/client/pagination';

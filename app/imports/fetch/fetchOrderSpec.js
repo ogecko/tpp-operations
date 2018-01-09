@@ -1,6 +1,5 @@
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { parse } from '/imports/lib/parse';
-import moment from 'moment';
 
 export function match(self, splitAt, re, replace, str) {
 	if (self.isSet) return undefined;
