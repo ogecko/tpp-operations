@@ -6,6 +6,7 @@ import { select } from '/imports/lib/select';
 import { isSignedIn } from '/imports/lib/isSignedIn.js';
 import { mapStyles } from './mapStyles.js';
 import { mapControls } from './mapControls.js';
+import { drivers } from '/imports/api/drivers';
 
 const markers = {};
 
@@ -57,12 +58,13 @@ function poly(map) {
         });
 }
 
+const mapOrderSelector = { $or: [{ driver: { $exists: true }}, { isSelected: '1' } ] };
 
 Template.map.onCreated(function() {
 	const self = this;
 	self.autorun(function() {
 		self.subscribe('orders',
-			select.getSelectorFromParams(orders.orderFilterFields),
+			mapOrderSelector,
 			select.getModifierFromParams()
 		);
 	});
@@ -71,7 +73,7 @@ Template.map.onCreated(function() {
 		// console.log("All map tiles have been loaded!");
 		// poly(map);
 		orders.orderCollection.find(
-			select.getSelectorFromParams(orders.orderFilterFields),
+			mapOrderSelector,
 			_.pick(select.getModifierFromParams(), 'sort')
 		).observe({
 			added: doc => {
@@ -82,9 +84,9 @@ Template.map.onCreated(function() {
 						animation: google.maps.Animation.DROP,
 						position: new google.maps.LatLng(doc.shipLocation.lat, doc.shipLocation.lng),
 						map: map.instance,
-						title: doc.orderNo+doc.productCode+' '+doc.shipAddress.join(', '),
+						title: doc.driver+': '+doc.orderNo+doc.productCode+' '+doc.shipAddress.join(', '),
 						label: pinLabel((doc.orderNo+'').slice(-3)),
-						icon: pinSymbol("#422"),
+						icon: pinSymbol(drivers.color(doc.driver)),
 						id: doc._id,		// for later reference
 					});
 					// Store this marker instance within the markers object.
@@ -92,9 +94,12 @@ Template.map.onCreated(function() {
 				}
 			}, 
 			changed: (docNew, docOld) => {
+				console.log(docNew.orderNo, 'changed');
 				if (markers[docNew._id] && docNew.shipLocation) {
-					console.log(docNew.orderNo, 'changed');
 					markers[docNew._id].setPosition({ lat: docNew.shipLocation.lat, lng: docNew.shipLocation.lng });
+				}
+				if (markers[docNew._id] && docNew.driver) {
+					markers[docNew._id].setIcon(pinSymbol(drivers.color(docNew.driver)));
 				}
 			},
 			removed: docOld => {

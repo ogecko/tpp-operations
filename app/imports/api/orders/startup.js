@@ -16,7 +16,7 @@ export function startup() {
 				console.log('orders-sel ',JSON.stringify(orderSelector));
 				console.log('orders-mod ',JSON.stringify(modifier));
 
-				select.validateParams(orderFilterFields, orderSelector, modifier);
+				select.validateParams(orderFilterFields, {}, modifier);
 
 				// Publish the list of wines
 				const cursors = [];
