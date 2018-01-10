@@ -16,3 +16,8 @@ Then change mup.js to refer to the newly created docker image (rather than the d
       ....
 ```
 
+Also ensure the server hosting docker has the correct timezone using
+
+````
+	sudo timedatectl set-timezone Australia/Sydney
+````

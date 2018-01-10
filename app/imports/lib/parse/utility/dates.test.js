@@ -32,10 +32,10 @@ describe('lib/parse/dates tests', function () {
 		testDates('C',new Date()).should.equal('C:'+moment().format('YYYY-MM-DD'));
 	});
 
-	it('should ensure dates are at midnight UTC time', () => {
+	it('should ensure dates are at midnight local time', () => {
 		const result = parse.dates('10/1/18');
-		result.getUTCHours().should.equal(0);
-		result.getUTCMinutes().should.equal(0);
+		result.getHours().should.equal(0);
+		result.getMinutes().should.equal(0);
 	});
 
 	data.forEach(d => {
