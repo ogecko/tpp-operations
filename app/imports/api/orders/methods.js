@@ -44,6 +44,12 @@ Meteor.methods({
 		orderCollection.update({ $and: [ { deliveryDateChecked: { $eq: delivery } }, { isShipped } ] }, { $set: { isSelected: '1' } }, { multi: true });
 	},
 
+	'assign none': () => orderCollection.update({}, { $unset: { driver: '' } }, { multi: true }),
+
+	'assign driver': (orderNo, driver) => orderCollection.update({ orderNo: { $eq: Number(orderNo) } }, { $set: { driver } }, { multi: true }),
+
+	'assign selected': (driver) => orderCollection.update({ isSelected: '1' }, { $set: { driver } }, { multi: true }),
+
 	fixOrderNo: () => {
 		orderCollection.find({ }).forEach(doc => {
 			doc.orderNo = Number(doc.orderNo);

@@ -11,5 +11,6 @@ export const orderFilterFields = [
 	{ label: 'Special Message', param: 'msg', field: 'specialMessage', limit: 8, operator: '$regex' },
 	{ label: 'Paid', param: 'isPaid', limit: 8, operator: '$in' },
 	{ label: 'Delivery', param: 'delivery', field: 'deliveryDateChecked', limit: 8, operator: '$eq' },
+	{ label: 'Driver', param: 'driver', field: 'driver', limit: 8, operator: '$eq' },
 	// { param: 'q', field: 'title', operator: '$lunr' },		// used for lunr searches
 ];

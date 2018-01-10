@@ -1,18 +1,18 @@
 import { Template } from 'meteor/templating';
 import { drivers } from '/imports/api/drivers';
-
-Template.driverMenu.onCreated(function helloOnCreated() {
-	// counter starts at 0
-});
+import { Counter } from '/imports/lib/counter/client.js';
 
 
-Template.driverMenu.helpers({
+Template.driverAssignMenu.helpers({
 	drivers: () => drivers.driverCollection, 
 });
 
-Template.driverMenu.events({
-	'click .js-refresh'(event, instance) {
-		// action
+
+Template.driverDeliveryMenu.helpers({
+	drivers: () => drivers.driverCollection, 
+	deliveries: (driver) => {
+		const count = Counter.valueCount('wc', 'driver', driver);
+		return count ? `(${count} Orders)` : undefined;
 	},
 });
 

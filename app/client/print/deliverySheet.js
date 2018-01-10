@@ -4,6 +4,7 @@ import { orders } from '/imports/api/orders';
 import { select } from '/imports/lib/select';
 import moment from 'moment';
 import { Counter } from '/imports/lib/counter/client.js';
+import { FlowRouter } from 'meteor/kadira:flow-router';
 
 Template.deliverySheet.onCreated(function() {
 	const self = this;
@@ -38,6 +39,7 @@ Template.deliverySheet.helpers({
 	shipTo: order => _.first(order.shipAddress, 1),
 	addressOf: order => _.rest(order.shipAddress, 1),
 	isShipped: order => (order.isShipped==='1' ? 'uk-background-muted' : 'uk-background-primary'),
+	driver: () => FlowRouter.getQueryParam('driver'),
 });
 
 Template.deliverySheet.events({

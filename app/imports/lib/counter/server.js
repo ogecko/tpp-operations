@@ -8,7 +8,7 @@ export const Counter = class {
 		this.collection = collection;
 		this.match = match || {};
 		this.defns = defns || [];
-		this.interval = interval || 1000 * 10;
+		this.interval = interval || 1000 * 5;
 		this.cursor = collection.find(this.match);
 		this._collectionName = 'counters-collection';
 	}
@@ -27,7 +27,8 @@ export const Counter = class {
 		sub.ready();
 
 		const handler = Meteor.setInterval(() => {
-			groups.count = self.collection.find(self.match).count();
+			// groups.count = self.collection.find(self.match).count();
+			const groups = countGroups(self.collection, self.match, self.defns);
 			sub.changed(self._collectionName, self.name, groups);
 		}, self.interval);
 

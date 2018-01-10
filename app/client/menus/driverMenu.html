@@ -1,10 +1,23 @@
-<template name="driverMenu">
+<template name="driverAssignMenu">
 		<ul class="uk-nav uk-dropdown-nav">
 			{{#each driver in drivers}}
 			<li>
-				<a href="#" class="uk-active js-driver-select" data-seq={{driver.seq}}>
+				<a href="#" class="uk-active js-assign-selected-driver" data-driver={{driver.name}}>
 					<i class="fas fa-truck" style="color:{{driver.color}}"></i>
 					&nbsp;{{driver.name}}
+				</a>
+			</li>
+			{{/each}}
+		</ul>	
+</template>
+
+<template name="driverDeliveryMenu">
+		<ul class="uk-nav uk-dropdown-nav">
+			{{#each driver in drivers}}
+			<li>
+				<a href="/delivery?driver={{driver.name}}&pp=500" class="uk-active" target="_blank">
+					<i class="fas fa-truck" style="color:{{driver.color}}"></i>
+					&nbsp;{{driver.name}} {{deliveries driver.name}}
 				</a>
 			</li>
 			{{/each}}
