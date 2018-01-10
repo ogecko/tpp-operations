@@ -35,7 +35,10 @@ Template.labelSheet.helpers({
 		return print;
 	},
 	isLabelBlank: (id) => Template.instance().blanks.get()[id],
-	msgsize: (order) => (order.specialMessage && order.specialMessage.length<200 ? 'og-label-msg1' : 'og-label-msg2'),
+	instsize: (order) => (order.shipInstructions && order.shipInstructions.length<170 ? 'og-label-instructions' : 'og-label-msg2'),
+	msgsize: (order) => (order.specialMessage && order.specialMessage.length<170 ? 'og-label-msg1' : 'og-label-msg2'),
+	tosize: (order) => (order.deliveryTo && order.deliveryTo.length<20 ? 'og-label-toname' : 'og-label-for'),
+	fromsize: (order) => (order.deliveryFrom && order.deliveryFrom.length<20 ? 'og-label-from' : 'og-label-for'),
 	date: d => d,
 	isNotBlank: (order) => order.orderNo,
 });
