@@ -39,7 +39,7 @@ if (Meteor.isClient) {
 
 	// Setup a request in the background
 	console.log('Starting background recurring jobs');
-	jobQueue.dispatch('fetch list', { }, { schedule: "every 5 minutes", retries: 3, wait: 10*1000 });
+	jobQueue.dispatch('fetch list', { }, { schedule: "every 5 minutes", retries: 15, wait: 10*1000 });
 	jobQueue.dispatch('cleanup', { }, { schedule: "every 5 minutes", retries: 3, wait: 10*1000 });
 
 };
