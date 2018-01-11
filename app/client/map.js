@@ -138,7 +138,7 @@ Template.map.onRendered(function () {
 		if (GoogleMaps.loaded()) {
 			const div = document.getElementById('js-driver-map-menu');
 			console.log('rendered',div,map);
-			map.instance.controls[google.maps.ControlPosition.TOP_RIGHT].push(div);
+			map.instance.controls[google.maps.ControlPosition.TOP_LEFT].push(div);
 		}
 	});
 });
