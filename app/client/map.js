@@ -10,15 +10,15 @@ import { drivers } from '/imports/api/drivers';
 
 const markers = {};
 
-function pinSymbol(color) {
+function pinSymbol(color, isSelected) {
     return {
         // path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1 1 10,-30 C 10,-22 2,-20 0,0 z',	// original
         // path: 'M 0,0 C -2,-20 -15,-18 -15,-30 Q -15,-40 -5,-40 L 5,-40 Q 15,-40 15,-30 C 15,-18 2,-20 0,0 z',	// stretched original
         path: 'M 0,0 C -2,-20 -10,-20 -15,-20 L -15,-35 Q -15,-40 -10,-40 L 10,-40 Q 15,-40 15,-35 L 15,-20 C 10,-20 2,-20 0,0 z',	// rounded rect marker
         fillColor: color,
         fillOpacity: .8,
-        strokeColor: "#FFF",
-        strokeWeight: 0,
+        strokeColor: "#2d6ccc",				// select blue color
+        strokeWeight: isSelected ? 3 : 0,
         scale: 1,
         labelOrigin: new google.maps.Point(0, -30),
    };
@@ -31,6 +31,14 @@ function pinLabel(text) {
 		fontWeight: 'bold',
 		text: text,
 	};
+}
+
+function updateMarkerIcon(marker) {
+	marker.setIcon(pinSymbol(drivers.color(marker.driver), marker.isSelected));
+}
+function toggleMarker(marker) {
+	marker.isSelected = !marker.isSelected;
+	updateMarkerIcon(marker);
 }
 
 const LAT = -33.8674365;
@@ -86,9 +94,16 @@ Template.map.onCreated(function() {
 						map: map.instance,
 						title: doc.driver+': '+doc.orderNo+doc.productCode+' '+doc.shipAddress.join(', '),
 						label: pinLabel((doc.orderNo+'').slice(-3)),
-						icon: pinSymbol(drivers.color(doc.driver)),
-						id: doc._id,		// for later reference
+						icon: pinSymbol(drivers.color(doc.driver), false),
+						id: doc._id,				// for later reference
+						orderNo: doc.orderNo,		// for later reference
+						driver: doc.driver,			// for later reference
+						isSelected: false,			// for later manipulation
 					});
+					google.maps.event.addListener(marker, 'click', function(event) {
+					      console.log('clicked marker ',markers[doc._id]);
+					      toggleMarker(markers[doc._id]);
+				    });
 					// Store this marker instance within the markers object.
 					markers[doc._id] = marker;
 				}
@@ -98,13 +113,13 @@ Template.map.onCreated(function() {
 				if (markers[docNew._id] && docNew.shipLocation) {
 					markers[docNew._id].setPosition({ lat: docNew.shipLocation.lat, lng: docNew.shipLocation.lng });
 				}
-				if (markers[docNew._id] && docNew.driver) {
-					markers[docNew._id].setIcon(pinSymbol(drivers.color(docNew.driver)));
-				}
+				markers[docNew._id].driver = docNew.driver;
+				updateMarkerIcon(markers[docNew._id]);
 			},
 			removed: docOld => {
 				if (markers[docOld._id]) {
 					console.log(docOld.orderNo, 'removed');
+					google.maps.event.clearInstanceListeners(markers[docOld._id]);
 					// Remove the marker from the map
 					markers[docOld._id].setMap(null);
 					// Remove the reference to this marker instance
@@ -117,8 +132,15 @@ Template.map.onCreated(function() {
 	});	
 });
 
-Template.map.onRendered(function() {
-
+Template.map.onRendered(function () {
+	// add the driver assignment control to the map
+	GoogleMaps.ready('deliveryMap', (map) => {
+		if (GoogleMaps.loaded()) {
+			const div = document.getElementById('js-driver-map-menu');
+			console.log('rendered',div,map);
+			map.instance.controls[google.maps.ControlPosition.TOP_RIGHT].push(div);
+		}
+	});
 });
 
 Template.map.helpers({
@@ -144,11 +166,16 @@ Template.map.helpers({
 });
 
 Template.map.events({
-	'click .js-blank'(event, instance) {
-		const id = event.currentTarget.dataset.id;
-		const blanks = Template.instance().blanks.get();
-		blanks[id] = !blanks[id];
-		Template.instance().blanks.set(blanks);
+	'click .js-map-assign-selected-driver': (event,instance) => {
+		const tgt = instance.$(event.currentTarget)[0];
+		const driver = tgt.dataset.driver;
+		_.each(markers, marker => {
+			if (marker.isSelected) {
+				console.log(`Assign ${marker.orderNo} to ${driver}`);
+				Meteor.call('assign driver', marker.orderNo, driver);
+				toggleMarker(marker);
+			}
+		});
 	},
 });
 

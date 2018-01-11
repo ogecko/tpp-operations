@@ -24,3 +24,23 @@
 		</ul>	
 </template>
 
+<template name="driverMapMenu">
+		<div id="js-driver-map-menu" class="js-driver-map-menu uk-margin-small-top uk-margin-small-right">
+			<a class="uk-icon-button uk-button-primary" href="#">
+				<i class="fas fa-truck fa-lg"></i>
+			</a>
+				<div uk-dropdown="pos: bottom-left">
+					<ul class="uk-nav uk-dropdown-nav">
+						{{#each driver in drivers}}
+						<li>
+							<a href="#" class="uk-active js-map-assign-selected-driver" data-driver={{driver.name}}>
+								<i class="fas fa-truck" style="color:{{driver.color}}"></i>
+								&nbsp;Assign {{driver.name}}
+							</a>
+						</li>
+						{{/each}}
+					</ul>	
+				</div>
+		</div>
+</template>
+

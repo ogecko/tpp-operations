@@ -16,3 +16,12 @@ Template.driverDeliveryMenu.helpers({
 	},
 });
 
+
+Template.driverMapMenu.helpers({
+	drivers: () => drivers.driverCollection, 
+	deliveries: (driver) => {
+		const count = Counter.valueCount('wc', 'driver', driver);
+		return count ? `(${count} Orders)` : undefined;
+	},
+});
+
