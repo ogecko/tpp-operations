@@ -35,6 +35,7 @@ Meteor.methods({
 
 	'select todays': (d) => {
 		const delivery = parse.dates(d);
+		orderCollection.update({}, { $set: { isSelected: '0' } }, { multi: true });
 		orderCollection.update({ $and: [ { deliveryDateChecked: { $lte: delivery } }, { isShipped: { $eq: '0' } } ] }, { $set: { isSelected: '1' } }, { multi: true });
 	},
 
