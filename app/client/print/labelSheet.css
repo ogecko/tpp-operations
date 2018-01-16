@@ -27,7 +27,7 @@
 
 /* page TOP margin wider at 1, 19, 37, etc*/
 	.og-avery-l7109 .og-label:nth-of-type(18n+1) {
-		margin-top: 8mm !important;
+		margin-top: 5mm !important;
 	}
 
 /* hide all label-breaks as a default */
