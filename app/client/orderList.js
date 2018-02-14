@@ -1,4 +1,5 @@
 import { _ } from 'meteor/underscore';
+import { FlowRouter } from 'meteor/kadira:flow-router';
 import { jobQueue } from '/imports/api/jobQueue';
 import { orders } from '/imports/api/orders';
 import { select } from '/imports/lib/select';
@@ -24,7 +25,7 @@ Template.orderList.helpers({
 			);
 	},
 	numItems: () => Counter.get('wc'), 
-	numPages: () => ({ pages: Counter.pages('wc', select.DEFAULT_ITEMS_PER_PAGE), buttons: 4 }),
+	numPages: () => ({ pages: Counter.pages('wc', FlowRouter.getQueryParam('pp')||select.DEFAULT_ITEMS_PER_PAGE), buttons: 7 }),
 	date: d => moment(d).format('DD MMM YY'),
 	today: d => moment().format('DD MMM YY'),
 	addressOf: order => _.rest(order.shipAddress, 1),
