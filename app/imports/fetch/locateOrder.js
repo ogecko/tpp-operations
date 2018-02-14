@@ -31,8 +31,8 @@ export function locateOrder(job, cb) {
 					// console.log('location', JSON.stringify(response, undefined, 2));
 					orders.update(docUpdate);
 				}
-			});
-
+			})
+			.catch(error => console.log('geocode:',error));
 		}
 	}
 	job.done(); cb();
