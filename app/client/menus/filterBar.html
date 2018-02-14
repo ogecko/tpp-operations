@@ -1,9 +1,18 @@
 
 <template name="filterBar">
-	<div class="uk-align-right uk-button-group">
-		<a class="uk-button uk-button-small {{isAll}}" uk-tooltip title="Show all orders" href="/"><i class="fas fa-filter"></i>All</a>
-		<a class="uk-button uk-button-small {{isSelected}}" uk-tooltip title="Show only selected orders" href="/?selected=1&pp=500">Selected</a>
-		<a class="uk-button uk-button-small {{isNotShipped}}" uk-tooltip title="Show orders that have not shipped" href="/?shipped=0&pp=500">Not Shipped</a>
+	<div class="uk-align-right">
+		<div class="uk-nav-overlay uk-button-group">
+			<a class="uk-button uk-button-small {{isAll}}" uk-tooltip title="Show all orders" href="/"><i class="fas fa-filter"></i>All</a>
+			<a class="uk-button uk-button-small {{isSelected}}" uk-tooltip title="Show only selected orders" href="/?selected=1&pp=500">Selected</a>
+			<a class="uk-button uk-button-small {{isNotShipped}}" uk-tooltip title="Show orders that have not shipped" href="/?shipped=0&pp=500">UnShipped</a>
+		</div>
+		<div class="uk-nav-overlay uk-inline" hidden>
+			<form>
+				<input class="uk-input uk-form-small uk-form-width-medium js-search-input" type="text" placeholder="Search...">
+			</form>
+		</div>
+		<a class="uk-button uk-button-small js-search" uk-toggle="target: .uk-nav-overlay" href="/"><i class="fas fa-search"></i></a>
+
 	</div>
 
 </template>

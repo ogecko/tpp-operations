@@ -4,6 +4,12 @@ import { ReactiveVar } from 'meteor/reactive-var';
 import { jobQueue } from '/imports/api/jobQueue';
 import icon from 'uikit/dist/js/uikit-icons.js';
 
+function setQuery(q) {
+	console.log(q);
+	FlowRouter.setQueryParams({ q, p: 1 });
+}
+const setQueryDebounced = _.debounce(setQuery, 300);
+
 Template.filterBar.onCreated(function helloOnCreated() {
 	// counter starts at 0
 	this.counter = new ReactiveVar(0);
@@ -20,8 +26,7 @@ Template.filterBar.helpers({
 });
 
 Template.filterBar.events({
-	'click .js-refresh'(event, instance) {
-		// action
-	},
+	'focus .js-search-input': e => setQueryDebounced(e.currentTarget.value),
+	'input .js-search-input': e => setQueryDebounced(e.currentTarget.value),
 });
 
