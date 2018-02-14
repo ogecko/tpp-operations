@@ -21,3 +21,14 @@ Also ensure the server hosting docker has the correct timezone using
 ````
 	sudo timedatectl set-timezone Australia/Sydney
 ````
+
+
+
+Finally, one last note
+
+WARNING: simpl-schema no longer works with cheerio objects in the AutoValue functions
+to fix this we must monkey patch the file node_modules/simpl-schema/dist/clean/AutoValueRunner.js
+and change the line 136 not to use clone
+```
+	mongoObject.setValueForPosition(position, autoValue);
+```

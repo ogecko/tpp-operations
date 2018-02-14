@@ -4,6 +4,7 @@
   "scripts": {
     "start": "meteor run -p 3020 --settings ../mup/settings.json",
     "debug": "meteor run -p 3020 --inspect=192.168.1.6 --settings ../mup/settings.json",
+    "debugReadMe": "echo To monitor nodeinspector navigate Chrome to uri - chrome://inspect",
     "test": "meteor test -p 3022 --driver-package=practicalmeteor:mocha --settings ../mup/settings.json",
     "logs": "cd ../mup; mup logs -t -f",
     "deploy": "echo \"<template name='version'>\n<div class='uk-container uk-section'>\" > client/version.html; git log -1 --pretty=format:\"<h2>Last Commit: %aD</h2>\n<table class='uk-table uk-table-small uk-table-striped'>\n<thead><tr><th>Hash</th><th>Description</th></tr></thead>\n\" >>client/version.html; git log -10 --pretty=format:\"<tr><td>%h</td><td>%s</td></tr>\" >>client/version.html; echo \"\n</table>\n</div>\n</template>\" >> client/version.html; cd ../mup; mup deploy"
@@ -19,7 +20,11 @@
     "moment-timezone": "^0.5.14",
     "nightmare": "^2.10.0",
     "numeral": "^1.5.3",
+    "simpl-schema": "^1.4.2",
     "uikit": "^3.0.0-beta.35",
     "webfontloader": "^1.6.28"
+  },
+  "devDependencies": {
+    "mup": "^1.3.7"
   }
 }

@@ -24,9 +24,9 @@ Meteor.methods({
 		if (!isSignedIn()) return undefined;
 		const doc = orderCollection.findOne({ orderNo: { $eq: Number(orderNo) } });
 		if (doc) {
-			console.log('toggle found', doc._id, doc.orderNo );
 			doc.isSelected = (doc.isSelected=="1") ? "0" : "1";
-			orderCollection.update({ _id: doc._id }, doc);
+			console.log(`toggle order ${doc.orderNo} to isSelected = ${doc.isSelected}`);
+			orderCollection.update({ _id: doc._id }, { $set: doc });
 		}
 	},
 	'select all': () => orderCollection.update({}, { $set: { isSelected: '1' } }, { multi: true }),
@@ -55,14 +55,14 @@ Meteor.methods({
 		orderCollection.find({ }).forEach(doc => {
 			doc.orderNo = Number(doc.orderNo);
 			console.log(doc._id, doc.orderNo);
-			orderCollection.update({ _id: doc._id }, doc);
+			orderCollection.update({ _id: doc._id }, { $set: doc });
 		});
 	},
 
 	fixDeliveryDate: () => {
 		orderCollection.find({ }).forEach(doc => {
 			doc.deliveryDateChecked = parse.dates(doc.deliveryDate);
-			orderCollection.update({ _id: doc._id }, doc);
+			orderCollection.update({ _id: doc._id }, { $set: doc });
 		});
 	},
 
@@ -72,7 +72,7 @@ Meteor.methods({
 		const doc = orderCollection.findOne({ orderNo: { $eq: Number(orderNo) } });
 		if (doc) {
 			doc.isShipped = (doc.isShipped=="1") ? "0" : "1";
-			orderCollection.update({ _id: doc._id }, doc);
+			orderCollection.update({ _id: doc._id }, { $set: doc });
 		}
 	},
 	storeOrderModified: (orderNo, reqChanges) => {
@@ -87,7 +87,7 @@ Meteor.methods({
 			const newDoc = { ...oldDoc, ...changes };
 			if (_.isEqual(oldDoc, newDoc)) return undefined;
 			newDoc.isModified = "1";
-			orderCollection.update({ _id: oldDoc._id }, newDoc );
+			orderCollection.update({ _id: oldDoc._id }, { $set: newDoc } );
 			console.log('Stored modifications ', orderNo, JSON.stringify(changes, undefined, 2));
 			Meteor.call('locate order', newDoc.orderNo);
 		}

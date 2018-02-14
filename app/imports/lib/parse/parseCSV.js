@@ -1,5 +1,5 @@
 import { _ } 					from 'meteor/underscore';
-import { SimpleSchema }			from 'meteor/aldeed:simple-schema';
+import SimpleSchema			    from 'simpl-schema';
 import { validateWithSchema }	from './utility/validateWithSchema.js';
 import numeral 					from 'numeral';
 

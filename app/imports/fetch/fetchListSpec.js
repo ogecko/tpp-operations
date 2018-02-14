@@ -1,6 +1,6 @@
-import { SimpleSchema } from 'meteor/aldeed:simple-schema';
+import SimpleSchema from 'simpl-schema';
 import { parse } from '/imports/lib/parse';
-
+ 
 export const fetchListRowSpec = new SimpleSchema({
 	dom: {
 		type: Object, optional: true, blackbox: true,
@@ -63,10 +63,13 @@ export const fetchListSpec = new SimpleSchema({
 		autoValue: function(doc) { return parse.domCheck(this); }
 	},
 	orders: {
-		type: [fetchListRowSpec], 
+		type: Array, 
 		autoValue: function(doc) { 
 			return parse.domSelect(this, ['dom'], '#orders-vue > div > table > tbody > tr:nth-child(n+2)'); 
 		}
+	},
+	'orders.$': {
+		type: fetchListRowSpec, 
 	},
 });
 

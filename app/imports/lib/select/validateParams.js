@@ -1,5 +1,5 @@
 import { _ } from 'meteor/underscore';
-import { SimpleSchema } from 'meteor/aldeed:simple-schema';
+import SimpleSchema from 'simpl-schema';
 
 /**
  * @summary validate the selector and modifer based on filterField definitions
@@ -9,25 +9,28 @@ import { SimpleSchema } from 'meteor/aldeed:simple-schema';
  *
  */
  export function _validateParams(defns, selector, modifier) {
+ 	const filterFieldSpec = new SimpleSchema({
+		label:		{ type: String, optional: true },	// label on filterBy popup
+		param:		{ type: String },					// URL query parameter name
+		field:		{ type: String, optional: true },	// document field name
+		limit:		{ type: Number, optional: true },					// max no aggr field values
+		sort:		{ type: Object, optional: true, blackbox: true },	// sort of aggr pipeline
+		operator:	{ type: String },					// selector operator
+ 	});
+
+
 	// check for an Array of filter field definitions
 	const defnsSchema = new SimpleSchema({
-		defns: {
-			type: [new SimpleSchema({
-				label:		{ type: String, optional: true },	// label on filterBy popup
-				param:		{ type: String },					// URL query parameter name
-				field:		{ type: String, optional: true },	// document field name
-				limit:		{ type: Number, optional: true },					// max no aggr field values
-				sort:		{ type: Object, optional: true, blackbox: true },	// sort of aggr pipeline
-				operator:	{ type: String },					// selector operator
-			})],
-		},
+		defns: 		{ type: Array },
+		'defns.$': 	{ type: filterFieldSpec }
 	});
 	defnsSchema.validate({ defns });
 
 	// check for an object that has field restrictions based on MongoDB operators
 	const selectorSchema = new SimpleSchema({
 		$eq:		{ type: String, optional: true },
-		$in:		{ type: [String], optional: true },
+		$in:		{ type: Array,  optional: true },
+		'$in.$':	{ type: String, optional: true },
 		$regex:		{ type: String, optional: true },
 		$options:	{ type: String, optional: true },
 		$lunr:		{ type: String, optional: true },

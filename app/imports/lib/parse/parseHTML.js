@@ -1,5 +1,5 @@
 import { check, Match } 		from 'meteor/check';
-import { SimpleSchema }			from 'meteor/aldeed:simple-schema';
+import SimpleSchema			    from 'simpl-schema';
 import cheerio					from 'cheerio';
 import { isHtml }				from './utility/isHtml.js';
 import { validateWithSchema }	from './utility/validateWithSchema.js';
@@ -14,7 +14,7 @@ export function parseHTML(content, schema) {
 	const doc = { dom: cheerio.load(content)('body') };
 
 	// Clean the document with the schema
-	schema.clean(doc, { extendAutoValueContext: { isParse: true } });
+	schema.clean(doc, { mutate: true, extendAutoValueContext: { isParse: true } });
 
 	// Parse the document with the schema, assuming schema's autofill funcions have extractHtml calls
 	return validateWithSchema(doc, schema);

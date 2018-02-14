@@ -1,4 +1,4 @@
-import { SimpleSchema } from 'meteor/aldeed:simple-schema';
+import SimpleSchema from 'simpl-schema';
 import { parse } from '/imports/lib/parse';
 
 export function match(self, splitAt, re, replace, str) {
@@ -112,7 +112,7 @@ export const fetchOrderSpec = new SimpleSchema({
 	},
 
 	shipAddress: {
-		type: [String], optional: true,
+		type: Array, optional: true,
 		autoValue: function(doc) { 
 			if (this.isSet) return undefined;
 			const str0 = parse.domSelect(this, 'html', 'div.delivery');
@@ -138,6 +138,10 @@ export const fetchOrderSpec = new SimpleSchema({
 						    .split('<nl>');
 			return _.compact(str4);
 		}
+	},
+
+	'shipAddress.$': {
+		type: String
 	},
 
 	productCode: {
@@ -169,6 +173,7 @@ export const fetchOrderSpec = new SimpleSchema({
 		"Total: $85.99": "-L-CS",
 		"Total: $95.99": "-L-CL",
 
+// pre-order posys
 		"10002": 		"-S-C0",
 		"10002-1": 		"-S-CS",
 		"10009": 		"-S-CL",
@@ -179,6 +184,7 @@ export const fetchOrderSpec = new SimpleSchema({
 		"10016": 		"-L-CS",
 		"10017": 		"-L-CL",
 
+// todays posys
 		"10001-1": 		"-S-C0",
 		"10001-2": 		"-S-CS",
 		"10001-3": 		"-S-CL",

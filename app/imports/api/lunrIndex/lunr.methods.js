@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo, Cursor } from 'meteor/mongo';
 import { check } from 'meteor/check';
-import { SimpleSchema } from 'meteor/aldeed:simple-schema';
+import SimpleSchema from 'simpl-schema';
 import lunr from 'lunr';
 import { _ } from 'meteor/underscore';
 import { lunrStore } from './lunr.store.js';

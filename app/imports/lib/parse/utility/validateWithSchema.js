@@ -3,14 +3,14 @@ import { _ } from 'meteor/underscore';
 // used by parse.html and parse.csv to clean the data and get a list of parsing errors
 export function validateWithSchema(doc, schema) {
 	// Clean the document of any html or dom structures
-	schema.clean(doc, { extendAutoValueContext: { isScrub: true } });
+	schema.clean(doc, { mutate: true, extendAutoValueContext: { isScrub: true } });
 
 	// validate the document
 	const context = schema.newContext();
 	context.validate(doc);
 
 	// get a list of any errors, adding the error message
-	const errors = _.map(context.invalidKeys(), key => {
+	const errors = _.map(context.validationErrors(), key => {
 		const message = `${context.keyErrorMessage(key.name)} (${key.value})`;
 		return _.extend({ message }, key);
 	});

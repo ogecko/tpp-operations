@@ -19,7 +19,7 @@ Template.orderList.onCreated(function() {
 Template.orderList.helpers({
 	orders: function() {
 		return orders.orderCollection.find(
-			select.getSelectorFromParams(orders.orderFilterFields),
+			select.expandLunr('orders', select.getSelectorFromParams(orders.orderFilterFields), (x)=>parseInt(x,10)),  
 			_.pick(select.getModifierFromParams(), 'sort')
 			);
 	},
