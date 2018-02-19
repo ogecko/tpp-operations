@@ -12,7 +12,7 @@ Meteor.methods({
 			check(name, String);
 			check(query, String);
 			const results = lunrStore[name].search(query);
-			return _.first(results, 10);
+			return _.first(results, 30);
 		}
 		return [];
 	},
