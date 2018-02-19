@@ -5,7 +5,6 @@ import { jobQueue } from '/imports/api/jobQueue';
 import icon from 'uikit/dist/js/uikit-icons.js';
 
 function setQuery(q) {
-	console.log(q);
 	FlowRouter.setQueryParams({ q, p: 1 });
 }
 const setQueryDebounced = _.debounce(setQuery, 300);
