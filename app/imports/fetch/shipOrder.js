@@ -11,7 +11,7 @@ export function shipOrder(job, cb) {
 	const jobNo = job.data.orderNo;
 	console.log('Calling shipOrder on Order ', jobNo);
 	if (Meteor.isServer) {
-		const web = Nightmare()    	// { show: true }
+		const web = Nightmare({ pollInterval: 50 })    	// { show: true }
 		.use(loginRocketSpark('/dashboard/shop_settings/orders/'+jobNo))
 		.wait('#checkbox-shipping-'+jobNo)
 		.click('#checkbox-shipping-'+jobNo)
