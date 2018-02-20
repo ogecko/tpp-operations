@@ -10,7 +10,7 @@ jobQueue.recruitWorker('fetch list', { concurrency: 1 }, fetchList);
 export function fetchList(job, cb) {
 	console.log('Calling fetchList');
 	if (Meteor.isServer) {
-		const web = Nightmare()			// { show: true }
+		const web = Nightmare({ pollInterval: 50 })			// { show: true }
 		.use(loginRocketSpark('/dashboard/shop_settings/order_history'))
 		.wait('#orders-vue > div > table')
 		.evaluate(function () {

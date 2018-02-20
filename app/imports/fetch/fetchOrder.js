@@ -10,10 +10,8 @@ jobQueue.recruitWorker('fetch order', { concurrency: 2 }, fetchOrder);
 export function fetchOrder(job, cb) {
 	console.log('Calling fetchOrder on Order ', job.data.orderNo);
 	if (Meteor.isServer) {
-		const web = Nightmare()    	// { show: true }
-		.use(loginRocketSpark('/dashboard/shop_settings/order_history'))
-		.wait('#orders-vue > div > table')
-		.goto('https://tpp.rocketsparkau.com/dashboard/shop_settings/orders/'+job.data.orderNo)
+		const web = Nightmare({ pollInterval: 50 })    	// { show: true }
+		.use(loginRocketSpark('/dashboard/shop_settings/orders/'+job.data.orderNo))
 		.wait('#view-order > div > .order-header')
 		.evaluate(function () {
 			return document.querySelector('body').outerHTML;
