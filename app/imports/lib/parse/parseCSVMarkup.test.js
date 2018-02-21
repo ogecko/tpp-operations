@@ -1,6 +1,5 @@
 /* eslint-env mocha */
 import { chai, expect }	from 'meteor/practicalmeteor:chai'; chai.should();
-import { SimpleSchema }		from 'meteor/aldeed:simple-schema';
 import { _ } from 'meteor/underscore';
 import { parse }			from '/imports/lib/parse';
 

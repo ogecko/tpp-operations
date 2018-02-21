@@ -1,6 +1,6 @@
 /* eslint-env mocha */
 import { chai }							from 'meteor/practicalmeteor:chai'; chai.should();
-import { SimpleSchema } 				from 'meteor/aldeed:simple-schema';
+import SimpleSchema 				from 'simpl-schema';
 import { validateWithSchema }			from './validateWithSchema.js';
 
 // Simple unit tests for validateWithSchema library function
@@ -23,9 +23,14 @@ describe('lib/parse validateWithSchema Unit tests', () => {
 			min: 0,
 		},
 		copiesArray: {
-			type: [Number],
+			type: Array,
 			label: 'Array of copies',
+			optional: true,
+		},
+		'copiesArray.$': {
+			type: Number,
 			min: 0,
+			label: 'Array of copies',
 			optional: true,
 		},
 		lastCheckedOut: {

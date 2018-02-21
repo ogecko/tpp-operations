@@ -1,9 +1,9 @@
 /* eslint-env mocha */
 import { chai, expect }				from 'meteor/practicalmeteor:chai'; const should = chai.should();
 import { stubs, spies }				from 'meteor/practicalmeteor:sinon';
-import { SimpleSchema }				from 'meteor/aldeed:simple-schema';
+import SimpleSchema					from 'simpl-schema';
 import cheerio						from 'cheerio';
-import { parse }						from '/imports/lib/parse';
+import { parse }					from '/imports/lib/parse';
 
 // Simple unit tests for parse.domSelect library function
 describe('lib/parse domSelect Unit tests', () => {
@@ -126,19 +126,22 @@ describe('lib/parse domSelect Unit tests', () => {
 				autoValue: function() { return parse.domSelect(this, Number, 'input:nth-child(2)', 'size'); }
 			},
 			fruits: {
-				type: [String],
+				type: Array,
 				autoValue: function() { return parse.domSelect(this, [String], '.item'); }
-			}
+			},
+			'fruits.$': {
+				type: String,
+			},
 		});
 		var response = { dom: mockDOM };
-		test1Schema.clean(response, { extendAutoValueContext:{isParse:true} });
-		test1Schema.clean(response, { extendAutoValueContext:{isScrub:true} });
+		test1Schema.clean(response, { mutate:true, extendAutoValueContext:{ isParse:true } });
+		test1Schema.clean(response, { mutate:true, extendAutoValueContext:{ isScrub:true } });
 		response.inputsize.should.equal(5);
 		response.fruits.should.deep.equal(['Apples','Pears','Oranges']);
 
 		var ctx = test1Schema.newContext();
 		ctx.validate(response); 
-		ctx.invalidKeys().map(key => ctx.keyErrorMessage(key.name)).join('; ')
+		ctx.validationErrors().map(key => ctx.keyErrorMessage(key.name)).join('; ')
 			.should.equal('Inputsize cannot exceed 2');
 	});
 
@@ -157,7 +160,7 @@ describe('lib/parse domSelect Unit tests', () => {
 				autoValue: function() { return parse.domSelect(this, Number, '','size'); }
 			},
 			price: {
-				type: Number, decimal:true, max: 15,
+				type: Number, max: 15,
 				autoValue: function() { return parse.domSelect(this, Number, '','price'); }
 			}
 		});
@@ -171,19 +174,22 @@ describe('lib/parse domSelect Unit tests', () => {
 				autoValue: function() { return parse.domSelect(this, Number, 'input:nth-child(2)','size'); }
 			},
 			fruits: {
-				type: [itemSchema],
+				type: Array,
 				autoValue: function() { return parse.domSelect(this, ['dom'], '.item'); }
-			}
+			},
+			'fruits.$': {
+				type: itemSchema,
+			},
 		});
 
 		const response = { dom: mockDOM };
-		test1Schema.clean(response, { extendAutoValueContext:{isParse:true} });
-		test1Schema.clean(response, { extendAutoValueContext:{isScrub:true} });
+		test1Schema.clean(response, { mutate:true, extendAutoValueContext:{isParse:true} });
+		test1Schema.clean(response, { mutate:true, extendAutoValueContext:{isScrub:true} });
 		response.inputsize.should.equal(5);
 
 		const ctx = test1Schema.newContext();
 		ctx.validate(response);
-		ctx.invalidKeys().map(key => ctx.keyErrorMessage(key.name)).join('; ')
+		ctx.validationErrors().map(key => ctx.keyErrorMessage(key.name)).join('; ')
 			.should.equal('Inputsize cannot exceed 2; Price cannot exceed 15');
 	});
 });

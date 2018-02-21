@@ -7,7 +7,7 @@ import numeral 					from 'numeral';
 export function parseCSV(content, schema, separator = ',', ignoreHeader = true, limit = undefined) {
 	const args = new SimpleSchema({
 		content: 		{ type: String },
-		schema: 		{ type: SimpleSchema },
+		schema: 		{ type: Object, blackbox: true },
 		separator: 		{ type: String, optional: true },
 		ignoreHeader: 	{ type: Boolean, optional: true },
 		limit: 			{ type: Number, min: 1, optional: true },

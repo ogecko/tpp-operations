@@ -1,7 +1,7 @@
 /* eslint-env mocha */
-import { chai }	from 'meteor/practicalmeteor:chai'; chai.should();
-import { SimpleSchema }		from 'meteor/aldeed:simple-schema';
-import { parse }			from '/imports/lib/parse';
+import { chai }			from 'meteor/practicalmeteor:chai'; chai.should();
+import SimpleSchema 	from 'simpl-schema';
+import { parse }		from '/imports/lib/parse';
 
 // Simple unit tests for parse.class.js ary function
 describe('lib/parse parseHTML.js  tests', function() {
@@ -31,8 +31,11 @@ describe('lib/parse parseHTML.js  tests', function() {
 			autoValue: function() { return parse.domSelect(this, Number, 'input:nth-child(2)', 'size'); },
 		},
 		fruits: {
-			type: [String],
+			type: Array,
 			autoValue: function() { return parse.domSelect(this, [String], '.item'); },
+		},
+		'fruits.$': {
+			type: String,
 		},
 	});
 

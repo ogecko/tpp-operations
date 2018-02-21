@@ -33,19 +33,19 @@ if (Meteor.isServer) {
 		it('should check for invalid name on initialisation', () => {
 			indexDefn.name = 100;
 			expect(() => lunrIndex.init(indexDefn))
-				.to.throw('Name must be a string [validation-error]');
+				.to.throw('Name must be of type String');
 		});
 
 		it('should check for invalid collection on initialisation', () => {
 			indexDefn.collection = undefined;
 			expect(() => lunrIndex.init(indexDefn))
-				.to.throw('Collection is required [validation-error]');
+				.to.throw('Collection is required');
 		});
 
 		it('should check for at least 1 field definition on initialisation', () => {
 			indexDefn.fields = [];
 			expect(() => lunrIndex.init(indexDefn))
-				.to.throw('You must specify at least 1 values [validation-error]');
+				.to.throw('You must specify at least 1 values');
 		});
 
 		it('should allow initialisation and search of an index', () => {
@@ -62,7 +62,7 @@ if (Meteor.isClient)
 		});
 		it('should allow search of an index from a client', (done) => {
 			lunrIndex.search('book', 'dan', function(err, res) {
-				JSON.stringify(res).should.equal('[{"ref":"The DaVinci Code","score":0.7071067811865476,"matchData":{"metadata":{"dan":{"author":{}}}}},{"ref":"Angels & Demons","score":0.7071067811865476,"matchData":{"metadata":{"dan":{"author":{}}}}},{"ref":"The Lost Symbol","score":0.7071067811865476,"matchData":{"metadata":{"dan":{"author":{}}}}}]');
+				JSON.stringify(res).should.equal('[{"ref":"The DaVinci Code","score":0.4411139462796189},{"ref":"Angels & Demons","score":0.4185323328840654},{"ref":"The Lost Symbol","score":0.4185323328840654}]');
 				done();
 			})
 		});

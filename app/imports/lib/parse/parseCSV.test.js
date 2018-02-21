@@ -1,5 +1,6 @@
 /* eslint-env mocha */
-import { chai, expect }	from 'meteor/practicalmeteor:chai'; chai.should();
+import { chai, expect }		from 'meteor/practicalmeteor:chai'; chai.should();
+import SimpleSchema 		from 'simpl-schema';
 import { parse }			from '/imports/lib/parse';
 
 // Simple unit tests for csvParseWithSchema.js library function
@@ -34,7 +35,7 @@ describe('lib/parse parseCSV.js Unit tests', function() {
 		result.data.length.should.equal(2);
 		result.data[0].title.should.equal('To Kill a Mockingbird');
 		result.data[1].author.should.equal('Harper Loo');
-		result.errors.join('|').should.equal('Number of copies must be at least 0 (-5)|Last date this book was checked out is not a valid date (Invalid Date)');
+		result.errors.join('|').should.equal('Number of copies must be at least 0 (-5)|Last date this book was checked out must be of type Date (40-jan-2012)');
 	});
 
 	it('should be able to parse a csv, ignoring the header row', function() {
@@ -45,7 +46,7 @@ describe('lib/parse parseCSV.js Unit tests', function() {
 		result.data.length.should.equal(2);
 		result.data[0].title.should.equal('To Kill a Mockingbird');
 		result.data[1].author.should.equal('Harper Loo');
-		result.errors.join('|').should.equal('Number of copies must be at least 0 (-5)|Last date this book was checked out is not a valid date (Invalid Date)');
+		result.errors.join('|').should.equal('Number of copies must be at least 0 (-5)|Last date this book was checked out must be of type Date (40-jan-2012)');
 	});
 
 	it('should be able to parse a csv, ignoring the header row and limiting the returned rows', function() {

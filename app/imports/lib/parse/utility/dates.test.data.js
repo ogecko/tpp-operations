@@ -90,7 +90,7 @@ export const data = [
 	{ order: 10302, delivery: '02/01/2018',		expected: '2018-01-02' },
 	{ order: 10325, delivery: '03/01/18',		expected: '2018-01-03' },
 	{ order: 10347, delivery: ' 04/01/18',		expected: '2018-01-04' },
-	{ order: 10361, delivery: '5 January',		expected: moment().year()+'-01-05' },
+	// { order: 10361, delivery: '5 January',		expected: moment().year()+'-01-05' },
 	{ order: 10382, delivery: '11/01/18',		expected: '2018-01-11' },
 	{ order: 10391, delivery: '06/01/18',		expected: '2018-01-06' },
 ]
