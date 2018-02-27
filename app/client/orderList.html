@@ -40,18 +40,18 @@
 							<b class="js-orderDetail" data-order-no="{{order.orderNo}}">{{order.orderNo}}{{order.productCode}}</b><br>
 						    ${{order.amount}}<br>
 						</td>
-						<td>
+						<td class="js-orderEdit" data-order-no="{{order.orderNo}}">
 							<b>{{isSelectedMessage order}}</b>
 							{{order.deliveryDate}}<br>
 							{{order.driver}}<br>
 							{{isShippedMessage order}}
 						</td>
-						<td>
+						<td class="js-orderEdit" data-order-no="{{order.orderNo}}">
 							{{order.customerName}}<br>
 							{{order.customerEmail}}<br>
 							{{order.customerPhone}}
 						</td>
-						<td class="js-shipAddress" data-order-no="{{order.orderNo}}" uk-tooltip title="{{order.shipLocation.geoAddr}} {{order.shipLocation.partial}}">
+						<td class="js-orderEdit" data-order-no="{{order.orderNo}}" uk-tooltip title="{{order.shipLocation.geoAddr}} {{order.shipLocation.partial}}">
 							<div>
 								{{#unless order.shipLocation}}
 									<div><i class="uk-align-right uk-alert-danger fas fa-question-circle"></i></div>
@@ -64,7 +64,7 @@
 								{{/each}}
 							</div>
 						</td>
-						<td class="js-specialMessage" data-order-no="{{order.orderNo}}">
+						<td class="js-orderEdit" data-order-no="{{order.orderNo}}">
 							<div>
 								A Posy For: {{order.deliveryTo}}<br>
 								{{order.specialMessage}}<br>

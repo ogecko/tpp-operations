@@ -1,0 +1,41 @@
+<template name="orderEdit">
+	<div class="uk-container">
+		<h2>Order Number {{orderNo}}</h2>
+	 		 	<hr>
+	 		 {{#autoForm collection=orderCollection id="orderEditForm" 
+	 		 			validation="keyup"  doc=orderDoc
+	 		 			type="update"
+	 		 			}}
+				<legend class="uk-legend">Customer and Order Details</legend>
+	 		 	<div class="uk-grid">
+		 		 	{{> afQuickField name="customerName"}}
+		 		 	{{> afQuickField name="customerPhone"}}
+		 		 	{{> afQuickField name="customerEmail"}}
+		 		 	{{> afQuickField name="productCode"}}
+		 		 	{{> afQuickField name="amount"}}
+	 		 	</div>
+	 		 	<hr>
+ 				<legend class="uk-legend">Delivery Details</legend>
+	 		 	<div class="uk-grid">
+	 		 	{{> afQuickField name="deliveryName"}}
+	 		 	{{> afQuickField name="deliveryBusiness"}}
+	 		 	{{> afQuickField name="deliveryDate"}}
+	 		 	{{> afQuickField name="deliveryAddress"}}
+	 		 	{{> afQuickField name="shipInstructions"}}
+	 		 	</div>
+	 		 	<hr>
+ 				<legend class="uk-legend">Greeting Card Details</legend>
+	 		 	<div class="uk-grid">
+		 		 	{{> afQuickField name="deliveryTo"}}
+		 		 	{{> afQuickField name="deliveryFrom"}}
+		 		 	{{> afQuickField name="specialMessage"}}
+	 		 	</div>
+	 		 	<a class="uk-button uk-margin-large-top uk-button-primary js-submit" href="/">Update</a>
+	 		 	<a class="uk-button uk-margin-large-top uk-button-default js-cancel" href="/">Cancel</a>
+	 		 {{/autoForm}}
+
+
+	</div>
+
+</template>
+

@@ -6,6 +6,7 @@ import { Template } from 'meteor/templating';
 import WebFont from 'webfontloader';
 import { FlowRouter } from 'meteor/kadira:flow-router';
 import { jobQueue } from '/imports/api/jobQueue';
+import SimpleSchema from 'simpl-schema';
 
 // display the template in the content section of the appLayout dynamic template
 function appRenderContent(template) {
@@ -25,12 +26,16 @@ if (Meteor.isClient) {
 	  },
 	});
 
+	AutoForm.setDefaultTemplate('uikit');
+AutoForm.debug();
+
 	FlowRouter.route('/', 					{ action: ()=>BlazeLayout.render('appLayout', { content: 'orderList' }) });
 	FlowRouter.route('/partial',			{ action: ()=>BlazeLayout.render('appLayout', { content: 'labelPartial' }) });
 	FlowRouter.route('/jobs',				{ action: ()=>BlazeLayout.render('appLayout', { content: 'jobList' }) });
 	FlowRouter.route('/map',				{ action: ()=>BlazeLayout.render('appLayout', { content: 'map' }) });
 	FlowRouter.route('/delivery',			{ action: ()=>BlazeLayout.render('printLayout', { content: 'deliverySheet' }) });
 	FlowRouter.route('/labels',				{ action: ()=>BlazeLayout.render('printLayout', { content: 'labelSheet' }) });
+	FlowRouter.route('/order/:orderNo', 	{ action: ()=>BlazeLayout.render('appLayout', { content: 'orderEdit' }) });
 	FlowRouter.route('/page/:pageTitle', 	{ action: ()=>{
 		var pageTitle = FlowRouter.getParam('pageTitle');
 		if (!Template[pageTitle]) pageTitle='unknown';

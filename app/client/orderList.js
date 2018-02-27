@@ -95,6 +95,11 @@ Template.orderList.events({
 
 	'click .js-shipAddress': (event, instance) => inPlaceEdit(event, instance),
 	'click .js-specialMessage': (event, instance) => inPlaceEdit(event, instance), 
+	'click .js-orderEdit': (event, instance) => {
+		const orderNo = event.currentTarget.dataset.orderNo;
+		const src = FlowRouter.current().path;
+		FlowRouter.go(`/order/:orderNo`, { orderNo });
+	}, 
 
 	'focusout .js-shipAddress'(event, instance) {
 		const str = inPlaceEdit(event, instance);

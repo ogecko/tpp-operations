@@ -6,6 +6,9 @@ import { jobQueue } from '/imports/api/jobQueue';
 import { parse } from '/imports/lib/parse';
 
 Meteor.methods({
+	orderEdit: (doc) => {
+		console.log('orderEdit:', JSON.stringify(doc,undefined,2));
+	},
 	cleanOrder: (orderNo) => {
 		if (!isSignedIn()) return undefined;
 		if (orderNo == "all") {
@@ -76,8 +79,6 @@ Meteor.methods({
 		}
 	},
 	storeOrderModified: (orderNo, reqChanges) => {
-		check(orderNo, String);
-		check(reqChanges, Object);
 		if (!isSignedIn()) return undefined;
 		check(orderNo, String);
 		check(reqChanges, Object);
@@ -92,5 +93,15 @@ Meteor.methods({
 			Meteor.call('locate order', newDoc.orderNo);
 		}
 	},
-
+	storeOrderEdit: (orderNo, modifier) => {
+		if (!isSignedIn()) return undefined;
+		check(orderNo, String);
+		check(modifier, Object);
+		const oldDoc = orderCollection.findOne({ orderNo: { $eq: Number(orderNo) } });
+		if (oldDoc) {
+			orderCollection.update({ _id: oldDoc._id }, modifier.updateDoc );
+			console.log('Stored modifications ', orderNo, JSON.stringify(modifier.updateDoc, undefined, 2));
+			Meteor.call('locate order', Number(orderNo));
+		}
+	},
 })
