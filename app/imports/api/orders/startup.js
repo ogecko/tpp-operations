@@ -29,6 +29,6 @@ export function startup() {
 				return cursors;
 			}
 		}); 
-		lunrIndex.init(orderIndexFields);
+		// lunrIndex.init(orderIndexFields);
 	}
 }

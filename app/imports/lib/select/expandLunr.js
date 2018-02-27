@@ -21,7 +21,8 @@ export function _expandLunr(name, selector, mutate=_.identity) {
 			if (Meteor.isClient)
 				delete selector[key];
 			else
-				selector[key] = { $in: _.map(lunrIndex.search(name, value.$lunr), x => mutate(x.ref)) };
+				selector[key] = { $eq: mutate(value.$lunr) };
+				// selector[key] = { $in: _.map(lunrIndex.search(name, value.$lunr), x => mutate(x.ref)) };
 		}
 	});
 	return selector;
