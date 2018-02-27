@@ -5,13 +5,13 @@ import { jobQueue } from '/imports/api/jobQueue';
 import { fetchListSpec } from './fetchListSpec.js';
 import { loginRocketSpark } from './loginRocketSpark.js';
 
-jobQueue.recruitWorker('fetch list', { concurrency: 1 }, fetchList);
+jobQueue.recruitWorker('fetch list', { concurrency: 2 }, fetchList);
 
 export function fetchList(job, cb) {
 	console.log('Calling fetchList');
 	if (Meteor.isServer) {
 		const web = Nightmare({ pollInterval: 50 })			// { show: true }
-		.use(loginRocketSpark('/dashboard/shop_settings/order_history'))
+		.use(loginRocketSpark('/dashboard/shop_settings/orders'))
 		.wait('#orders-vue > div > table')
 		.evaluate(function () {
 			return document.querySelector('body').outerHTML;
