@@ -80,7 +80,7 @@ Template.map.onCreated(function() {
 	GoogleMaps.ready('deliveryMap', (map) => {
 		// console.log("All map tiles have been loaded!");
 		// poly(map);
-		orders.orderCollection.find(
+		self.mapObserveHandle = orders.orderCollection.find(
 			mapOrderSelector,
 			_.pick(select.getModifierFromParams(), 'sort')
 		).observe({
@@ -130,6 +130,14 @@ Template.map.onCreated(function() {
 
 
 	});	
+});
+
+Template.map.onDestroyed(function() {
+	const self = this;
+	if (self.mapObserveHandle) {
+		console.log('stopping map observe');
+		self.mapObserveHandle.stop();
+	}
 });
 
 Template.map.onRendered(function () {
