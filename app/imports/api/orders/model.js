@@ -13,61 +13,67 @@ const shipLocationSpec = new SimpleSchema({
 
 export const orderSpec = new SimpleSchema({
 	orderNo:				{ type: Number,  },
+	orderDate:				{ type: String, optional: true, },
+	isShipped:				{ type: String, optional: true, },
+	isSelected:				{ type: String, optional: true, },
+	driver:					{ type: String, optional: true, },
 	customerName: {
 		type: String, optional: true, 
-		autoform: { label: 'Name'},
+		autoform: { label: 'Name', 'formgroup-class': 'uk-width-1-4@s'},
 	},
-	orderDate:				{ type: String, optional: true, },
-	amount:					{ type: String, optional: true, },
-	isShipped:				{ type: String, optional: true, },
-	deliveryDate: {
-		type: String, optional: true,
-		autoform: { label: 'Delivery Date(s)'},
-	},
-	deliveryDateChecked:	{ type: Date, optional: true, },
 	customerEmail: {
 		type: String, optional: true, regEx: SimpleSchema.RegEx.Email,
-		autoform: { type: "email", label: 'Email', class: 'uk-form-width-large'},
+		autoform: { type: "email", label: 'Email', 'formgroup-class': 'uk-width-1-2@s' },
   	},
 	customerPhone: { 
 		type: String, optional: true, 
-		autoform: { type: 'tel', label: 'Phone'},
+		autoform: { type: 'tel', label: 'Phone', 'formgroup-class': 'uk-width-1-4@s'},
 	},
-	deliveryTo: {
-		type: String, optional: true,
-		autoform: { label: 'A Posy For', },
-  	},
-	specialMessage:	{
+	productCode:			{ 
 		type: String, optional: true, 
-		autoform: { rows: 2, class: 'uk-form-width-large'},
-  	},
-	deliveryFrom: {
-		type: String, optional: true,
-		autoform: { label: "From", },
-  	},
-	shipInstructions: {
+		autoform: { 'formgroup-class': 'uk-width-1-4@s'},
+	},
+	amount:					{
 		type: String, optional: true, 
-		autoform: { rows: 2, class: 'uk-form-width-large'},
-  	},
+		autoform: { 'formgroup-class': 'uk-width-1-4@s'},
+	},
+	deliveryDate: {
+		type: String, optional: true,
+		autoform: { label: 'Delivery Date(s)', 'formgroup-class': 'uk-width-1-4@s'},
+	},
+	deliveryDateChecked:	{ type: Date, optional: true, },
 	deliveryName: {
 		type: String, optional: true,
-		autoform: { label: 'Name', },
+		autoform: { label: 'Name', 'formgroup-class': 'uk-width-1-4@s'},
   	},
 	deliveryBusiness: {
 		type: String, optional: true,
-		autoform: { label: 'Business / Unit / Level / Suite', },
+		autoform: { label: 'Business / Unit / Level / Suite', 'formgroup-class': 'uk-width-1-4@s'},
   	},
 	deliveryAddress: {
 		type: String, optional: true,
-		autoform: { rows: 2, label: 'Address', class: 'uk-form-width-large'},
+		autoform: { rows: 2, label: 'Address', 'formgroup-class': 'uk-width-1-2@s'},
   	},
 	shipAddress:			{ type: Array, optional: true, },
 	'shipAddress.$':		{ type: String },
 	shipLocation:			{ type: shipLocationSpec, optional: true, },
-	productCode:			{ type: String, optional: true, },
+	shipInstructions: {
+		type: String, optional: true, 
+		autoform: { rows: 2, 'formgroup-class': 'uk-width-1-2@s'},
+  	},
+	deliveryTo: {
+		type: String, optional: true,
+		autoform: { label: 'A Posy For', 'formgroup-class': 'uk-width-1-4@s'},
+  	},
+	specialMessage:	{
+		type: String, optional: true, 
+		autoform: { rows: 2, 'formgroup-class': 'uk-width-1-2@s'},
+  	},
+	deliveryFrom: {
+		type: String, optional: true,
+		autoform: { label: "From", 'formgroup-class': 'uk-width-1-4@s'},
+  	},
 
-	isSelected:				{ type: String, optional: true, },
-	driver:					{ type: String, optional: true, },
 }, { tracker: Tracker });
 
 
