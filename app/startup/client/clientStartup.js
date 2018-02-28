@@ -27,7 +27,7 @@ if (Meteor.isClient) {
 	});
 
 	AutoForm.setDefaultTemplate('uikit');
-AutoForm.debug();
+	AutoForm.debug();
 
 	FlowRouter.route('/', 					{ action: ()=>BlazeLayout.render('appLayout', { content: 'orderList' }) });
 	FlowRouter.route('/partial',			{ action: ()=>BlazeLayout.render('appLayout', { content: 'labelPartial' }) });

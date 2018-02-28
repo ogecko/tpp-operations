@@ -17,6 +17,7 @@ Template.orderEdit.helpers({
 	orderCollection: () => orders.orderCollection,
 	orderSpec: () => orders.orderSpec,
 	orderNo: () => FlowRouter.getParam('orderNo'),
+	isCreateOrUpdate: () => (FlowRouter.getParam('orderNo')=="New") ? 'Create' : 'Update',
 	orderDoc: () => {
 		const orderNo = Number(FlowRouter.getParam('orderNo'));
 		return orders.orderCollection.findOne({ orderNo });
@@ -40,13 +41,10 @@ function docToForm(doc) {
 
 function formToDoc(doc) {
 	// recompose the shipAddress array from three fields deliveryName, deliveryBusiness and deliveryAddress
-	if (doc && _.isString(doc.deliveryAddress)) {
-		const address = doc.deliveryAddress.split(', ');
-		if (doc.deliveryBusiness) {
-			doc.shipAddress = [ doc.deliveryName, doc.deliveryBusiness, ...address];
-		} else {
-			doc.shipAddress = [ doc.deliveryName, ...address];
-		}
+	if (doc) {
+		if (!doc.deliveryName) doc.deliveryName = "Unknown";
+		const address = _.isString(doc.deliveryAddress)? doc.deliveryAddress.split(', ') : [ ];
+		doc.shipAddress = _.compact([doc.deliveryName, doc.deliveryBusiness, ...address]);
 	}
 	if (doc && _.isString(doc.deliveryDate)) {
 		doc.deliveryDateChecked = parse.dates(doc.deliveryDate);
@@ -68,6 +66,10 @@ Template.orderEdit.events({
 		const orderNo = FlowRouter.getParam('orderNo');
 		const modifier = AutoForm.getFormValues('orderEditForm');
 		Meteor.call('storeOrderEdit', orderNo, modifier);
+	},
+	'click .js-delete'(event, instance) {
+		const orderNo = FlowRouter.getParam('orderNo');
+		Meteor.call('cleanOrder', orderNo);
 	},
 	'click .js-cancel'(event, instance) {
 	},

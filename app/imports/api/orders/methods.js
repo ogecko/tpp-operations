@@ -4,12 +4,15 @@ import { check } from 'meteor/check';
 import { isSignedIn } from '/imports/lib/isSignedIn.js';
 import { jobQueue } from '/imports/api/jobQueue';
 import { parse } from '/imports/lib/parse';
+import { getNewOrderNo } from './getNewOrderNo.js';
+import moment from 'moment';
 
 Meteor.methods({
 	orderEdit: (doc) => {
 		console.log('orderEdit:', JSON.stringify(doc,undefined,2));
 	},
 	cleanOrder: (orderNo) => {
+		check(orderNo, String);
 		if (!isSignedIn()) return undefined;
 		if (orderNo == "all") {
 			console.log('removing all orders ');
@@ -18,7 +21,7 @@ Meteor.methods({
 		}
 		if (orderNo) {
 			console.log('removing order ', orderNo);
-			orderCollection.remove({ orderNo: { $eq: orderNo } });
+			orderCollection.remove({ orderNo: { $eq: Number(orderNo) } });
 			return undefined;
 		}
 	},
@@ -94,14 +97,26 @@ Meteor.methods({
 		}
 	},
 	storeOrderEdit: (orderNo, modifier) => {
-		if (!isSignedIn()) return undefined;
-		check(orderNo, String);
-		check(modifier, Object);
-		const oldDoc = orderCollection.findOne({ orderNo: { $eq: Number(orderNo) } });
-		if (oldDoc) {
-			orderCollection.update({ _id: oldDoc._id }, modifier.updateDoc );
-			console.log('Stored modifications ', orderNo, JSON.stringify(modifier.updateDoc, undefined, 2));
-			Meteor.call('locate order', Number(orderNo));
+		if (Meteor.isServer) {
+			if (!isSignedIn()) return undefined;
+			check(orderNo, String);
+			check(modifier, Object);
+			const oldDoc = orderCollection.findOne({ orderNo: { $eq: Number(orderNo) } });
+			if (oldDoc) {
+				orderCollection.update({ _id: oldDoc._id }, modifier.updateDoc );
+				Meteor.call('locate order', Number(orderNo));
+				console.log('Stored modifications ', orderNo, JSON.stringify(modifier.updateDoc, undefined, 2));
+				return orderNo
+			} else {
+				modifier.insertDoc.orderNo = getNewOrderNo();
+				modifier.insertDoc.isSelected = '1';
+				modifier.insertDoc.orderDate = moment().format('DD MMM YY');
+				orderCollection.insert(modifier.insertDoc );
+				Meteor.call('locate order', Number(orderNo));
+				console.log('Stored creation ', orderNo, JSON.stringify(modifier.insertDoc, undefined, 2));
+				return modifier.insertDoc.orderNo
+			}
+
 		}
 	},
 })
