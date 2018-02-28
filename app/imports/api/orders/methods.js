@@ -110,6 +110,7 @@ Meteor.methods({
 			} else {
 				modifier.insertDoc.orderNo = getNewOrderNo();
 				modifier.insertDoc.isSelected = '1';
+				modifier.insertDoc.isShipped = '0';
 				modifier.insertDoc.orderDate = moment().format('DD MMM YY');
 				orderCollection.insert(modifier.insertDoc );
 				Meteor.call('locate order', Number(orderNo));
