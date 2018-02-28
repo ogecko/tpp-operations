@@ -18,6 +18,7 @@ Template.orderEdit.helpers({
 	orderSpec: () => orders.orderSpec,
 	orderNo: () => FlowRouter.getParam('orderNo'),
 	isCreateOrUpdate: () => (FlowRouter.getParam('orderNo')=="New") ? 'Create' : 'Update',
+	isDeleteHidden: () => (FlowRouter.getParam('orderNo')=="New") ? 'uk-hidden' : '',
 	orderDoc: () => {
 		const orderNo = Number(FlowRouter.getParam('orderNo'));
 		return orders.orderCollection.findOne({ orderNo });
