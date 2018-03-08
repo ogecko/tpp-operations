@@ -43,7 +43,7 @@
 						<td>
 							{{#each delivery in order.deliveries}}
 								<span class="js-shipToggle" data-order-no="{{order.orderNo}}" data-id="{{delivery.id}}">
-									{{delivery.fmt}}&nbsp;
+									{{moment delivery.date}}&nbsp;
 									{{#if delivery.isShipped}}
 										<span><i class="uk-alert-success fas fa-check-circle"></i></span>
 									{{/if}}

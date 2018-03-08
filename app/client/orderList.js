@@ -37,6 +37,7 @@ Template.orderList.helpers({
 	isSelectedMessage: order => (order.isSelected==='1' ? 'Selected' : undefined),
 	shipAddressDefault: order => order.shipAddress.join('\n'),
 	cardMessageDefault: order => `A Posy For: ${order.deliveryTo}\n${order.specialMessage}\nFrom: ${order.deliveryFrom}`,
+	moment: d => moment(d).format('DD-MMM-YY'),
 });
 
 function inPlaceEdit(event, instance) {
