@@ -3,6 +3,7 @@ import { FlowRouter } from 'meteor/kadira:flow-router';
 import { jobQueue } from '/imports/api/jobQueue';
 import { orders } from '/imports/api/orders';
 import { select } from '/imports/lib/select';
+import { parse } from '/imports/lib/parse';
 import moment from 'moment';
 import { Counter } from '/imports/lib/counter/client.js';
 
@@ -93,40 +94,17 @@ Template.orderList.events({
 		Meteor.call('toggleOrderIsSelected', tgt.dataset.orderNo);
 	},
 
-	'click .js-shipAddress': (event, instance) => inPlaceEdit(event, instance),
-	'click .js-specialMessage': (event, instance) => inPlaceEdit(event, instance), 
 	'click .js-orderEdit': (event, instance) => {
 		const orderNo = event.currentTarget.dataset.orderNo;
 		const src = FlowRouter.current().path;
 		FlowRouter.go(`/order/:orderNo`, { orderNo });
 	}, 
 
-	'focusout .js-shipAddress'(event, instance) {
-		const str = inPlaceEdit(event, instance);
-		const doc = { shipAddress: str };
+	'click .js-shipToggle'(event, instance) {
 		const orderNo = event.currentTarget.dataset.orderNo;
-		Meteor.call('storeOrderModified', orderNo, doc);
+		const id = event.currentTarget.dataset.id;
+		console.log('shipToggle', orderNo, id);
+		Meteor.call('toggleOrderDeliveryShipment', orderNo, id);
 	},
-	'focusout .js-specialMessage'(event, instance) {
-		// const tgt = instance.$(event.currentTarget);
-		const str = inPlaceEdit(event, instance);
-		const reAPosyFor = /^A Posy For: (.+)$/;
-		const reFrom = /^From: (.+)$/;
-		const doc = { };
-		if (_.first(str).match(reAPosyFor)) {
-			doc.deliveryTo = _.first(str).replace(reAPosyFor, '$1');
-			str = _.rest(str);
-		}
-		if (_.last(str).match(reFrom)) {
-			doc.deliveryFrom = _.last(str).replace(reFrom, '$1');
-			str = _.initial(str);
-		}
-		if (str.length>=1) {
-			doc.specialMessage = str.join(' ');
-		}
-		const orderNo = event.currentTarget.dataset.orderNo;
-		Meteor.call('storeOrderModified', orderNo, doc);
-	},
-
 });
 

@@ -10,13 +10,11 @@ Meteor.methods({
 	'fetch order': (orderNo) => {
 		jobQueue.dispatch('fetch order', { orderNo: orderNo }, { retries: 3, wait: 10*1000 })
 	},
-	'ship order': (orderNo) => {
-		jobQueue.dispatch('ship order', { orderNo: orderNo }, { retries: 3, wait: 10*1000 })
-	},
 	'ship selected': () => {
 		if (Meteor.isClient) return;
 		orders.orderCollection.find({ isSelected: '1' }).forEach(doc => {
 			console.log('ship ', doc.orderNo);
+			Meteor.call('setOrderDeliveryShipment', doc.orderNo);
 			jobQueue.dispatch('ship order', { orderNo: doc.orderNo }, { retries: 3, wait: 10*1000 })
 		});
 	},

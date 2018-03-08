@@ -11,6 +11,14 @@ const shipLocationSpec = new SimpleSchema({
 	partial:				{ type: String, optional: true, },
 });
 
+const deliveriesSpec = new SimpleSchema({
+	id:						{ type: Number },
+	raw:					{ type: String },
+	fmt:					{ type: String },
+	date:					{ type: Date },
+	isShipped:				{ type: Boolean },
+});
+
 export const orderSpec = new SimpleSchema({
 	orderNo:				{ type: Number,  },
 	orderDate:				{ type: String, optional: true, },
@@ -35,13 +43,15 @@ export const orderSpec = new SimpleSchema({
 	},
 	amount:					{
 		type: String, optional: true, 
-		autoform: { 'formgroup-class': 'uk-width-1-4@s'},
+		autoform: { 'formgroup-class': 'uk-width-1-4@s', autocomplete:'off' },
 	},
 	deliveryDate: {
 		type: String, optional: true,
-		autoform: { label: 'Delivery Date(s)', 'formgroup-class': 'uk-width-1-4@s'},
+		autoform: { label: 'Delivery Date(s)', 'formgroup-class': 'uk-width-1-2@s', autocomplete:'off' },
 	},
-	deliveryDateChecked:	{ type: Date, optional: true, },
+	// deliveryDateChecked:	{ type: Date, optional: true, },
+	deliveries: 			{ type: Array, optional: true, },
+	'deliveries.$': 		{ type: deliveriesSpec, optional: true, },
 	deliveryName: {
 		type: String, optional: true,
 		autoform: { label: 'Name', 'formgroup-class': 'uk-width-1-4@s'},

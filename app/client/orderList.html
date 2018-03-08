@@ -18,7 +18,7 @@
 				<tr>
 					<th class="uk-table-shrink">{{>orderActionMenu}}</th>
 					<th>Ref / Price</th>
-					<th>Expected Delivery</th>
+					<th class="uk-width-1-6">Expected Delivery(s)</th>
 					<th>Sender &amp; Delivery Phone</th>
 					<th class="uk-width-1-5">Delivery Name & Address</th>
 					<th>
@@ -40,11 +40,17 @@
 							<b class="js-orderDetail" data-order-no="{{order.orderNo}}">{{order.orderNo}}{{order.productCode}}</b><br>
 						    ${{order.amount}}<br>
 						</td>
-						<td class="js-orderEdit" data-order-no="{{order.orderNo}}">
-							<b>{{isSelectedMessage order}}</b>
-							{{order.deliveryDate}}<br>
-							{{order.driver}}<br>
-							{{isShippedMessage order}}
+						<td>
+							{{#each delivery in order.deliveries}}
+								<span class="js-shipToggle" data-order-no="{{order.orderNo}}" data-id="{{delivery.id}}">
+									{{delivery.fmt}}&nbsp;
+									{{#if delivery.isShipped}}
+										<span><i class="uk-alert-success fas fa-check-circle"></i></span>
+									{{/if}}
+									<br>
+								</span>
+							{{/each}}
+							{{order.driver}}
 						</td>
 						<td class="js-orderEdit" data-order-no="{{order.orderNo}}">
 							{{order.customerName}}<br>

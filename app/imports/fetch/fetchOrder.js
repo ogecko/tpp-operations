@@ -25,7 +25,7 @@ export function fetchOrder(job, cb) {
 			job.done(); cb();
 		})
 		.catch(function (error) {
-			console.error('Search failed:', error);
+			console.log('Search failed:', error);
 			job.fail(); cb();
 		});
 	}

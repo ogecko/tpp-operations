@@ -10,7 +10,7 @@ jobQueue.recruitWorker('fetch list', { concurrency: 2 }, fetchList);
 export function fetchList(job, cb) {
 	console.log('Calling fetchList');
 	if (Meteor.isServer) {
-		const web = Nightmare({ pollInterval: 50 })			// { show: true }
+		const web = Nightmare({ pollInterval: 50 })			// { show: true, pollInterval: 50 }
 		.use(loginRocketSpark('/dashboard/shop_settings/orders'))
 		.wait('#orders-vue > div > table')
 		.evaluate(function () {
@@ -30,7 +30,7 @@ export function fetchList(job, cb) {
 			job.done(); cb();
 		})
 		.catch(function (error) {
-			console.error('Search failed:', error);
+			console.log('error from fetchlist', error);
 			job.fail(); cb();
 		});
 	}

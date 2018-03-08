@@ -47,9 +47,9 @@ function formToDoc(doc) {
 		const address = _.isString(doc.deliveryAddress)? doc.deliveryAddress.split(', ') : [ ];
 		doc.shipAddress = _.compact([doc.deliveryName, doc.deliveryBusiness, ...address]);
 	}
-	if (doc && _.isString(doc.deliveryDate)) {
-		doc.deliveryDateChecked = parse.dates(doc.deliveryDate);
-	}
+	// if (doc && _.isString(doc.deliveryDate)) {
+	// 	doc.deliveryDateChecked = parse.dates(doc.deliveryDate);
+	// }
 	return doc;
 }
 
