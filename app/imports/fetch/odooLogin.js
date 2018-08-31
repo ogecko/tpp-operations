@@ -1,6 +1,6 @@
 import { HTTP } from 'meteor/http'
 
-export function loginOdoo(url, db, login, password) {
+export function odooLogin(url, db, login, password) {
     if (Meteor.isServer) {
         const result = HTTP.call('POST', `${url}/web/session/authenticate`, {
             data: {

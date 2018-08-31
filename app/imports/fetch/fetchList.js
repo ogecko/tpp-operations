@@ -4,12 +4,14 @@ import { orders } from '/imports/api/orders';
 import { jobQueue } from '/imports/api/jobQueue';
 import { fetchListSpec } from './fetchListSpec.js';
 import { loginRocketSpark } from './loginRocketSpark.js';
+import { odooFetch } from './odooFetch.js';
 
 jobQueue.recruitWorker('fetch list', { concurrency: 2 }, fetchList);
 
 export function fetchList(job, cb) {
 	console.log('Calling fetchList');
 	if (Meteor.isServer) {
+		odooFetch();
 		const web = Nightmare({ pollInterval: 50 })			// { show: true, pollInterval: 50 }
 		.use(loginRocketSpark('/dashboard/shop_settings/orders'))
 		.wait('#orders-vue > div > table')

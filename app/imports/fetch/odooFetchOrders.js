@@ -1,7 +1,6 @@
 import { HTTP } from 'meteor/http'
-import { parseOdooOrder } from './parseOdoo.js'
 
-export function fetchOdoo(url, start) {
+export function odooFetchOrders(url, start) {
     if (Meteor.isServer) {
         const result = HTTP.call('POST', `${url}/web/orderjson`, {
             data: {
@@ -17,12 +16,12 @@ export function fetchOdoo(url, start) {
         // console.log('login response',result);
 
         if (result.statusCode != 200) {
-            return { error: { message: 'bad status code', code: result.statusCode }}
+            return new Error('bad status code');
         } if (!result.data) {
-            return { error: { message: 'no data returned', code: -1 }}
+            return new Error('no data returned');
         } if (!result.data.result || !result.data.result.orders) {
-            return { error: { message: 'no json result.orders data returned', code: -1 }}
+            return new Error('no json result.orders data returned');
         }
-        return result.data.result.orders.map(parseOdooOrder);
+        return result.data.result.orders;
     }
 }

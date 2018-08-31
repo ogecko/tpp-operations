@@ -1,9 +1,9 @@
 /* eslint-env mocha */
 import { chai, expect }	from 'meteor/practicalmeteor:chai'; chai.should();
-import { parseOdooLines, parseOdooOrder }	from './parseOdoo.js';
+import { odooParseLines, odooParseOrder }	from './odooParse.js';
 
 function testParseOdooLine(name, qty) {
-    return parseOdooLines( [ { display_name: name, name, qty } ]);
+    return odooParseLines( [ { display_name: name, name, qty } ]);
 }
 
 describe('fetch/parseOdoo.js Unit tests', () => {
@@ -87,7 +87,7 @@ describe('fetch/parseOdoo.js Unit tests', () => {
     });
     
 	it('should parse a complete order', () => {
-        const result = parseOdooOrder({
+        const result = odooParseOrder({
             "snd":{"phone":"0434799708","name":"David Morrison","email":"jdmorriso@gmail.com"},
             "card":{"to":"Mum","message":"Break a leg! :) sorry I\'m not there to cheer you on, and missing you heaps xx","from":"Dave"},
             "delivery":{"start":"2018-08-24","freq":"Daily","days":"24-Aug-2018, 27-Aug-2018, 28-Aug-2018","number":3,"subscription":true },

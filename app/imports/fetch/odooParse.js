@@ -1,4 +1,4 @@
-export function parseOdooLine(acc, line, idx, lines) {
+export function odooParseLine(acc, line, idx, lines) {
     const result = (line.display_name+line.qty)
         .replace(/Pre-Order Posy/gm, '-PO')
         .replace(/Posy Subscription/gm, '-PS')
@@ -40,32 +40,35 @@ export function parseOdooLine(acc, line, idx, lines) {
     return acc + result;
 }
 
-export function parseOdooLines(lines) {
-    return lines.reduce(parseOdooLine, '');
+export function odooParseLines(lines) {
+    return lines.reduce(odooParseLine, '');
 }
 
 
-export function parseOdooOrder(order) {
-    return {
+export function odooParseOrder(order) {
+    const result = {
         orderNo: Number(order.id.slice(2))+100000,
         orderDate: order.write_date,
         customerName: order.snd.name,
         customerEmail: order.snd.email,
         customerPhone: order.snd.phone,
-        productCode: parseOdooLines(order.lines),
+        productCode: odooParseLines(order.lines),
         amount: order.amount_total,
         deliveryDate: order.delivery.days,
         deliveryName: order.rcv.name,
-        shipAddress: [ order.rcv.address ],
-        shipLocation: {
-            lat: order.rcv.latitude,
-            lng: order.rcv.longitude,
-            geoAddr: order.rcv.address,
-        },
+        shipAddress: [ order.rcv.name, order.rcv.address ],
         shipInstructions: order.rcv.special,
         deliveryTo: order.card.to,
         specialMessage: order.card.message,
         deliveryFrom: order.card.from,
     }
+    if (order.rcv.latitude && order.rcv.longitude) {
+        result.shipLocation = {
+            lat: order.rcv.latitude,
+            lng: order.rcv.longitude,
+            geoAddr: order.rcv.address,
+        };
+    }
+    return result;
 }
 
