@@ -5,7 +5,7 @@ import { orders } from '/imports/api/orders';
 
 export function odooFetch() {
     new Promise( (resolve, reject) => {
-        console.log('calling odooFetch');
+        console.log('odoo Calling odooFetch');
         const s = Meteor.settings;
         const session_id = odooLogin(s.odooServer, s.odooDb, s.odooUser, s.odooPassword);
         const results = odooFetchOrders(s.odooServer);
@@ -16,6 +16,6 @@ export function odooFetch() {
             reject(new Error('no results array from Odoo'));
         }
     })
-    .then(results => { console.log("odoo retrieved ",results) })
-    .catch(error => { console.log("odoo error ",error) });
+    .then(results => { console.log(`odoo Received (${results} orders)`) })
+    .catch(error => { console.log("odoo Error ",error) });
 }
