@@ -18,8 +18,11 @@ export function update(newDoc) {
 	// try and find any existing order matching it
 	const oldDoc = orderCollection.findOne({ orderNo: newDoc.orderNo });
 
-	return !oldDoc
-		? orderCollection.insert(newDoc)
-		: orderCollection.update({ _id: oldDoc._id	}, { $set: { ...oldDoc, ...newDoc, isModified: '0' } });
+	if (!oldDoc) {
+		return orderCollection.insert(newDoc);
+	} else {
+		if (newDoc.isOdoo) return true;		// Dont update existing Odoo orders (as they may have been modified in tpp.ogecko.com)
+		return orderCollection.update({ _id: oldDoc._id	}, { $set: { ...oldDoc, ...newDoc, isModified: '0' } });
+	}
 
 }

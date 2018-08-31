@@ -47,7 +47,7 @@ export function odooParseLines(lines) {
 
 export function odooParseOrder(order) {
     const result = {
-        orderNo: Number(order.id.slice(2))+100000,
+        orderNo: Number(order.id.slice(2)),
         orderDate: order.write_date,
         customerName: order.snd.name,
         customerEmail: order.snd.email,
@@ -61,6 +61,7 @@ export function odooParseOrder(order) {
         deliveryTo: order.card.to,
         specialMessage: order.card.message,
         deliveryFrom: order.card.from,
+        isOdoo: true,
     }
     if (order.rcv.latitude && order.rcv.longitude) {
         result.shipLocation = {

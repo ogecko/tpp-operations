@@ -10,7 +10,9 @@ jobQueue.recruitWorker('ship order', { concurrency: 2 }, shipOrder);
 export function shipOrder(job, cb) {
 	const orderNo = job.data.orderNo;
 	console.log('Calling shipOrder on Order ', orderNo);
-	if (Meteor.isServer) {
+
+	// dont validate on rocketspark if orderNo is from odoo
+	if (Meteor.isServer & orderNo < 100000) {
 		const web = Nightmare({ pollInterval: 50 })    	// { show: true }
 		.use(loginRocketSpark('/dashboard/shop_settings/orders/'+orderNo))
 		.wait('#checkbox-shipping-'+orderNo)

@@ -106,7 +106,9 @@ describe('fetch/parseOdoo.js Unit tests', () => {
             ]}
         );
         result.productCode.should.equal('-PDM3-CS3');
-        JSON.stringify(result).should.equal('{"orderNo":100019,"orderDate":"2018-08-30 02:25:20","customerName":"David Morrison","customerEmail":"jdmorriso@gmail.com","customerPhone":"0434799708","productCode":"-PDM3-CS3","deliveryDate":"24-Aug-2018, 27-Aug-2018, 28-Aug-2018","deliveryName":"Mary Morrison","shipAddress":["Westmead Hospital, Darcy Road, Westmead NSW, Australia"],"shipLocation":{"lat":"","lng":"","geoAddr":"Westmead Hospital, Darcy Road, Westmead NSW, Australia"},"shipInstructions":"Leave in Room 321","deliveryTo":"Mum","specialMessage":"Break a leg! :) sorry I\'m not there to cheer you on, and missing you heaps xx","deliveryFrom":"Dave"}')
+        result.orderNo.should.equal(19);
+        result.customerName.should.equal('David Morrison');
+        result.deliveryFrom.should.equal('Dave');
     });
 
 });
