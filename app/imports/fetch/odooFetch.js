@@ -4,9 +4,8 @@ import { odooParseOrder } from './odooParse.js'
 import { orders } from '/imports/api/orders';
 
 export function odooFetch() {
-    console.log('calling odooFetch1');
     new Promise( (resolve, reject) => {
-        console.log('calling odooFetch2');
+        console.log('calling odooFetch');
         const s = Meteor.settings;
         const session_id = odooLogin(s.odooServer, s.odooDb, s.odooUser, s.odooPassword);
         const results = odooFetchOrders(s.odooServer);
