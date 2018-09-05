@@ -30,6 +30,7 @@ export function odooParseLine(acc, line, idx, lines) {
         .replace(/Large/gm, 'L')
 
         .replace(/.*Delivery.*/gm, '')
+        .replace(/.*Gift Coupon.*/gm, '')
 
         // .replace(/.{6,}/gm, '-???')
 
