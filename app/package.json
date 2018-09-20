@@ -2,7 +2,7 @@
   "name": "app",
   "private": true,
   "scripts": {
-    "start": "meteor run -p 3020 --settings ../mup/settings.json",
+    "dev": "meteor run -p 3020 --settings ../mup/settings.json",
     "debug": "meteor run -p 3020 --inspect=192.168.1.6 --settings ../mup/settings.json",
     "debugReadMe": "echo To monitor nodeinspector navigate Chrome to uri - chrome://inspect",
     "test": "meteor test -p 3022 --driver-package=cultofcoders:mocha --settings ../mup/settings.json",

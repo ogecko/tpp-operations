@@ -54,7 +54,7 @@ export function odooParseOrder(order) {
         customerEmail: order.snd.email,
         customerPhone: order.snd.phone,
         productCode: odooParseLines(order.lines),
-        amount: order.amount_total,
+        amount: new Intl.NumberFormat('en-AU', { maximumFractionDigits: 2, minimumFractionDigits: 2 }).format(order.amount_total),
         deliveryDate: order.delivery.days,
         deliveryName: order.rcv.name,
         shipAddress: [ order.rcv.name, order.rcv.address ],
