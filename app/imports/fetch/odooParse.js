@@ -5,6 +5,7 @@ export function odooParseLine(acc, line, idx, lines) {
         .replace(/Daily Posy/gm, '-PD')
         .replace(/Bright Posy/gm, '-PB')
         .replace(/Sunflower Posy/gm, '-PF')
+        .replace(/Pastel Posy/gm, '-PP')
         .replace(/Native Posy/gm, '-PN')
         .replace(/White.*Posy/gm, '-PW')
 
