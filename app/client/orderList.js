@@ -38,6 +38,8 @@ Template.orderList.helpers({
 	shipAddressDefault: order => order.shipAddress.join('\n'),
 	cardMessageDefault: order => `A Posy For: ${order.deliveryTo}\n${order.specialMessage}\nFrom: ${order.deliveryFrom}`,
 	moment: d => moment(d).format('DD-MMM-YY'),
+	isTPPWebOrder: n => (n>100000),
+	orderDetailLink: n => `https://www.theposyplace.com.au/web#id=${n-100000}&view_type=form&model=sale.order&menu_id=180&action=250`,
 });
 
 function inPlaceEdit(event, instance) {
@@ -86,8 +88,8 @@ function inPlaceEdit(event, instance) {
 
 Template.orderList.events({
 	'click .js-orderDetail'(event, instance) {
-		console.log('Request detail on order', event.target.dataset.orderNo);
-		Meteor.call('fetch order', event.target.dataset.orderNo);
+		console.log('Request detail data on order', event.target.dataset.orderNo);
+		// Meteor.call('fetch order', event.target.dataset.orderNo);
 	},
 	'click .js-toggleOrderIsSelected'(event, instance) {
 		const tgt = instance.$(event.currentTarget)[0];
