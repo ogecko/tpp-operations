@@ -17,7 +17,7 @@ export function odooParseLine(acc, line, idx, lines) {
         .replace(/Wild Peony/gm, 'WP')
         .replace(/Coconut.*Lime/gm, 'CL')
         .replace(/Coconut.*Vanilla/gm, 'CV')
-        .replace(/Cedanvood.*Jasmine/gm, 'CJ')
+        .replace(/Cedarvood.*Jasmine/gm, 'CJ')
         .replace(/Sandalwood.*Patchouli/gm, 'SP')
         .replace(/Champagne.*Strawberries/gm, 'CS')
         .replace(/Lime Basil Madarin/gm, 'LB')
