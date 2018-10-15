@@ -78,10 +78,14 @@
 						</td>
 						<td class="js-orderEdit" data-order-no="{{order.orderNo}}">
 							<div>
-								A Posy For: {{order.deliveryTo}}<br>
-								{{order.specialMessage}}<br>
-								From: {{order.deliveryFrom}}<br>
-							</div>
+								{{#if order.deliveryTo}}
+									A Posy For: {{order.deliveryTo}}<br>
+								{{/if}}
+									{{order.specialMessage}}<br>
+								{{#if order.deliveryFrom}}
+									From: {{order.deliveryFrom}}<br>
+								{{/if}}
+								</div>
 						</td>
 					</tr>
 				{{/each}}

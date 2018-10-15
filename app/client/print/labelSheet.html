@@ -20,12 +20,16 @@
 				</span><div class="og-label-break"></div>
 				<span class="og-label">
 					{{#if isNotBlank order}}
+						{{#if order.deliveryTo}}
 						<p>
 							<span class="og-label-for">A Posy For:</span><br>
 							<span class="{{tosize order}}">{{order.deliveryTo}}</span>
 						</p>
-						<p class="{{msgsize order}}">{{order.specialMessage}}</p>
+						{{/if}}
+						<p class="{{msgsize order}}">{{{order.specialMessage}}}</p>
+						{{#if order.deliveryFrom}}
 						<p class="{{fromsize order}}">From: {{order.deliveryFrom}}</p>
+						{{/if}}
 					{{/if}}
 				</span><div class="og-label-break"></div>
 		{{/each}}
