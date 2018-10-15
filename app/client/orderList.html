@@ -18,7 +18,7 @@
 				<tr>
 					<th class="uk-table-shrink">{{>orderActionMenu}}</th>
 					<th>Ref / Price</th>
-					<th class="uk-width-1-6">Expected Delivery(s)</th>
+					<th>Delivery(s)</th>
 					<th>Sender &amp; Delivery Phone</th>
 					<th class="uk-width-1-5">Delivery Name & Address</th>
 					<th>
@@ -36,19 +36,13 @@
 						<td class="uk-text-center">
 							<input type="checkbox" {{isSelectedChk order}} class="uk-checkbox js-toggleOrderIsSelected" data-order-no="{{order.orderNo}}">
 						</td>
-					    <td class="uk-text-nowrap">
+					    <td>
 							<b class="js-orderDetail" data-order-no="{{order.orderNo}}">{{order.orderNo}}{{order.productCode}}</b>
-							{{#if isTPPWebOrder order.orderNo}}
-								<a class="uk-icon-button" uk-tooltip title="Order detail" 
-									href="{{orderDetailLink order.orderNo}}" target="_blank">
-									<i class="fas fa-external-link-alt fa-lg"></i>
-								</a>
-							{{/if}}
 							<br>${{order.amount}}<br>
 						</td>
 						<td>
 							{{#each delivery in order.deliveries}}
-								<span class="js-shipToggle" data-order-no="{{order.orderNo}}" data-id="{{delivery.id}}">
+								<span class="js-shipToggle uk-text-nowrap" data-order-no="{{order.orderNo}}" data-id="{{delivery.id}}">
 									{{moment delivery.date}}&nbsp;
 									{{#if delivery.isShipped}}
 										<span><i class="uk-alert-success fas fa-check-circle"></i></span>
@@ -57,6 +51,12 @@
 								</span>
 							{{/each}}
 							{{order.driver}}
+							{{#if isTPPWebOrder order.orderNo}}
+								<a class="uk-icon-button" uk-tooltip title="Order detail" 
+									href="{{orderDetailLink order.orderNo}}" target="_blank">
+									<i class="fas fa-external-link-alt fa-lg"></i>
+								</a>
+							{{/if}}
 						</td>
 						<td class="js-orderEdit" data-order-no="{{order.orderNo}}">
 							{{order.customerName}}<br>
