@@ -3,6 +3,7 @@ export function odooParseLine(acc, line, idx, lines) {
         .replace(/Pre-Order Posy/gm, '-PO')
         .replace(/Posy Subscription/gm, '-PS')
         .replace(/Daily Posy/gm, '-PD')
+        .replace(/Saturday Posy/gm, '-PD')
         .replace(/Bright Posy/gm, '-PB')
         .replace(/Sunflower Posy/gm, '-PF')
         .replace(/Pastel Posy/gm, '-PP')
