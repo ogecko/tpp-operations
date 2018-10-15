@@ -5,7 +5,7 @@ import { isSignedIn } from '/imports/lib/isSignedIn.js';
 import { jobQueue } from '/imports/api/jobQueue';
 import { parse } from '/imports/lib/parse';
 import { getNewOrderNo } from './getNewOrderNo.js';
-import { getDeliveries, getIsShippedAll, setDeliveryShipment, toggleDeliveryShipment } from './getDeliveries.js';
+import { getDeliveries, getIsShippedAll, setDeliveryShipment, toggleDeliveryShipment, getNextDeliveryShipment } from './getDeliveries.js';
 import moment from 'moment';
 
 Meteor.methods({
@@ -93,11 +93,13 @@ Meteor.methods({
 		if (!isSignedIn()||Meteor.isClient) return undefined;
 		const doc = orderCollection.findOne({ orderNo: { $eq: Number(orderNo) } });
 		if (doc) {
+			const nextDeliveryShipment = getNextDeliveryShipment(doc.deliveryDate)
 			doc.deliveryDate = setDeliveryShipment(doc.deliveryDate);
 			doc.deliveries = getDeliveries(doc.deliveryDate);
 			doc.isShipped = getIsShippedAll(doc.deliveryDate);
 			orderCollection.update({ _id: doc._id }, { $set: doc });
-			console.log(`Ship order ${doc.orderNo} deliveries as ${doc.deliveryDate}`);
+			console.log(`SetOrderDeliveries ${doc.orderNo}/${nextDeliveryShipment} deliveries as ${doc.deliveryDate}`);
+			return nextDeliveryShipment;
 		}
 	},
 

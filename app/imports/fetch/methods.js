@@ -13,9 +13,9 @@ Meteor.methods({
 	'ship selected': () => {
 		if (Meteor.isClient) return;
 		orders.orderCollection.find({ isSelected: '1' }).forEach(doc => {
-			console.log('ship ', doc.orderNo);
-			Meteor.call('setOrderDeliveryShipment', doc.orderNo);
-			jobQueue.dispatch('ship order', { orderNo: doc.orderNo }, { retries: 3, wait: 10*1000 })
+			console.log('Shipping', doc.orderNo);
+			const nextOrderDeliveryShipment = Meteor.call('setOrderDeliveryShipment', doc.orderNo);
+			jobQueue.dispatch('ship order', { orderNo: doc.orderNo, delivery: nextOrderDeliveryShipment }, { retries: 0, wait: 10*1000 })
 		});
 	},
 	'locate order': (orderNo) => {

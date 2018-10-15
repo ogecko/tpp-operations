@@ -60,3 +60,12 @@ export function setDeliveryShipment(deliveryDates) {
 	return deliveryDates;
 }
 
+// get the next delivery shipment date
+export function getNextDeliveryShipment(deliveryDates) {
+	if (!_.isString(deliveryDates)) return undefined;
+
+	const deliveries = getDeliveries(deliveryDates);
+	const target = _.first(_.where(deliveries, { isShipped: false}));
+	if (target)	return target.fmt;
+	return undefined;
+}
