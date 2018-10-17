@@ -6,7 +6,7 @@ import { fetchOrderSpec } from './fetchOrderSpec.js';
 import { loginRocketSpark } from './loginRocketSpark.js';
 import { odooShip } from './odooShip.js';
 
-jobQueue.recruitWorker('ship order', { concurrency: 1 }, shipOrder);
+jobQueue.recruitWorker('ship order', { concurrency: 2 }, shipOrder);
 
 export function shipOrder(job, cb) {
 	const orderNo = job.data.orderNo;
