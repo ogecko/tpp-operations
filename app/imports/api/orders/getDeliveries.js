@@ -66,6 +66,6 @@ export function getNextDeliveryShipment(deliveryDates) {
 
 	const deliveries = getDeliveries(deliveryDates);
 	const target = _.first(_.where(deliveries, { isShipped: false}));
-	if (target)	return target.fmt;
+	if (target)	return target.raw;
 	return undefined;
 }
