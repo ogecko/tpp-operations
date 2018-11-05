@@ -47,7 +47,7 @@ export const orderSpec = new SimpleSchema({
 	},
 	deliveryDate: {
 		type: String, optional: true,
-		autoform: { label: 'Delivery Date(s)', 'formgroup-class': 'uk-width-1-2@s', autocomplete:'off' },
+		autoform: { label: 'Delivery Days', 'formgroup-class': 'uk-width-1-2@s', autocomplete:'off' },
 	},
 	// deliveryDateChecked:	{ type: Date, optional: true, },
 	deliveries: 			{ type: Array, optional: true, },
@@ -56,20 +56,24 @@ export const orderSpec = new SimpleSchema({
 		type: String, optional: true,
 		autoform: { label: 'Name', 'formgroup-class': 'uk-width-1-4@s'},
   	},
+	deliveryPhone: {
+		type: String, optional: true,
+		autoform: { label: 'Phone', 'formgroup-class': 'uk-width-1-4@s'},
+  	},
 	deliveryBusiness: {
 		type: String, optional: true,
 		autoform: { label: 'Business / Unit / Level / Suite', 'formgroup-class': 'uk-width-1-4@s'},
   	},
 	deliveryAddress: {
 		type: String, optional: true,
-		autoform: { rows: 2, label: 'Address', 'formgroup-class': 'uk-width-1-2@s'},
+		autoform: { rows: 2, label: 'Delivery Address', 'formgroup-class': 'uk-width-1-2@s'},
   	},
 	shipAddress:			{ type: Array, optional: true, },
 	'shipAddress.$':		{ type: String },
 	shipLocation:			{ type: shipLocationSpec, optional: true, },
 	shipInstructions: {
 		type: String, optional: true, 
-		autoform: { rows: 2, 'formgroup-class': 'uk-width-1-2@s'},
+		autoform: { rows: 2, label: 'Additional Delivery Info', 'formgroup-class': 'uk-width-1-2@s'},
   	},
 	deliveryTo: {
 		type: String, optional: true,
@@ -77,7 +81,7 @@ export const orderSpec = new SimpleSchema({
   	},
 	specialMessage:	{
 		type: String, optional: true, 
-		autoform: { rows: 2, 'formgroup-class': 'uk-width-1-2@s'},
+		autoform: { rows: 2, label: "Message", 'formgroup-class': 'uk-width-1-2@s'},
   	},
 	deliveryFrom: {
 		type: String, optional: true,

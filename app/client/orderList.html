@@ -19,14 +19,14 @@
 					<th class="uk-table-shrink">{{>orderActionMenu}}</th>
 					<th>Ref / Price</th>
 					<th>Delivery(s)</th>
-					<th>Sender &amp; Delivery Phone</th>
-					<th class="uk-width-1-5">Delivery Name & Address</th>
+					<th>Sender Details</th>
+					<th class="uk-width-1-5">Delivery Details</th>
 					<th>
 						<span class="uk-align-right uk-text-right uk-margin-remove-bottom">
 							{{numItems}} Orders
 							{{>pagination numPages}}
 						</span>
-						<span><br>Greeting Card Message</span>
+						<span><br>Personalised Card</span>
 					</th>
 				</tr>
 			</thead>
@@ -74,6 +74,10 @@
 								{{#each line in order.shipAddress}}
 									{{line}}<br>
 								{{/each}}
+								{{#if order.shipInstructions}}
+									{{order.shipInstructions}}<br>
+								{{/if}}
+								{{order.deliveryPhone}}
 							</div>
 						</td>
 						<td class="js-orderEdit" data-order-no="{{order.orderNo}}">

@@ -15,8 +15,8 @@
 				<tr>
 					<th>Ref</th>
 					<th>Expected</th>
-					<th>Sender & Delivery Phone</th>
-					<th class="uk-width-1-3">Delivery Name &amp; Address</th>
+					<th>Sender Details</th>
+					<th class="uk-width-1-3">Delivery Details</th>
 					<th class="uk-width-1-4">Instructions</th>
 				</tr>
 			</thead>
@@ -34,6 +34,7 @@
 							{{#each line in order.shipAddress}}
 								{{line}}<br>
 							{{/each}}
+							{{order.deliveryPhone}}
 						</td>
 						<td>{{order.shipInstructions}}</td>
 					</tr>
