@@ -15,7 +15,7 @@ export function shipOrder(job, cb) {
 
 	if (Meteor.isServer) {
 	// orders below 100000 are for rocketspark, the rest for odoo
-	(orderNo < 100000) ? rocketsparkShip(orderNo) : odooShip(orderNo, nextOrderDeliveryShipment)
+	((orderNo < 100000) ? rocketsparkShip(orderNo) : odooShip(orderNo, nextOrderDeliveryShipment))
 		.then(result => {
 			console.log(`Shipped order ${orderNo}/${nextOrderDeliveryShipment}:`, result);
 			job.done(); cb();
