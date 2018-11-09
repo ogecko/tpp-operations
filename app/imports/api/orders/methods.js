@@ -59,6 +59,13 @@ Meteor.methods({
 		console.log(`Selected Deliveries by Date ${targetDate}${includeShipped?', including shipped':''}`);
 	},
 
+	'select multi': () => {
+		orderCollection.update({}, { $set: { isSelected: '0' } }, { multi: true });
+		orderCollection.update({ "deliveries.1": { $exists: true } }, 
+			{ $set: { isSelected: '1' } }, { multi: true });
+		console.log(`Selected Orders with multiple Deliveries`);
+	},
+
 	'assign none': () => {
 		orderCollection.update({}, { $unset: { driver: '' } }, { multi: true });
 		console.log(`Assigned all orders to no driver`);

@@ -6,6 +6,8 @@ Template.orderActionMenu.events({
 
 	'click .js-select-all': (event, instance) => Meteor.call('select all'), 
 
+	'click .js-select-multi': (event, instance) => Meteor.call('select multi'), 
+
 	'click .js-select-todays': (event, instance) => Meteor.call('select todays'), 
 
 	'click .js-toggle-ship-modal': (event, instance) => UIkit.modal('#ship-modal').show(),
