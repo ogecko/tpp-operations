@@ -30,7 +30,7 @@ export const orderSpec = new SimpleSchema({
 		autoform: { label: 'Name', 'formgroup-class': 'uk-width-1-4@s'},
 	},
 	customerEmail: {
-		type: String, optional: true, regEx: SimpleSchema.RegEx.Email,
+		type: String, optional: true, 
 		autoform: { type: "email", label: 'Email', 'formgroup-class': 'uk-width-1-2@s' },
   	},
 	customerPhone: { 
