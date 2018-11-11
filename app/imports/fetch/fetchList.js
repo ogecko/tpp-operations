@@ -12,6 +12,7 @@ export function fetchList(job, cb) {
 	console.log('Calling fetchList');
 	if (Meteor.isServer) {
 		odooFetch();
+		job.done(); cb();
 
 		// Rocketspark Fetch		
 		// const web = Nightmare({ pollInterval: 50 })			// { show: true, pollInterval: 50 }
