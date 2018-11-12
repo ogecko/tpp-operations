@@ -32,10 +32,10 @@ function docToForm(doc) {
 		const n = doc.shipAddress.length;
 		doc.deliveryName = _.first(doc.shipAddress);
 		doc.deliveryAddress = _.last(doc.shipAddress, n-1).join(', ');
-		if (n>3) {
-			doc.deliveryBusiness = doc.shipAddress[1];
-			doc.deliveryAddress = _.last(doc.shipAddress, n-2).join(', ');
-		}
+		// if (n>3) {
+		// 	doc.deliveryBusiness = doc.shipAddress[1];
+		// 	doc.deliveryAddress = _.last(doc.shipAddress, n-2).join(', ');
+		// }
 	}
 	return doc;
 }
@@ -44,8 +44,8 @@ function formToDoc(doc) {
 	// recompose the shipAddress array from three fields deliveryName, deliveryBusiness and deliveryAddress
 	if (doc) {
 		if (!doc.deliveryName) doc.deliveryName = "Unknown";
-		const address = _.isString(doc.deliveryAddress)? doc.deliveryAddress.split(', ') : [ ];
-		doc.shipAddress = _.compact([doc.deliveryName, doc.deliveryBusiness, ...address]);
+		// const address = _.isString(doc.deliveryAddress)? doc.deliveryAddress.split(', ') : [ ];
+		doc.shipAddress = _.compact([doc.deliveryName, doc.deliveryAddress]);
 	}
 	// if (doc && _.isString(doc.deliveryDate)) {
 	// 	doc.deliveryDateChecked = parse.dates(doc.deliveryDate);

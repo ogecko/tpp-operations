@@ -14,7 +14,7 @@ export function locateOrder(job, cb) {
 		const doc = orders.orderCollection.findOne({ orderNo: job.data.orderNo });
 		if (doc) {
 			orders.orderCollection.update({ orderNo: job.data.orderNo }, { $unset: { shipLocation: ''} });
-			const addr = _.last(doc.shipAddress, 2).join(' ')+', Australia';
+			const addr = _.last(doc.shipAddress, doc.shipAddress.length-1).join(' ');
 			console.log('GeoCoding ', JSON.stringify(addr, undefined, 2));
 			googleMapsClient.geocode({ address: addr }).asPromise()
 			.then(response => {
