@@ -10,6 +10,10 @@ export function odooParseLine(acc, line, idx, lines) {
         .replace(/Native Posy/gm, '-PN')
         .replace(/White.*Posy/gm, '-PW')
 
+        .replace(/Standard Gift Card/gm, '')
+        .replace(/Standard/gm, '')
+        .replace(/Botanical Greeting Card, (Small|Medium|Extra Large|Large)/gm, '$1 -G')
+
         .replace(/Balmoral Candle/gm, '-B')
         .replace(/Reed Diffuser/gm, '-D')
         .replace(/Chocolates/gm, '-C')
