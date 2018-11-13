@@ -17,7 +17,7 @@ export function odooParseLine(acc, line, idx, lines) {
         .replace(/Balmoral Candle/gm, '-B')
         .replace(/Reed Diffuser/gm, '-D')
         .replace(/Chocolates/gm, '-C')
-        .replace(/Greeting Card/gm, '-G')
+        .replace(/Botanical Greeting Card/gm, '-G')
 
         .replace(/Wild Peony/gm, 'WP')
         .replace(/Coconut.*Lime/gm, 'CL')
