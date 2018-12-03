@@ -76,8 +76,8 @@ describe('fetch/parseOdoo.js Unit tests', () => {
         result.should.equal('-CS10');
     });
 
-    it('should sucessfully parse Greeting Card', () => {
-        const result = testParseOdooLine('Greeting Card', 2);
+    it('should sucessfully parse Botanical Greeting Card', () => {
+        const result = testParseOdooLine('Botanical Greeting Card', 2);
         result.should.equal('-G2');
     });
     
