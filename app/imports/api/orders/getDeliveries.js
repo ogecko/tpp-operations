@@ -9,7 +9,7 @@ export function getDeliveries(deliveryDates) {
 	return _.chain(deliveryDates.split(','))
 		.map((str, id) => {
 			const raw = str.trim();
-			const date = parse.dates(raw);
+			const date = parse.dates(raw.replace(/\s*X$/i,''));
 			const fmt = moment(date).format('DD-MMM-YY');
 			const isShipped = raw.match(/X$/i) ? true : false;
 			return { id, raw, fmt, date, isShipped };
