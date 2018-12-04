@@ -18,6 +18,7 @@ export function parseCSV(content, schema, separator = ',', ignoreHeader = true, 
 	let contentArray = content.split('\n');
 	if (ignoreHeader) 	contentArray = _.drop(contentArray, 1);
 	if (limit) 			contentArray = _.head(contentArray, limit);
+	contentArray = _.filter(contentArray, row => row.length>0);
 
 	const parsedData = _.map(contentArray, function(rawRow) {
 		const parsedRow = {};
