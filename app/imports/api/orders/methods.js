@@ -5,6 +5,7 @@ import { isSignedIn } from '/imports/lib/isSignedIn.js';
 import { jobQueue } from '/imports/api/jobQueue';
 import { parse } from '/imports/lib/parse';
 import { getNewOrderNo } from './getNewOrderNo.js';
+import { updateBulkOrder } from './updateBulkOrder.js';
 import { getDeliveries, getIsShippedAll, setDeliveryShipment, toggleDeliveryShipment, getNextDeliveryShipment } from './getDeliveries.js';
 import moment from 'moment';
 
@@ -79,6 +80,14 @@ Meteor.methods({
 	'assign selected': (driver) => {
 		orderCollection.update({ isSelected: '1' }, { $set: { driver } }, { multi: true });
 		console.log(`Assigned selected orders to ${driver}`);
+	},
+
+	updateBulkOrder: (fileName, fileContents) => {
+		if (Meteor.isServer) {
+			check(fileName, String);
+			check(fileContents, String);
+			return updateBulkOrder(fileName, fileContents);
+		}
 	},
 
 	toggleOrderDeliveryShipment: (orderNo, id) => {

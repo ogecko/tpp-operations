@@ -11,6 +11,10 @@ jobQueue.recruitWorker('ship order', { concurrency: 2 }, shipOrder);
 export function shipOrder(job, cb) {
 	const orderNo = job.data.orderNo;
 	const nextOrderDeliveryShipment = job.data.delivery;
+
+	// do not call ship order on fractional OrderNo's (ie orders that have been bulk imported)
+	if (Math.floor(orderNo)!=orderNo) return;
+
 	console.log(`Calling odooShip on Order ${orderNo}/${nextOrderDeliveryShipment}`);
 
 	if (Meteor.isServer) {

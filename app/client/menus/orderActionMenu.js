@@ -23,5 +23,27 @@ Template.orderActionMenu.events({
 		Meteor.call('assign selected', driver);
 	},
 
+	'click .js-label-bulk-order': (event) => {
+		const el = document.getElementById('import-bulk');
+		if (el) el.value = "";			// ensure that a change event is triggered even if same file name selected
+	},
+
+	'change .js-import-bulk-order': (event) => {
+		file = event.target.files[0];
+		if (file) {
+			if (file.size > 30000) {
+				UIkit.notification(`Bulk Order Import File is limited to 30k size ("${file.name}" is ${file.size/1000}k)`);
+				return;
+			}
+			const reader = new FileReader();
+			reader.onload = (event) => {
+				Meteor.call('updateBulkOrder', file.name, event.target.result, (error, result) => {
+					UIkit.notification(error ? error:result, { timeout: 10000 });
+				});
+			}
+			reader.readAsText(file)
+		}
+	},
+
 });
 
