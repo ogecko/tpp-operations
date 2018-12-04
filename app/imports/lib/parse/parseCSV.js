@@ -1,6 +1,7 @@
 import { _ } 					from 'meteor/underscore';
 import SimpleSchema			    from 'simpl-schema';
 import { validateWithSchema }	from './utility/validateWithSchema.js';
+import { splitCSVrow }			from './utility/splitCSVrow.js';
 import numeral 					from 'numeral';
 
 // Convert the csv content into an object based on the schema defined
@@ -21,7 +22,7 @@ export function parseCSV(content, schema, separator = ',', ignoreHeader = true, 
 	const parsedData = _.map(contentArray, function(rawRow) {
 		const parsedRow = {};
 		const fieldNames = schema._firstLevelSchemaKeys;
-		_.each(rawRow.split(separator), function(rawField, index) {
+		_.each(splitCSVrow(rawRow), function(rawField, index) {
 			if (index < fieldNames.length) {
 				const fieldName = fieldNames[index];
 				const fieldType = schema.getDefinition(fieldName).type.name;

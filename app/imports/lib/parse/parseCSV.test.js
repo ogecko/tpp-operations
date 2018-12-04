@@ -60,6 +60,19 @@ describe('lib/parse parseCSV.js Unit tests', function() {
 		result.errors.length.should.equal(0);
 	});
 
+	it('should be able to parse a csv, ignoring the header row including quoted fields', function() {
+		doc =  `Header row
+				"To Kill, and hang a Mockingbird",Harper Lee,5,1-jan-2015,The unforgettable novel of a childhood in a sleepy Southern town
+				To Kill a Jackingbird,Harper Loo,-5,40-jan-2012,The forgettable novel of a adulthood in a wakey Northern town`;
+		const result = parse.csv(doc, BookSchema, ',', true, 1);
+		result.data.length.should.equal(1);
+		result.data[0].title.should.equal('To Kill, and hang a Mockingbird');
+		result.data[0].author.should.equal('Harper Lee');
+		result.errors.length.should.equal(0);
+	});
+
+
+
 	it('should be able to parse a csv, ignoring the header row and handling no data', function() {
 		doc =  `Header row`;
 		const result = parse.csv(doc, BookSchema, ',', true);
