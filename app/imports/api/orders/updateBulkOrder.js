@@ -23,34 +23,39 @@ export function updateBulkOrder(fileName, fileContents) {
         return 'Invalid import file header format';
     
     const result =  parse.csv(fileContents, BulkSchema, ',', true);
+    let msg = '';
     
     result.data.forEach( (spec, i) => {
         console.log('spec',spec);
-        const specOrderNo = Number(spec.orderRef.slice(2));     // remove the SO prefix
-        const masterOrderNo = Math.floor(specOrderNo);
-        const newOrderNo = (specOrderNo!=masterOrderNo) ? specOrderNo : specOrderNo + (i+1) * 0.01;
-        // try and find any existing order matching it
-        const doc = orderCollection.findOne({ orderNo: masterOrderNo });
-        if (doc) {
-            if (spec.notes=='delete') {
-                orderCollection.remove({ orderNo: newOrderNo });
-            } else {
-                doc.orderNo = newOrderNo;
-                if (spec.rcvName)       { doc.deliveryName = spec.rcvName; doc.shipAddress[0] = spec.rcvName; }
-                if (spec.rcvPhone)      doc.deliveryPhone = spec.rcvPhone;
-                if (spec.rcvAddress)    doc.shipAddress[1] = spec.rcvAddress;
-                if (spec.rcvSpecial)    doc.shipInstructions = spec.rcvSpecial;
-                if (spec.cardTo)        doc.deliveryTo = spec.cardTo;
-                if (spec.cardFrom)      doc.deliveryFrom = spec.cardFrom;
-                if (spec.cardMessage)   doc.specialMessage = spec.cardMessage;
-                if (spec.deliveryDate)	{ doc.deliveryDate = spec.deliveryDate; doc.deliveries = getDeliveries(spec.deliveryDate) };
-    
-                console.log('new',doc);
-                orderCollection.upsert({ orderNo: newOrderNo }, { $set: { ...doc, _isModified: '0' }});
-                if (spec.rcvAddress)    Meteor.call('locate order', Number(newOrderNo));
+        if (_.isString(spec.orderRef)) {
+            const specOrderNo = Number(spec.orderRef.slice(2));     // remove the SO prefix
+            const masterOrderNo = Math.floor(specOrderNo);
+            const newOrderNo = (specOrderNo!=masterOrderNo) ? specOrderNo : specOrderNo + (i+1) * 0.01;
+            // try and find any existing order matching it
+            const doc = orderCollection.findOne({ orderNo: masterOrderNo });
+            if (doc) {
+                if (spec.notes=='delete') {
+                    msg += `, delete ${newOrderNo}`;
+                    orderCollection.remove({ orderNo: newOrderNo });
+                } else {
+                    msg += `, ${newOrderNo}`;
+                    doc.orderNo = newOrderNo;
+                    if (spec.rcvName)       { doc.deliveryName = spec.rcvName; doc.shipAddress[0] = spec.rcvName; }
+                    if (spec.rcvPhone)      doc.deliveryPhone = spec.rcvPhone;
+                    if (spec.rcvAddress)    doc.shipAddress[1] = spec.rcvAddress;
+                    if (spec.rcvSpecial)    doc.shipInstructions = spec.rcvSpecial;
+                    if (spec.cardTo)        doc.deliveryTo = spec.cardTo;
+                    if (spec.cardFrom)      doc.deliveryFrom = spec.cardFrom;
+                    if (spec.cardMessage)   doc.specialMessage = spec.cardMessage;
+                    if (spec.deliveryDate)	{ doc.deliveryDate = spec.deliveryDate; doc.deliveries = getDeliveries(spec.deliveryDate) };
+        
+                    console.log('new',doc);
+                    orderCollection.upsert({ orderNo: newOrderNo }, { $set: { ...doc, _isModified: '0' }});
+                    if (spec.rcvAddress)    Meteor.call('locate order', Number(newOrderNo));
+                }
             }
         }
     });
 
-    return `Imported ${result.data.length} orders`;
+    return `Imported ${result.data.length} rows${msg}.`;
 }
