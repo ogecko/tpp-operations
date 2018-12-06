@@ -27,7 +27,7 @@ export function updateBulkOrder(fileName, fileContents) {
     
     result.data.forEach( (spec, i) => {
         console.log('spec',spec);
-        if (_.isString(spec.orderRef)) {
+        if (_.isString(spec.orderRef)&&/^SO[.0-9]+/.test(spec.orderRef)) {
             const specOrderNo = Number(spec.orderRef.slice(2));     // remove the SO prefix
             const masterOrderNo = Math.floor(specOrderNo);
             const newOrderNo = (specOrderNo!=masterOrderNo) ? specOrderNo : specOrderNo + (i+1) * 0.01;
