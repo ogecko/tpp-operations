@@ -13,7 +13,9 @@ export function shipOrder(job, cb) {
 	const nextOrderDeliveryShipment = job.data.delivery;
 
 	// do not call ship order on fractional OrderNo's (ie orders that have been bulk imported)
-	if (Math.floor(orderNo)!=orderNo) return;
+	if (Math.floor(orderNo)!=orderNo) {
+		job.done(); cb(); return;
+	};
 
 	console.log(`Calling odooShip on Order ${orderNo}/${nextOrderDeliveryShipment}`);
 
