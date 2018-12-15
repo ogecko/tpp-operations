@@ -34,8 +34,8 @@ export function odooParseLine(acc, line, idx, lines) {
         .replace(/Sandalwood.*Patchouli/gm, 'Sp')
         .replace(/Champagne.*Strawberries/gm, 'Cs')
         .replace(/Lime Basil Madarin/gm, 'Lb')
-        .replace(/Very Vanilla/gm, 'Bp')
-        .replace(/Lime Basil Madarin /gm, 'Lb')
+        .replace(/Blackberry.*Plum/gm, 'Bp')
+        .replace(/Very Vanilla/gm, 'Vv')
 
         .replace(/Box Wrap/gm, 'Bw')
         .replace(/Copper Cylinder Large/gm, 'Cl')
@@ -54,7 +54,10 @@ export function odooParseLine(acc, line, idx, lines) {
         .replace(/Extra Large/gm, 'Xl')
         .replace(/Large/gm, 'Lg')
 
-        .replace(/.*Delivery.*/gm, '')
+        .replace(/Additional Delivery Charge/gm, '-AddFee')
+        .replace(/.(\d{1,2}) Delivery/gm, '-$1Fee')
+        .replace(/No Deliveries/gm, '-OutFee')
+
         .replace(/.*Gift Coupon.*/gm, '')
         .replace(/No/gm, '')
 

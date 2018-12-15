@@ -111,6 +111,25 @@ describe('fetch/parseOdoo.js Unit tests', () => {
         result.should.equal('-PxmsMd-WineWht-CardXmas2');
     });
   
+	it('should sucessfully parse $5 Delivery', () => {
+        const result = testParseOdooLine('$5 Delivery', 2);
+        result.should.equal('-5Fee2');
+    });
+
+    it('should sucessfully parse $20 Delivery', () => {
+        const result = testParseOdooLine('$20 Delivery', 2);
+        result.should.equal('-20Fee2');
+    });
+
+    it('should sucessfully parse No Deliveries', () => {
+        const result = testParseOdooLine('No Deliveries', 2);
+        result.should.equal('-OutFee2');
+    });
+
+    it('should sucessfully parse Additional Delivery Charge', () => {
+        const result = testParseOdooLine('Additional Delivery Charge', 2);
+        result.should.equal('-AddFee2');
+    });
 
 	it('should parse a complete order', () => {
         const result = odooParseOrder({
@@ -131,7 +150,7 @@ describe('fetch/parseOdoo.js Unit tests', () => {
                 {"display_name":"Additional Delivery Charge","name":"Additional Delivery Charge","qty":3}
             ]}
         );
-        result.productCode.should.equal('-PdayMd3-ChocSm3');
+        result.productCode.should.equal('-PdayMd3-ChocSm3-10Fee3-AddFee3');
         result.orderNo.should.equal(19);
         result.customerName.should.equal('David Morrison');
         result.deliveryFrom.should.equal('Dave');
