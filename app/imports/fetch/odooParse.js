@@ -21,6 +21,7 @@ export function odooParseLine(acc, line, idx, lines) {
         .replace(/Chocolates/gm, '-Choc')
         .replace(/Orchid/gm, '-Orch')
         .replace(/Christmas Wreath/gm, '-Wrth')
+        .replace(/Vase/gm, '-Vase')
 
         .replace(/Standard Gift Card/gm, '')
         .replace(/Botanical Greeting Card/gm, '-CardBtnc')
