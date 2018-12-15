@@ -70,8 +70,53 @@ export function odooParseLines(lines) {
     return lines.reduce(odooParseLine, '');
 }
 
+function abbrRoadPostfix(address) {
+    return address
+        .replace(/Avenue/gm,'Ave')
+        .replace(/Close/gm,'Cl')
+        .replace(/Court/gm,'Ct')
+        .replace(/Crescent/gm,'Cr')
+        .replace(/Drive/gm,'Dr')
+        .replace(/Highway/gm,'Hwy')
+        .replace(/Lane/gm,'Ln')
+        .replace(/Place/gm,'Pl')
+        .replace(/Road/gm,'Rd')
+        .replace(/Street/gm,'St')
+}
+
+function removeAustralia(address) {
+    return address
+        .replace(/(, )?Australia$/,'')
+}
+
+export function cleanAddress(address) {
+    return abbrRoadPostfix(removeAustralia(address));
+}
+
+export function odooParseShipAddress(address, instructions) {
+    const re = /, Australia$/;
+    let addr = cleanAddress(address);
+    let inst = cleanAddress(instructions);
+
+    // if the tails of both address and instructions has ', Australia' then consider reduction
+    if (re.test(address) && re.test(instructions)) {
+        const revisedAddr = addr
+            .split(', ')                                        // split cleaned address into separate terms
+            .map(term => (inst.includes(term)? '' : term))      // nuke any terms that are duplicated in the special instructions
+            .filter(term => term.length>0)                      // only keep terms with content
+            .join(', ')                                         // join the terms back up again
+        if (revisedAddr.length != addr.length) {
+            addr = (revisedAddr.length==0)? inst : `${revisedAddr}, ${inst}`;
+            inst = '';
+        }
+    }
+
+    // return the revised address and instructions
+    return { addr, inst }
+}
 
 export function odooParseOrder(order) {
+    const ship = odooParseShipAddress(order.rcv.address, order.rcv.special)
     const result = {
         orderNo: Number(order.id.slice(2)),
         orderDate: order.write_date,
@@ -83,8 +128,8 @@ export function odooParseOrder(order) {
         deliveryDate: order.delivery.days,
         deliveryName: order.rcv.name,
         deliveryPhone: order.rcv.phone,
-        shipAddress: [ order.rcv.name, order.rcv.address ],
-        shipInstructions: order.rcv.special,
+        shipAddress: [ order.rcv.name, ship.addr ],
+        shipInstructions: ship.inst,
         deliveryTo: order.card.to,
         specialMessage: order.card.message,
         deliveryFrom: order.card.from,
