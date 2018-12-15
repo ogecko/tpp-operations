@@ -91,6 +91,7 @@ function removeAustralia(address) {
 }
 
 export function cleanAddress(address) {
+    if (! _.isString(address)) return '';
     return abbrRoadPostfix(removeAustralia(address));
 }
 

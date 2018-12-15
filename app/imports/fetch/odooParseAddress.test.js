@@ -237,7 +237,15 @@ describe('fetch/odooParseAddress.js Unit tests', () => {
 	it('should pass a test', () => {
 		true.should.equal(true);
     });
-    
+
+	it('should clean an address', () => {
+		cleanAddress('86 Excelsior Road, Mount Colah 2079, Australia').should.equal('86 Excelsior Rd, Mount Colah 2079');
+    });
+
+	it('should clean an invalid address', () => {
+		cleanAddress(undefined).should.equal('');
+    });
+
     test_data.forEach(data => {
         it(`should process address ${data.ref}`, () => {
             odooParseShipAddress(data.addr, data.inst).addr.should.equal(data.result);
