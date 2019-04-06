@@ -11,11 +11,10 @@
 							{{#each line in order.shipAddress}}
 								<b>{{line}}</b><br>
 							{{/each}}
-							<b>{{order.customerPhone}}</b>
+							<b>{{order.deliveryPhone}}</b>
 						</p>
 						<p class="{{instsize order}}">
 							{{#if order.shipInstructions}}Instr: {{order.shipInstructions}}<br>{{/if}}
-							Sender: {{order.customerName}} {{order.customerPhone}}<br>
 							Product: {{order.productCode}}<br>
 						</p>
 					{{/if}}
