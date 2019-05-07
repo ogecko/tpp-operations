@@ -131,6 +131,37 @@ describe('fetch/parseOdoo.js Unit tests', () => {
         result.should.equal('-AddFee2');
     });
 
+    it('should sucessfully parse Mothers day Medium with card and no Vase', () => {
+        const result = testParseOdooLine("Mother's Day Orders (\"Best Mum\", No Vase, Medium)", 1);
+        result.should.equal('-MothersDayMd"BestMum"1');
+    });
+
+    it('should sucessfully parse Mothers day Medium with card and no Vase No Socks', () => {
+        const result = testParseOdooLine("Mother's Day Orders (No Socks, No Vase, Large)", 1);
+        result.should.equal('-MothersDayLg1');
+    });
+
+    it('should sucessfully parse a manual order with 3 lines of long description', () => {
+        const result = odooParseLines([
+            {"display_name":"Bouquet plus delivery","name":"","qty":1},
+            {"display_name":"Bouquet plus delivery","name":"","qty":1},
+            {"display_name":"Bouquet plus delivery","name":"","qty":1},
+        ]);
+        result.should.equal('Bouquetplusdelivery1 Bouquetplusdelivery1 Bouquetplusdelivery1 ');
+    });
+
+    it('should sucessfully parse a manual order with 3 lines of long description', () => {
+        const result = odooParseLines([
+            {"display_name":"Weekly Office Florals","name":"","qty":1},
+            {"display_name":"Weekly Office Florals","name":"","qty":1},
+            {"display_name":"Weekly Office Florals","name":"","qty":1},
+            {"display_name":"Weekly Office Florals","name":"","qty":1},
+            {"display_name":"Weekly Office Florals","name":"","qty":1},
+            {"display_name":"Daily Posy (Standard Gift Card, Regular)","name":"","qty":1},
+        ]);
+        result.should.equal('WeeklyOfficeFlorals1 WeeklyOfficeFlorals1 WeeklyOfficeFlorals1 WeeklyOfficeFlorals1 WeeklyOfficeFlorals1 -PdayRg1');
+    });
+
 	it('should parse a complete order', () => {
         const result = odooParseOrder({
             "snd":{"phone":"0434799708","name":"David Morrison","email":"jdmorriso@gmail.com"},

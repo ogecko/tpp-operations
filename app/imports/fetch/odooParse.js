@@ -11,6 +11,9 @@ export function odooParseLine(acc, line, idx, lines) {
         .replace(/Saturday Posy/gm, '-Psat')
         .replace(/Christmas Posy/gm, '-Pxms')
 
+        .replace(/Mother.s Day Orders/gm, '-MothersDay')
+        .replace(/Valentine.s Day/gm, '-ValentinesDay')
+
         .replace(/\(([^)]*), (Small|Medium|Extra Large|Large)\)/gm, '($2, $1)')
 
         .replace(/White - Malborough Sauvignon Blanc 2017/gm, '-WineWht')
@@ -21,6 +24,9 @@ export function odooParseLine(acc, line, idx, lines) {
         .replace(/Chocolates/gm, '-Choc')
         .replace(/Orchid/gm, '-Orch')
         .replace(/Christmas Wreath/gm, '-Wrth')
+        .replace(/No Socks/gm, '')          // cater for Product variant with with "No Socks"
+        .replace(/No Vase/gm, '')           // cater for Product variant with with "No Vase"
+        .replace(/Add Vase/gm, 'Vase')      // cater for Product variant with with "Add Vase"
         .replace(/Vase/gm, '-Vase')
 
         .replace(/Standard Gift Card/gm, '')
@@ -66,9 +72,12 @@ export function odooParseLine(acc, line, idx, lines) {
 
         .replace(/\(/gm, '')
         .replace(/\)/gm, '')
-        .replace(/,/gm, '')
         .replace(/ /gm, '')
-    return acc + result;
+        .replace(/,/gm, '')    // Allow a word wrap on each item
+    
+    // insert a space if product code getting too long
+    const out = (result.length>15 && result[0]!='-') ? acc + result + ' ': acc + result;
+    return out;
 }
 
 export function odooParseLines(lines) {
