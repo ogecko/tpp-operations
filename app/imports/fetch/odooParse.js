@@ -108,17 +108,18 @@ export function cleanAddress(address) {
     return abbrRoadPostfix(removeAustralia(address));
 }
 
-export function odooParseShipAddress(address, instructions, business='') {
+export function odooParseShipAddress(address, instructions, business) {
     const re = /, Australia$/;
     let addr = cleanAddress(address);
     let inst = cleanAddress(instructions);
+    let busn = (! _.isString(business)) ? '' : business
 
     // if the tails of both address and instructions has ', Australia' then consider reduction
     if (re.test(address) && re.test(instructions)) {
         const revisedAddr = addr
             .split(', ')                                        // split cleaned address into separate terms
             .map(term => (inst.includes(term)? '' : term))      // nuke any addr terms that are duplicated in the special instructions
-            .map(term => (business.includes(term)? '' : term))  // nuke any addr terms that are duplicated in the business name
+            .map(term => (busn.includes(term)? '' : term))      // nuke any addr terms that are duplicated in the business name
             .filter(term => term.length>0)                      // only keep terms with content
             .join(', ')                                         // join the terms back up again
         if (revisedAddr.length != addr.length) {
@@ -129,7 +130,7 @@ export function odooParseShipAddress(address, instructions, business='') {
 
     // insert the business name into the addr
     if (business.length>0) {
-        addr = `${business}, ${addr}`
+        addr = `${busn}, ${addr}`
     }
 
     // return the revised address and instructions
