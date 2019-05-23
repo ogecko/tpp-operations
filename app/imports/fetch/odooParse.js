@@ -129,12 +129,12 @@ export function odooParseShipAddress(address, instructions, business) {
     }
 
     // insert the business name into the addr
-    if (business.length>0) {
-        addr = `${busn}, ${addr}`
-    }
+    // if (business.length>0) {
+    //     addr = `${busn}, ${addr}`
+    // }
 
     // return the revised address and instructions
-    return { addr, inst }
+    return { addr, inst, busn }
 }
 
 export function odooParseOrder(order) {
@@ -151,7 +151,7 @@ export function odooParseOrder(order) {
         deliveryName: order.rcv.name,
         deliveryBusiness: order.rcv.business,
         deliveryPhone: order.rcv.phone,
-        shipAddress: [ order.rcv.name, ship.addr ],
+        shipAddress: ship.busn ? [ order.rcv.name, ship.busn, ship.addr ] : [ order.rcv.name, ship.addr ],
         shipInstructions: ship.inst,
         deliveryTo: order.card.to,
         specialMessage: order.card.message,
