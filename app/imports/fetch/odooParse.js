@@ -108,7 +108,7 @@ export function cleanAddress(address) {
     return abbrRoadPostfix(removeAustralia(address));
 }
 
-export function odooParseShipAddress(address, instructions) {
+export function odooParseShipAddress(address, instructions, business='') {
     const re = /, Australia$/;
     let addr = cleanAddress(address);
     let inst = cleanAddress(instructions);
@@ -117,7 +117,8 @@ export function odooParseShipAddress(address, instructions) {
     if (re.test(address) && re.test(instructions)) {
         const revisedAddr = addr
             .split(', ')                                        // split cleaned address into separate terms
-            .map(term => (inst.includes(term)? '' : term))      // nuke any terms that are duplicated in the special instructions
+            .map(term => (inst.includes(term)? '' : term))      // nuke any addr terms that are duplicated in the special instructions
+            .map(term => (business.includes(term)? '' : term))  // nuke any addr terms that are duplicated in the business name
             .filter(term => term.length>0)                      // only keep terms with content
             .join(', ')                                         // join the terms back up again
         if (revisedAddr.length != addr.length) {
@@ -126,12 +127,17 @@ export function odooParseShipAddress(address, instructions) {
         }
     }
 
+    // insert the business name into the addr
+    if (business.length>0) {
+        addr = `${business}, ${addr}`
+    }
+
     // return the revised address and instructions
     return { addr, inst }
 }
 
 export function odooParseOrder(order) {
-    const ship = odooParseShipAddress(order.rcv.address, order.rcv.special)
+    const ship = odooParseShipAddress(order.rcv.address, order.rcv.special, order.rcv.business)
     const result = {
         orderNo: Number(order.id.slice(2)),
         orderDate: order.write_date,
@@ -142,6 +148,7 @@ export function odooParseOrder(order) {
         amount: new Intl.NumberFormat('en-AU', { maximumFractionDigits: 2, minimumFractionDigits: 2 }).format(order.amount_total),
         deliveryDate: order.delivery.days,
         deliveryName: order.rcv.name,
+        deliveryBusiness: order.rcv.business,
         deliveryPhone: order.rcv.phone,
         shipAddress: [ order.rcv.name, ship.addr ],
         shipInstructions: ship.inst,
