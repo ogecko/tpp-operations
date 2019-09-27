@@ -10,6 +10,7 @@ export function odooParseLine(acc, line, idx, lines) {
         .replace(/White.*Posy/gm, '-Pwgn')
         .replace(/Saturday Posy/gm, '-Psat')
         .replace(/Christmas Posy/gm, '-Pxms')
+        .replace(/Birthday Posy/gm, '-Pbirthday')
 
         .replace(/Mother.s Day Orders/gm, '-MothersDay')
         .replace(/Valentine.s Day/gm, '-ValentinesDay')
@@ -19,14 +20,15 @@ export function odooParseLine(acc, line, idx, lines) {
         .replace(/White - Malborough Sauvignon Blanc 2017/gm, '-WineWht')
         .replace(/Red - Barossa Shiraz 2017/gm, '-WineRed')
 
+        .replace(/No Chocolates/gm, '')     // cater for Product variant with with "No Chocolates"
+        .replace(/No Socks/gm, '')          // cater for Product variant with with "No Socks"
+        .replace(/No Vase/gm, '')           // cater for Product variant with with "No Vase"
+        .replace(/Add Vase/gm, 'Vase')      // cater for Product variant with with "Add Vase"
         .replace(/Balmoral Candle/gm, '-Cndl')
         .replace(/Reed Diffuser/gm, '-Diff')
         .replace(/Chocolates/gm, '-Choc')
         .replace(/Orchid/gm, '-Orch')
         .replace(/Christmas Wreath/gm, '-Wrth')
-        .replace(/No Socks/gm, '')          // cater for Product variant with with "No Socks"
-        .replace(/No Vase/gm, '')           // cater for Product variant with with "No Vase"
-        .replace(/Add Vase/gm, 'Vase')      // cater for Product variant with with "Add Vase"
         .replace(/Vase/gm, '-Vase')
 
         .replace(/Standard Gift Card/gm, '')
