@@ -22,10 +22,7 @@
 				<span class="og-label">
 					{{#if isNotBlank order}}
 						{{#if order.deliveryTo}}
-						<p>
-							<span class="og-label-for">A Posy For:</span><br>
-							<span class="{{tosize order}}">{{order.deliveryTo}}</span>
-						</p>
+						<p class="{{tosize order}}">To: {{order.deliveryTo}}</p>
 						{{/if}}
 						<p class="{{msgsize order}}">{{{order.specialMessage}}}</p>
 						{{#if order.deliveryFrom}}
