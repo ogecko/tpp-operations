@@ -62,9 +62,9 @@ export function odooParseLine(acc, line, idx, lines) {
         .replace(/Extra Large/gm, 'Xl')
         .replace(/Large/gm, 'Lg')
 
-        .replace(/Additional Delivery Charge/gm, '-AddFee')
-        .replace(/.(\d{1,2}) Delivery/gm, '-$1Fee')
-        .replace(/No Deliveries/gm, '-OutFee')
+        .replace(/Additional Delivery Charge/gm, '')
+        .replace(/.(\d{1,2}) Delivery/gm, '')
+        .replace(/No Deliveries/gm, '')
         .replace(/Free Delivery.*/gm, '')
 
         .replace(/.*Gift Coupon.*/gm, '')
