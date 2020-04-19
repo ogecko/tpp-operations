@@ -32,3 +32,11 @@ and change the line 136 not to use clone
 ```
 	mongoObject.setValueForPosition(position, autoValue);
 ```
+# Updating nginx-proxy and letsencrypt
+To update the two docker containters acting as the nginx proxy and letsencrypt companion, use the following commands
+```
+  $ mup proxy stop
+  $ mup proxy start
+```
+The script /opt/mup-nginx-proxy/start.sh will remove the old containers, pull down the latest version and recreate them.
+
