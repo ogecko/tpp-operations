@@ -110,25 +110,31 @@ describe('fetch/parseOdoo.js Unit tests', () => {
         const result = testParseOdooLine('Christmas Posy (White - Malborough Sauvignon Blanc 2017, A Christmas Greeting Card, Medium)', 2);
         result.should.equal('-PxmsMd-WineWht-CardXmas2');
     });
-  
+
+    it('should sucessfully parse Free Delivery', () => {
+        const result = testParseOdooLine('Free Delivery', 2);
+        result.should.equal('');
+    });
+
+
 	it('should sucessfully parse $5 Delivery', () => {
         const result = testParseOdooLine('$5 Delivery', 2);
-        result.should.equal('-5Fee2');
+        result.should.equal('');
     });
 
     it('should sucessfully parse $20 Delivery', () => {
         const result = testParseOdooLine('$20 Delivery', 2);
-        result.should.equal('-20Fee2');
+        result.should.equal('');
     });
 
     it('should sucessfully parse No Deliveries', () => {
         const result = testParseOdooLine('No Deliveries', 2);
-        result.should.equal('-OutFee2');
+        result.should.equal('');
     });
 
     it('should sucessfully parse Additional Delivery Charge', () => {
         const result = testParseOdooLine('Additional Delivery Charge', 2);
-        result.should.equal('-AddFee2');
+        result.should.equal('');
     });
 
     it('should sucessfully parse Mothers day Medium with card and no Vase', () => {
@@ -181,7 +187,7 @@ describe('fetch/parseOdoo.js Unit tests', () => {
                 {"display_name":"Additional Delivery Charge","name":"Additional Delivery Charge","qty":3}
             ]}
         );
-        result.productCode.should.equal('-PdayMd3-ChocSm3-10Fee3-AddFee3');
+        result.productCode.should.equal('-PdayMd3-ChocSm3');
         result.orderNo.should.equal(19);
         result.customerName.should.equal('David Morrison');
         result.deliveryFrom.should.equal('Dave');
