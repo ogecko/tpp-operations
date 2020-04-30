@@ -128,12 +128,13 @@ Meteor.methods({
 			if (oldDoc) {
 				modifier.updateDoc.$set.deliveries = getDeliveries(modifier.updateDoc.$set.deliveryDate);
 				modifier.updateDoc.$set.isShipped = getIsShippedAll(modifier.updateDoc.$set.deliveryDate);
+				modifier.updateDoc.$set.isSelected = 1;
 				orderCollection.update({ _id: oldDoc._id }, modifier.updateDoc );
 				Meteor.call('locate order', Number(orderNo));
 				console.log('Edited Order ', orderNo, JSON.stringify(modifier.updateDoc, undefined, 2));
 				return orderNo
 			} else {
-				modifier.insertDoc.orderNo = getNewOrderNo();
+				modifier.insertDoc.orderNo = getNewOrderNo(5000);
 				modifier.insertDoc.isSelected = '1';
 				modifier.insertDoc.isShipped = '0';
 				modifier.insertDoc.orderDate = moment().format('DD MMM YY');
