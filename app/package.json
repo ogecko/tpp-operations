@@ -21,7 +21,7 @@
     "moment": "^2.13.0",
     "moment-timezone": "^0.5.14",
     "nightmare": "^2.10.0",
-    "electron": "^1.7.11",
+    "electron": "^9.1.0",
     "numeral": "^1.5.3",
     "simpl-schema": "^1.4.2",
     "uikit": "^3.0.0-beta.35",
