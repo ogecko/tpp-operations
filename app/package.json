@@ -15,7 +15,7 @@
     "babel-runtime": "^6.26.0",
     "bcrypt": "^1.0.3",
     "cheerio": "^0.22.0",
-    "electron": "^1.7.11",
+    "electron": "^9.4.0",
     "faker": "^4.1.0",
     "lunr": "^0.7.2",
     "meteor-node-stubs": "^0.3.2",
