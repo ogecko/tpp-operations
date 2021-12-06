@@ -35,6 +35,8 @@ if (Meteor.isClient) {
 	FlowRouter.route('/map',				{ action: ()=>BlazeLayout.render('appLayout', { content: 'map' }) });
 	FlowRouter.route('/delivery',			{ action: ()=>BlazeLayout.render('printLayout', { content: 'deliverySheet' }) });
 	FlowRouter.route('/labels',				{ action: ()=>BlazeLayout.render('printLayout', { content: 'labelSheet' }) });
+	FlowRouter.route('/labelTerrarium',	    { action: ()=>BlazeLayout.render('printLayout', { content: 'labelTerrarium' }) });
+	FlowRouter.route('/labelLogo',			{ action: ()=>BlazeLayout.render('printLayout', { content: 'labelLogo' }) });
 	FlowRouter.route('/order/:orderNo', 	{ action: ()=>BlazeLayout.render('appLayout', { content: 'orderEdit' }) });
 	FlowRouter.route('/page/:pageTitle', 	{ action: ()=>{
 		var pageTitle = FlowRouter.getParam('pageTitle');
