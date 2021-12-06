@@ -30,7 +30,7 @@ export function updateBulkOrder(fileName, fileContents) {
         if (_.isString(spec.orderRef)&&/^SO[.0-9]+/.test(spec.orderRef)) {
             const specOrderNo = Number(spec.orderRef.slice(2));     // remove the SO prefix
             const masterOrderNo = Math.floor(specOrderNo);
-            const newOrderNo = (specOrderNo!=masterOrderNo) ? specOrderNo : specOrderNo + (i+1) * 0.01;
+            const newOrderNo = (specOrderNo!=masterOrderNo) ? specOrderNo : specOrderNo + (i+1) * 0.001;
             // try and find any existing order matching it
             const doc = orderCollection.findOne({ orderNo: masterOrderNo });
             if (doc) {
