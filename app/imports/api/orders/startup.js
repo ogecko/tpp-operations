@@ -16,14 +16,14 @@ export function startup() {
 		Meteor.publish('orders', function (orderSelector, modifier) {
 			if (isSignedIn()) {
 				console.log('orders-sel ',JSON.stringify(orderSelector));
-				console.log('orders-exp ',JSON.stringify(select.expandLunr('orders', orderSelector, (x) => parseInt(x,10) )));
+				console.log('orders-exp ',JSON.stringify(select.expandLunr('orders', orderSelector, (x) => parseFloat(x) )));
 				console.log('orders-mod ',JSON.stringify(modifier));
 
 				select.validateParams(orderFilterFields, {}, modifier);
 
 				// Publish the list of wines
 				const cursors = [];
-				cursors.push(orderCollection.find(select.expandLunr('orders', orderSelector, (x)=>parseInt(x,10)), modifier));
+				cursors.push(orderCollection.find(select.expandLunr('orders', orderSelector, (x)=>parseFloat(x)), modifier));
 				cursors.push(new Counter('wc', orderCollection, orderSelector, orderFilterFields));
 
 				return cursors;
