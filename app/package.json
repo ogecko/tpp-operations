@@ -19,7 +19,7 @@
     "faker": "^4.1.0",
     "lunr": "^0.7.2",
     "meteor-node-stubs": "^0.3.2",
-    "moment": "^2.13.0",
+    "moment": "^2.29.2",
     "moment-timezone": "^0.5.14",
     "nightmare": "^2.10.0",
     "numeral": "^1.5.3",
