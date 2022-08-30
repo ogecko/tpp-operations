@@ -20,7 +20,7 @@
     "lunr": "^0.7.2",
     "meteor-node-stubs": "^0.3.2",
     "moment": "^2.13.0",
-    "moment-timezone": "^0.5.14",
+    "moment-timezone": "^0.5.35",
     "nightmare": "^2.10.0",
     "numeral": "^1.5.3",
     "simpl-schema": "^1.4.2",
