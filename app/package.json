@@ -13,7 +13,7 @@
     "@babel/runtime": "7.0.0-beta.55",
     "@google/maps": "^0.4.5",
     "babel-runtime": "^6.26.0",
-    "bcrypt": "^1.0.3",
+    "bcrypt": "^5.0.0",
     "cheerio": "^0.22.0",
     "electron": "^1.7.11",
     "faker": "^4.1.0",
