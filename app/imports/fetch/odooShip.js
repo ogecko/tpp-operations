@@ -6,10 +6,14 @@ export function odooShip(orderNo, deliveryDate) {
     return new Promise( (resolve, reject) => {
         const s = Meteor.settings;
         const url = s.odooServer;
-        const session_id = odooLogin(url, s.odooDb, s.odooUser, s.odooPassword);
+        const login = odooLogin(url, s.odooDb, s.odooUser, s.odooPassword);
+        if (login.error) {
+            return reject(`odooShip login failed: ${login.error.message}`);
+        }
 
         if (Meteor.isServer) {
             const result = HTTP.call('POST', `${url}/web/ordership`, {
+                headers: { Cookie: `session_id=${login.session_id}` },
                 data: {
                     jsonrpc: '2.0', 
                     method: 'call', 

@@ -7,8 +7,11 @@ export function odooFetch() {
     new Promise( (resolve, reject) => {
         console.log('odoo Calling odooFetch');
         const s = Meteor.settings;
-        const session_id = odooLogin(s.odooServer, s.odooDb, s.odooUser, s.odooPassword);
-        const results = odooFetchOrders(s.odooServer);
+        const login = odooLogin(s.odooServer, s.odooDb, s.odooUser, s.odooPassword);
+        if (login.error) {
+            return reject(new Error(`odoo login failed: ${login.error.message}`));
+        }
+        const results = odooFetchOrders(s.odooServer, login.session_id);
         if (Array.isArray(results)) {
             results.map(odooParseOrder).forEach(orders.update);
             resolve(results.length);

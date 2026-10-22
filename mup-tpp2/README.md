@@ -1,3 +1,6 @@
+**OBSOLETE (22-Oct-2026):** this mup-tpp2 config was for the old tpp2.ogecko.com test deployment and is no longer used.
+Deploy TPP Operations from `../mup` instead, see `../mup/README.md` for current notes.
+
 # Deploying TPP
 To Deploy a Meteor App that uses Nightmare headless browser 
 We need to modify the meteord docker image to include an X Virtual Frame Buffer

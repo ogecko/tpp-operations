@@ -1,8 +1,9 @@
 import { HTTP } from 'meteor/http'
 
-export function odooFetchOrders(url, start) {
+export function odooFetchOrders(url, session_id, start) {
     if (Meteor.isServer) {
         const result = HTTP.call('POST', `${url}/web/orderjson`, {
+            headers: { Cookie: `session_id=${session_id}` },
             data: {
                 jsonrpc: '2.0', 
                 method: 'call', 

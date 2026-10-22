@@ -1,6 +1,7 @@
 /* eslint-env mocha */
 import { chai, expect }	from 'meteor/practicalmeteor:chai'; chai.should();
 import { odooFetchOrders }	from './odooFetchOrders.js';
+import { odooLogin }	from './odooLogin.js';
 
 if (Meteor.isServer) {
 
@@ -11,7 +12,9 @@ if (Meteor.isServer) {
         });
         
         it('should sucessfully fetch orders ', () => {
-            const result = odooFetchOrders(Meteor.settings.odooServer)
+            const s = Meteor.settings;
+            const login = odooLogin(s.odooServer, s.odooDb, s.odooUser, s.odooPassword);
+            const result = odooFetchOrders(s.odooServer, login.session_id)
             JSON.stringify(result.length).should.be.above(0);
         });
 
