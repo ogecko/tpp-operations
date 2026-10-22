@@ -8,6 +8,14 @@ TPP Operations is deployed with mup, which is installed under nvm on dev20
 `npm run deploy` writes the version page from the git log then runs `mup deploy` from this directory (default node v6 has no mup).
 Use `npm run logs` to follow the server logs.
 
+Notes on the deploy tooling (22-Oct-2026)
+* Always use `nvm use 10.24.1` (this has mup 1.5.10). 
+* Our mongodb container (created by an older mup) reports its replica set member as 127.0.0.1.
+  mup 1.5 always sets `MONGO_URL=...?replicaSet=meteor` when mup.js has a `mongo:` section (only needed for `mup setup`). 
+  This causes the app crash loops with `ECONNREFUSED 127.0.0.1:27017`. 
+  To fix this, the `mongo:` section in mup.js is commented out and `MONGO_URL: "mongodb://mongodb:27017/tpp"` is set explicitly. 
+* If a deploy fails verification, mup redeploys the previous bundle but with the new config, so a config problem keeps the site down. Fix the config and redeploy
+
 mup.js uses the standard `abernix/meteord:node-8.9.4-base` image.
 (Before Oct-2026 we used a custom meteord-xvfb image with an X Virtual Frame Buffer for the Nightmare headless browser,
 used to scrape the old RocketSpark site. RocketSpark and Nightmare are no longer used, so the custom image is no longer needed.)
